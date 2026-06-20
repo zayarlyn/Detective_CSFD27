@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#F3EEE5; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes overlayIn { from{opacity:0}to{opacity:1} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes spin { from{transform:rotate(0deg)}to{transform:rotate(360deg)} }
+    @keyframes revealPot { 0%{transform:scale(0.8) rotate(-8deg);opacity:0} 60%{transform:scale(1.05) rotate(2deg);opacity:1} 100%{transform:scale(1) rotate(0deg);opacity:1} }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#F3EEE5;display:flex;flex-direction:column;align-items:center;padding:40px 20px;box-sizing:border-box;">
+  <div style="color:#C4B8A8;font-family:'Special Elite',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;">CSFD27 · /HOUSES · AGENCY DIRECTORY</div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ false }}" hint-size="390px,844px">
+    <div style="display:flex;flex-direction:column;height:100%;background:#F3EEE5;font-family:'Cormorant Garamond',serif;overflow:hidden;position:relative;">
+
+      <!-- Navbar -->
+      <div style="padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(47,36,31,0.14);flex-shrink:0;background:#E5E0CF;">
+        <div style="font-family:'Cinzel Decorative',serif;font-size:15px;color:#2F241F;letter-spacing:1px;">CSFD27</div>
+
+      </div>
+
+      <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;filter:{{ bodyBlur }};">
+
+        <div style="padding:20px 20px 14px;border-bottom:1px solid rgba(47,36,31,0.08);">
+          <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;font-family:'Special Elite',monospace;">DETECTIVE AGENCIES</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.25;">Choose Your Division</div>
+          <div style="margin-top:6px;font-size:14px;color:#7A6A58;line-height:1.6;">Four elite detective agencies. One mission. Find your senior operative.</div>
+        </div>
+
+        <!-- House cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 16px 24px;">
+
+          <!-- Evidence Hounds -->
+          <div style="background:#E5E0CF;border:1px solid rgba(18,19,88,0.18);cursor:pointer;animation:fadeIn 0.4s ease-out both;overflow:hidden;">
+            <div style="height:4px;background:#121358;"></div>
+            <div style="padding:14px 12px 12px;">
+              <div style="width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(18,19,88,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:rgba(18,19,88,0.06);">
+                <div style="width:10px;height:10px;background:#121358;border-radius:50%;"></div>
+              </div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:12px;color:#121358;margin-bottom:4px;line-height:1.2;">Evidence<br/>Hounds</div>
+              <div style="font-size:11px;color:#7A6A58;line-height:1.5;margin-bottom:10px;font-style:italic;">Masters of the trail</div>
+              <div style="font-size:8px;color:#121358;letter-spacing:1px;font-family:'Special Elite',monospace;">28 AGENTS</div>
+            </div>
+          </div>
+
+          <!-- Inference Society -->
+          <div style="background:#E5E0CF;border:1px solid rgba(39,76,39,0.18);cursor:pointer;animation:fadeIn 0.4s ease-out 0.05s both;overflow:hidden;">
+            <div style="height:4px;background:#274C27;"></div>
+            <div style="padding:14px 12px 12px;">
+              <div style="width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(39,76,39,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:rgba(39,76,39,0.06);">
+                <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #274C27;"></div>
+              </div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:12px;color:#274C27;margin-bottom:4px;line-height:1.2;">Inference<br/>Society</div>
+              <div style="font-size:11px;color:#7A6A58;line-height:1.5;margin-bottom:10px;font-style:italic;">Reason above all</div>
+              <div style="font-size:8px;color:#274C27;letter-spacing:1px;font-family:'Special Elite',monospace;">31 AGENTS</div>
+            </div>
+          </div>
+
+          <!-- Cipher Foxes -->
+          <div style="background:#E5E0CF;border:1px solid rgba(76,26,23,0.18);cursor:pointer;animation:fadeIn 0.4s ease-out 0.1s both;overflow:hidden;">
+            <div style="height:4px;background:#4C1A17;"></div>
+            <div style="padding:14px 12px 12px;">
+              <div style="width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(76,26,23,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:rgba(76,26,23,0.06);">
+                <div style="width:14px;height:14px;border-radius:50%;border:2px solid #4C1A17;position:relative;">
+                  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:#4C1A17;border-radius:50%;"></div>
+                </div>
+              </div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:12px;color:#4C1A17;margin-bottom:4px;line-height:1.2;">Cipher<br/>Foxes</div>
+              <div style="font-size:11px;color:#7A6A58;line-height:1.5;margin-bottom:10px;font-style:italic;">Crack every code</div>
+              <div style="font-size:8px;color:#4C1A17;letter-spacing:1px;font-family:'Special Elite',monospace;">29 AGENTS</div>
+            </div>
+          </div>
+
+          <!-- Shadow Sleuths -->
+          <div style="background:#E5E0CF;border:1px solid rgba(64,37,97,0.18);cursor:pointer;animation:fadeIn 0.4s ease-out 0.15s both;overflow:hidden;">
+            <div style="height:4px;background:#402561;"></div>
+            <div style="padding:14px 12px 12px;">
+              <div style="width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(64,37,97,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:10px;background:rgba(64,37,97,0.06);">
+                <div style="width:14px;height:14px;border:2px solid #402561;position:relative;">
+                  <div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:8px;height:6px;border:2px solid #402561;border-radius:4px 4px 0 0;background:#E5E0CF;"></div>
+                </div>
+              </div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:12px;color:#402561;margin-bottom:4px;line-height:1.2;">Shadow<br/>Sleuths</div>
+              <div style="font-size:11px;color:#7A6A58;line-height:1.5;margin-bottom:10px;font-style:italic;">Quiet, unseen, certain</div>
+              <div style="font-size:8px;color:#402561;letter-spacing:1px;font-family:'Special Elite',monospace;">26 AGENTS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom tabs -->
+      <div style="display:flex;background:#E5E0CF;border-top:1px solid rgba(47,36,31,0.1);flex-shrink:0;padding-bottom:34px;">
+        <a href="Houses.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);display:block;">
+          <div style="width:14px;height:1.5px;background:#A86A2A;margin:0 auto 4px;"></div>
+          <div style="font-size:7px;color:#A86A2A;letter-spacing:1.5px;font-family:'Special Elite',monospace;">DIVISIONS</div>
+        </a>
+        <a href="Profile.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">AGENT</div>
+        </a>
+        <a href="AdminDashboard.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">STATS</div>
+        </a>
+      </div>
+
+      <!-- Onboarding Overlay -->
+      <sc-if value="{{ overlayOpen }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;inset:0;background:rgba(243,238,229,0.88);display:flex;flex-direction:column;justify-content:flex-end;z-index:20;animation:overlayIn 0.3s ease-out both;">
+          <div style="background:#E5E0CF;border-top:1px solid rgba(168,106,42,0.28);padding:28px 24px 40px;animation:slideUp 0.35s ease-out both;">
+
+            <!-- Step 1: Nickname -->
+            <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;font-family:'Special Elite',monospace;">STEP 1 OF 2 · ALIAS ASSIGNMENT</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;margin-bottom:6px;">Choose Your Alias</div>
+              <div style="font-size:14px;color:#7A6A58;margin-bottom:22px;line-height:1.6;">Every operative needs a code name. Choose wisely — it will appear on all case files.</div>
+              <div style="background:#F3EEE5;border:1px solid rgba(168,106,42,0.25);display:flex;align-items:center;gap:10px;padding:12px 14px;margin-bottom:14px;">
+                <div style="font-size:11px;color:#A86A2A;font-family:'Special Elite',monospace;">›</div>
+                <input type="text" placeholder="e.g. Shadow, Oracle, Wraith..." value="{{ nickname }}" onInput="{{ onNicknameInput }}" style="flex:1;background:transparent;border:none;outline:none;font-family:'Cormorant Garamond',serif;font-size:16px;color:#1C1A17;caret-color:#A86A2A;width:100%;" />
+              </div>
+              <div onClick="{{ nextStep }}" style="background:#2F241F;padding:14px;text-align:center;cursor:pointer;">
+                <div style="font-family:'Cinzel Decorative',serif;font-size:13px;color:#D8C0A0;letter-spacing:2px;">Confirm Alias</div>
+              </div>
+            </sc-if>
+
+            <!-- Step 2: House reveal -->
+            <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;font-family:'Special Elite',monospace;">STEP 2 OF 2 · AGENCY ASSIGNMENT</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;margin-bottom:20px;">The Magic Pot Decides</div>
+              <div style="text-align:center;padding:24px 0;">
+                <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(168,106,42,0.35);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:rgba(168,106,42,0.06);">
+                  <div style="width:40px;height:40px;border-radius:50%;border:2px solid #A86A2A;border-top-color:transparent;animation:spin 1s linear infinite;"></div>
+                </div>
+                <div style="font-size:10px;color:#A0907E;letter-spacing:3px;margin-bottom:24px;font-family:'Special Elite',monospace;">DRAWING YOUR ASSIGNMENT...</div>
+                <div style="background:#F3EEE5;border:1px solid rgba(168,106,42,0.3);padding:20px;animation:revealPot 0.6s ease-out 1.2s both;opacity:0;">
+                  <div style="font-size:8px;color:#A86A2A;letter-spacing:3px;margin-bottom:8px;font-family:'Special Elite',monospace;">YOU HAVE BEEN ASSIGNED TO</div>
+                  <div style="height:2px;background:rgba(168,106,42,0.25);margin-bottom:14px;"></div>
+                  <div style="font-family:'Cinzel Decorative',serif;font-size:22px;color:#1C1A17;margin-bottom:4px;">Evidence Hounds</div>
+                  <div style="font-size:12px;color:#7A6A58;letter-spacing:1px;font-style:italic;">Follow every trace</div>
+                </div>
+              </div>
+              <div onClick="{{ closeOverlay }}" style="background:#A86A2A;padding:14px;text-align:center;cursor:pointer;margin-top:8px;">
+                <div style="font-family:'Cinzel Decorative',serif;font-size:13px;color:#F3EEE5;letter-spacing:2px;">Enter Agency HQ</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { overlayOpen: true, step: 1, nickname: '' };
+
+  renderVals() {
+    const { overlayOpen, step, nickname } = this.state;
+    return {
+      overlayOpen,
+      bodyBlur: overlayOpen ? 'blur(2px)' : 'none',
+      isStep1: step === 1,
+      isStep2: step === 2,
+      nickname,
+      onNicknameInput: e => this.setState({ nickname: e.target.value }),
+      nextStep: () => this.setState({ step: 2 }),
+      closeOverlay: () => this.setState({ overlayOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

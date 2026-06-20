@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#F3EEE5; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes stampIn { from{opacity:0;transform:scale(1.4)rotate(-10deg)}to{opacity:1;transform:scale(1)rotate(-3deg)} }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#F3EEE5;display:flex;flex-direction:column;align-items:center;padding:40px 20px;box-sizing:border-box;">
+  <div style="color:#C4B8A8;font-family:'Special Elite',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;">CSFD27 · /HOUSES/{{ houseLabel }} · AGENCY DOSSIER</div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ false }}" hint-size="390px,844px">
+    <div style="display:flex;flex-direction:column;height:100%;background:#F3EEE5;font-family:'Cormorant Garamond',serif;overflow:hidden;">
+
+      <!-- Navbar -->
+      <div style="padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(47,36,31,0.14);flex-shrink:0;background:#E5E0CF;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <a href="Houses.dc.html" style="font-size:18px;color:#A0907E;text-decoration:none;line-height:1;">‹</a>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:15px;color:#2F241F;letter-spacing:1px;">CSFD27</div>
+        </div>
+        <div style="{{ navBadgeStyle }}">{{ houseLabel }}</div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+
+        <!-- Hero banner — house primary as bg -->
+        <div style="{{ heroStyle }}">
+          <div style="{{ gridStyle }}"></div>
+          <div style="{{ glowStyle }}"></div>
+          <div style="position:relative;padding:24px 20px 20px;">
+
+            <div style="{{ stampStyle }}">
+              <div style="{{ stampTextStyle }}">AGENCY DOSSIER</div>
+            </div>
+
+            <div style="display:flex;align-items:flex-start;gap:16px;">
+              <div style="{{ emblemStyle }}">
+                <sc-if value="{{ isEvidenceHounds }}" hint-placeholder-val="{{ false }}">
+                  <div style="width:20px;height:20px;border-radius:50%;background:rgba(240,216,161,0.9);"></div>
+                </sc-if>
+                <sc-if value="{{ isInferenceSociety }}" hint-placeholder-val="{{ true }}">
+                  <div style="width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:20px solid rgba(231,198,142,0.9);"></div>
+                </sc-if>
+                <sc-if value="{{ isCipherFoxes }}" hint-placeholder-val="{{ false }}">
+                  <div style="width:20px;height:20px;border-radius:50%;border:2.5px solid rgba(174,121,80,0.9);display:flex;align-items:center;justify-content:center;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:rgba(174,121,80,0.9);"></div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ isShadowSleuths }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div style="width:14px;height:8px;border-radius:4px 4px 0 0;border:2px solid rgba(172,162,179,0.9);border-bottom:none;"></div>
+                    <div style="width:18px;height:12px;border:2px solid rgba(172,162,179,0.9);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+                      <div style="width:4px;height:4px;border-radius:50%;background:rgba(172,162,179,0.6);"></div>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="flex:1;">
+                <div style="font-family:'Cinzel Decorative',serif;font-size:22px;color:#F3EEE5;line-height:1.15;margin-bottom:6px;">{{ houseName }}</div>
+                <div style="font-size:13px;color:rgba(243,238,229,0.65);font-style:italic;line-height:1.5;margin-bottom:10px;">{{ houseTagline }}</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <div style="{{ memberBadgeStyle }}">{{ houseMemberCount }} AGENTS</div>
+                  <div style="padding:3px 8px;background:rgba(58,106,42,0.25);border:1px solid rgba(58,106,42,0.45);font-size:8px;color:#8aca80;letter-spacing:1px;font-family:'Special Elite',monospace;">ACTIVE</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="{{ dividerStyle }}">
+              <div style="font-size:14px;color:rgba(243,238,229,0.55);line-height:1.75;font-style:italic;">{{ houseDesc }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Senior Operatives -->
+        <div style="padding:16px 16px 0;background:#F3EEE5;">
+          <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;font-family:'Special Elite',monospace;">SENIOR OPERATIVES</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+
+            <div style="{{ leaderCard1Style }}">
+              <div style="{{ leaderPhotoStyle }}">
+                <div style="font-size:7px;color:#A0907E;text-align:center;line-height:1.3;">PHOTO</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:'Cinzel Decorative',serif;font-size:13px;color:#1C1A17;margin-bottom:2px;line-height:1.3;">{{ leader1Name }}</div>
+                <div style="font-size:12px;color:#7A6A58;margin-bottom:6px;">Alias: <span style="{{ aliasStyle }}">{{ leader1Alias }}</span></div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <div style="{{ leaderBadgeStyle }}">HOUSE LEADER</div>
+                  <div style="padding:2px 7px;background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);font-size:7px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">SENIOR</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="{{ leaderCard2Style }}">
+              <div style="{{ leaderPhotoStyle }}">
+                <div style="font-size:7px;color:#A0907E;text-align:center;line-height:1.3;">PHOTO</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:'Cinzel Decorative',serif;font-size:13px;color:#1C1A17;margin-bottom:2px;line-height:1.3;">{{ leader2Name }}</div>
+                <div style="font-size:12px;color:#7A6A58;margin-bottom:6px;">Alias: <span style="{{ aliasStyle }}">{{ leader2Alias }}</span></div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <div style="{{ leaderBadgeStyle }}">DEPUTY LEADER</div>
+                  <div style="padding:2px 7px;background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);font-size:7px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">SENIOR</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operatives grid -->
+        <div style="padding:20px 16px 28px;background:#F3EEE5;">
+          <div style="font-size:8px;color:#A0907E;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;font-family:'Special Elite',monospace;">OPERATIVES</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+            <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.08);padding:12px;animation:fadeIn 0.4s ease-out 0.1s both;">
+              <div style="{{ memberPhotoStyle }}"><div style="font-size:6px;color:#A0907E;">PHOTO</div></div>
+              <div style="font-size:13px;color:#1C1A17;font-family:'Cinzel Decorative',serif;margin-bottom:2px;font-size:11px;line-height:1.2;">{{ m1name }}</div>
+              <div style="font-size:11px;color:#7A6A58;margin-bottom:4px;font-style:italic;">{{ m1alias }}</div>
+              <div style="{{ juniorBadgeStyle }}"><div style="{{ juniorTextStyle }}">JUNIOR</div></div>
+            </div>
+
+            <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.08);padding:12px;animation:fadeIn 0.4s ease-out 0.15s both;">
+              <div style="{{ memberPhotoStyle }}"><div style="font-size:6px;color:#A0907E;">PHOTO</div></div>
+              <div style="font-size:11px;color:#1C1A17;font-family:'Cinzel Decorative',serif;margin-bottom:2px;line-height:1.2;">{{ m2name }}</div>
+              <div style="font-size:11px;color:#7A6A58;margin-bottom:4px;font-style:italic;">{{ m2alias }}</div>
+              <div style="{{ juniorBadgeStyle }}"><div style="{{ juniorTextStyle }}">JUNIOR</div></div>
+            </div>
+
+            <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.08);padding:12px;animation:fadeIn 0.4s ease-out 0.2s both;">
+              <div style="{{ memberPhotoStyle }}"><div style="font-size:6px;color:#A0907E;">PHOTO</div></div>
+              <div style="font-size:11px;color:#1C1A17;font-family:'Cinzel Decorative',serif;margin-bottom:2px;line-height:1.2;">{{ m3name }}</div>
+              <div style="font-size:11px;color:#7A6A58;margin-bottom:4px;font-style:italic;">{{ m3alias }}</div>
+              <div style="{{ juniorBadgeStyle }}"><div style="{{ juniorTextStyle }}">JUNIOR</div></div>
+            </div>
+
+            <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.08);padding:12px;animation:fadeIn 0.4s ease-out 0.25s both;">
+              <div style="{{ memberPhotoStyle }}"><div style="font-size:6px;color:#A0907E;">PHOTO</div></div>
+              <div style="font-size:11px;color:#1C1A17;font-family:'Cinzel Decorative',serif;margin-bottom:2px;line-height:1.2;">{{ m4name }}</div>
+              <div style="font-size:11px;color:#7A6A58;margin-bottom:4px;font-style:italic;">{{ m4alias }}</div>
+              <div style="{{ juniorBadgeStyle }}"><div style="{{ juniorTextStyle }}">JUNIOR</div></div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:14px;font-size:9px;color:#C4B8A8;letter-spacing:2px;font-family:'Special Elite',monospace;">+ MORE OPERATIVES ON FILE</div>
+        </div>
+      </div>
+
+      <!-- Bottom tabs -->
+      <div style="display:flex;background:#E5E0CF;border-top:1px solid rgba(47,36,31,0.1);flex-shrink:0;padding-bottom:34px;">
+        <a href="Houses.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);display:block;">
+          <div style="width:14px;height:1.5px;background:#A86A2A;margin:0 auto 4px;"></div>
+          <div style="font-size:7px;color:#A86A2A;letter-spacing:1.5px;font-family:'Special Elite',monospace;">DIVISIONS</div>
+        </a>
+        <a href="Profile.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">AGENT</div>
+        </a>
+        <a href="AdminDashboard.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">STATS</div>
+        </a>
+      </div>
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 390, &quot;height&quot;: 844 },
+  &quot;house&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;inferenceSociety&quot;, &quot;options&quot;: [&quot;evidenceHounds&quot;,&quot;inferenceSociety&quot;,&quot;cipherFoxes&quot;,&quot;shadowSleuths&quot;], &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  static HD = {
+    evidenceHounds:  { name:'Evidence Hounds',  label:'EVIDENCE HOUNDS',  color:'#121358', accent:'#F0D8A1', rgb:[18,19,88],    tagline:'"Follow every trace. Leave no clue unexamined."',      desc:'Evidence Hounds operate on fact alone. They catalogue, cross-reference and pursue every lead with methodical rigour. Where others theorise, Hounds verify.', members:28, leaders:[{name:'Apirak C.',alias:'Spectre'},{name:'Sirada P.',alias:'Shadow'}],   ops:[{name:'Dome T.',alias:'Slate'},{name:'Fah N.',alias:'Raven'},{name:'Beam S.',alias:'Dusk'},{name:'June P.',alias:'Ash'}] },
+    inferenceSociety:{ name:'Inference Society', label:'INFERENCE SOCIETY', color:'#274C27', accent:'#E7C68E', rgb:[39,76,39],   tagline:'"Reason is the finest instrument of detection."',        desc:'The Inference Society prizes deductive logic above all. Members build airtight chains of reasoning from the smallest fragments — a glance, a pause, a misplaced word.', members:31, leaders:[{name:'Wanchanok P.',alias:'Oracle'},{name:'Teerasak M.',alias:'Ridley'}], ops:[{name:'Napat S.',alias:'Ghost'},{name:'Ploy W.',alias:'Lynx'},{name:'Mint C.',alias:'Viper'},{name:'Arm P.',alias:'Onyx'}] },
+    cipherFoxes:     { name:'Cipher Foxes',      label:'CIPHER FOXES',     color:'#4C1A17', accent:'#AE7950', rgb:[76,26,23],    tagline:'"Every message hides a deeper truth."',                 desc:'Cipher Foxes thrive in encrypted territory. Operatives decode hidden signals, crack concealed patterns, and find meaning buried in plain sight.', members:29, leaders:[{name:'Pimchanok R.',alias:'Vex'},{name:'Kantapat N.',alias:'Wraith'}],    ops:[{name:'Mod S.',alias:'Flash'},{name:'Ake T.',alias:'Bolt'},{name:'Joy P.',alias:'Trace'},{name:'Kwan C.',alias:'Mark'}] },
+    shadowSleuths:   { name:'Shadow Sleuths',    label:'SHADOW SLEUTHS',   color:'#402561', accent:'#ACA2B3', rgb:[64,37,97],    tagline:'"In the dark, the sharpest minds see clearest."',       desc:'Shadow Sleuths move unseen. Masters of patience and observation, they watch from the margins until the precise moment to act.', members:26, leaders:[{name:'Thanaphat K.',alias:'Nexus'},{name:'Nisa P.',alias:'Key'}],          ops:[{name:'Bank A.',alias:'Token'},{name:'Earn C.',alias:'Byte'},{name:'Pim T.',alias:'Hex'},{name:'Top N.',alias:'Null'}] },
+  };
+
+  renderVals() {
+    const key = (this.props.house || 'inferenceSociety');
+    const d = Component.HD[key] || Component.HD.inferenceSociety;
+    const [r, g, b] = d.rgb;
+    const rgba = a => `rgba(${r},${g},${b},${a})`;
+    const c = d.color;
+    const ac = d.accent;
+    return {
+      houseName: d.name, houseLabel: d.label, houseTagline: d.tagline, houseDesc: d.desc,
+      houseMemberCount: d.members,
+      isEvidenceHounds:  key === 'evidenceHounds',
+      isInferenceSociety:key === 'inferenceSociety',
+      isCipherFoxes:     key === 'cipherFoxes',
+      isShadowSleuths:   key === 'shadowSleuths',
+      leader1Name: d.leaders[0].name, leader1Alias: d.leaders[0].alias,
+      leader2Name: d.leaders[1].name, leader2Alias: d.leaders[1].alias,
+      m1name: d.ops[0].name, m1alias: d.ops[0].alias,
+      m2name: d.ops[1].name, m2alias: d.ops[1].alias,
+      m3name: d.ops[2].name, m3alias: d.ops[2].alias,
+      m4name: d.ops[3].name, m4alias: d.ops[3].alias,
+      heroStyle:       { background: c, borderBottom:`3px solid ${ac}`, position:'relative', overflow:'hidden' },
+      gridStyle:       { position:'absolute', inset:0, backgroundImage:`linear-gradient(rgba(243,238,229,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(243,238,229,0.04) 1px,transparent 1px)`, backgroundSize:'28px 28px' },
+      glowStyle:       { position:'absolute', inset:0, background:`linear-gradient(135deg,rgba(243,238,229,0.06),transparent 60%)` },
+      stampStyle:      { display:'inline-block', border:`1.5px solid rgba(243,238,229,0.25)`, padding:'2px 8px', marginBottom:'14px', animation:'stampIn 0.7s ease-out both' },
+      stampTextStyle:  { fontSize:'7px', color:'rgba(243,238,229,0.5)', letterSpacing:'3px', fontFamily:"'Special Elite',monospace" },
+      emblemStyle:     { width:'60px', height:'60px', borderRadius:'50%', border:`2px solid rgba(243,238,229,0.25)`, background:'rgba(243,238,229,0.06)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 },
+      navBadgeStyle:   { padding:'4px 10px', border:`1px solid ${rgba(0.3)}`, background:rgba(0.08), fontSize:'9px', color:c, letterSpacing:'2px', fontFamily:"'Special Elite',monospace" },
+      memberBadgeStyle:{ padding:'3px 8px', background:'rgba(243,238,229,0.12)', border:'1px solid rgba(243,238,229,0.25)', fontSize:'8px', color:'rgba(243,238,229,0.8)', letterSpacing:'1px', fontFamily:"'Special Elite',monospace" },
+      dividerStyle:    { marginTop:'16px', paddingTop:'16px', borderTop:'1px solid rgba(243,238,229,0.12)' },
+      leaderCard1Style:{ background:'#E5E0CF', border:`1px solid ${rgba(0.2)}`, padding:'14px', display:'flex', alignItems:'center', gap:'12px', animation:'fadeIn 0.4s ease-out both' },
+      leaderCard2Style:{ background:'#E5E0CF', border:`1px solid ${rgba(0.2)}`, padding:'14px', display:'flex', alignItems:'center', gap:'12px', animation:'fadeIn 0.4s ease-out 0.06s both' },
+      leaderPhotoStyle:{ width:'48px', height:'48px', borderRadius:'50%', background:'#F3EEE5', border:`2px solid ${rgba(0.3)}`, flexShrink:0, display:'flex', alignItems:'center', justifyContent:'center' },
+      aliasStyle:      { color: c, fontWeight:600 },
+      leaderBadgeStyle:{ padding:'2px 7px', background:rgba(0.12), border:`1px solid ${rgba(0.25)}`, fontSize:'7px', color:c, letterSpacing:'1px', fontFamily:"'Special Elite',monospace" },
+      memberPhotoStyle:{ width:'36px', height:'36px', borderRadius:'50%', background:'#F3EEE5', border:`1px solid ${rgba(0.2)}`, marginBottom:'8px', display:'flex', alignItems:'center', justifyContent:'center' },
+      juniorBadgeStyle:{ padding:'2px 6px', background:rgba(0.1), border:`1px solid ${rgba(0.2)}`, display:'inline-block' },
+      juniorTextStyle: { fontSize:'7px', color:c, letterSpacing:'1px', fontFamily:"'Special Elite',monospace" },
+    };
+  }
+}
+</script>
+</body>
+</html>

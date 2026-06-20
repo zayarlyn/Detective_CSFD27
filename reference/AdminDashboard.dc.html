@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#F3EEE5; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)} }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#F3EEE5;display:flex;flex-direction:column;align-items:center;padding:40px 20px;box-sizing:border-box;">
+  <div style="color:#C4B8A8;font-family:'Special Elite',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;">CSFD27 · /ADMIN · BUREAU CASE BOARD</div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ false }}" hint-size="390px,844px">
+    <div style="display:flex;flex-direction:column;height:100%;background:#F3EEE5;font-family:'Cormorant Garamond',serif;overflow:hidden;">
+
+      <!-- Navbar -->
+      <div style="padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(47,36,31,0.14);flex-shrink:0;background:#E5E0CF;">
+        <div style="font-family:'Cinzel Decorative',serif;font-size:15px;color:#2F241F;letter-spacing:1px;">CSFD27</div>
+        <div style="font-size:8px;color:#8b2020;letter-spacing:3px;font-family:'Special Elite',monospace;">BUREAU COMMAND</div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+
+        <!-- Header -->
+        <div style="padding:16px 20px 14px;border-bottom:1px solid rgba(47,36,31,0.08);">
+          <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:6px;font-family:'Special Elite',monospace;">ACTIVE OPERATION</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Mentor Pairings</div>
+        </div>
+
+        <!-- Stats -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid rgba(47,36,31,0.08);background:#E5E0CF;">
+          <div style="padding:14px 16px;border-right:1px solid rgba(47,36,31,0.06);text-align:center;">
+            <div style="font-family:'Cinzel Decorative',serif;font-size:26px;color:#1C1A17;line-height:1;">114</div>
+            <div style="font-size:7px;color:#A0907E;letter-spacing:2px;margin-top:4px;font-family:'Special Elite',monospace;">TOTAL</div>
+          </div>
+          <div style="padding:14px 16px;border-right:1px solid rgba(47,36,31,0.06);text-align:center;">
+            <div style="font-family:'Cinzel Decorative',serif;font-size:26px;color:#3a6a2a;line-height:1;">42</div>
+            <div style="font-size:7px;color:#A0907E;letter-spacing:2px;margin-top:4px;font-family:'Special Elite',monospace;">SOLVED</div>
+          </div>
+          <div style="padding:14px 16px;text-align:center;">
+            <div style="font-family:'Cinzel Decorative',serif;font-size:26px;color:#8b2020;line-height:1;">72</div>
+            <div style="font-size:7px;color:#A0907E;letter-spacing:2px;margin-top:4px;font-family:'Special Elite',monospace;">OPEN</div>
+          </div>
+        </div>
+
+        <!-- Search + filter by status -->
+        <div style="padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.08);display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;background:#E5E0CF;border:1px solid rgba(47,36,31,0.15);">
+            <div style="padding:9px 10px;font-size:10px;color:#A0907E;border-right:1px solid rgba(47,36,31,0.1);font-family:'Special Elite',monospace;">›_</div>
+            <input type="text" placeholder="Search by student code..." style="background:transparent;border:none;outline:none;font-family:'Special Elite',monospace;font-size:13px;color:#1C1A17;padding:9px 12px;flex:1;caret-color:#A86A2A;letter-spacing:1px;" />
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div onClick="{{ setFilter('all') }}" style="flex:1;padding:7px 0;background:{{ allBg }};border:1px solid {{ allBorder }};font-size:8px;color:{{ allColor }};letter-spacing:2px;cursor:pointer;font-family:'Special Elite',monospace;text-align:center;">ALL</div>
+            <div onClick="{{ setFilter('solved') }}" style="flex:1;padding:7px 0;background:{{ solvedBg }};border:1px solid {{ solvedBorder }};font-size:8px;color:{{ solvedColor }};letter-spacing:2px;cursor:pointer;font-family:'Special Elite',monospace;text-align:center;">SOLVED</div>
+            <div onClick="{{ setFilter('open') }}" style="flex:1;padding:7px 0;background:{{ openBg }};border:1px solid {{ openBorder }};font-size:8px;color:{{ openColor }};letter-spacing:2px;cursor:pointer;font-family:'Special Elite',monospace;text-align:center;">OPEN</div>
+          </div>
+        </div>
+
+        <!-- Column headers -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:9px 16px;border-bottom:1px solid rgba(47,36,31,0.1);background:#E5E0CF;position:sticky;top:0;">
+          <div style="font-size:7px;color:#A0907E;letter-spacing:2px;font-family:'Special Elite',monospace;">SENIOR</div>
+          <div style="font-size:7px;color:#A0907E;letter-spacing:2px;font-family:'Special Elite',monospace;">JUNIOR</div>
+          <div style="font-size:7px;color:#A0907E;letter-spacing:2px;font-family:'Special Elite',monospace;">STATUS</div>
+        </div>
+
+        <!-- Row 1 — solved -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.05);align-items:center;animation:fadeIn 0.3s ease-out both;">
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">65XXXXXXXX</div>
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">66XXXXXXXX</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:6px;height:6px;background:#3a6a2a;border-radius:50%;flex-shrink:0;"></div>
+            <div style="font-size:9px;color:#3a6a2a;letter-spacing:1px;font-family:'Special Elite',monospace;">SOLVED</div>
+          </div>
+        </div>
+
+        <!-- Row 2 — solved -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.05);align-items:center;background:rgba(47,36,31,0.02);animation:fadeIn 0.3s ease-out 0.04s both;">
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">65XXXXXXXX</div>
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">66XXXXXXXX</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:6px;height:6px;background:#3a6a2a;border-radius:50%;flex-shrink:0;"></div>
+            <div style="font-size:9px;color:#3a6a2a;letter-spacing:1px;font-family:'Special Elite',monospace;">SOLVED</div>
+          </div>
+        </div>
+
+        <!-- Row 3 — open -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.05);align-items:center;animation:fadeIn 0.3s ease-out 0.08s both;">
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">65XXXXXXXX</div>
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">66XXXXXXXX</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:6px;height:6px;background:#8b2020;border-radius:50%;flex-shrink:0;"></div>
+            <div style="font-size:9px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">OPEN</div>
+          </div>
+        </div>
+
+        <!-- Row 4 — open -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.05);align-items:center;background:rgba(47,36,31,0.02);animation:fadeIn 0.3s ease-out 0.12s both;">
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">65XXXXXXXX</div>
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">66XXXXXXXX</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:6px;height:6px;background:#8b2020;border-radius:50%;flex-shrink:0;"></div>
+            <div style="font-size:9px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">OPEN</div>
+          </div>
+        </div>
+
+        <!-- Row 5 — open -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.05);align-items:center;animation:fadeIn 0.3s ease-out 0.16s both;">
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">65XXXXXXXX</div>
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">66XXXXXXXX</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:6px;height:6px;background:#8b2020;border-radius:50%;flex-shrink:0;"></div>
+            <div style="font-size:9px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">OPEN</div>
+          </div>
+        </div>
+
+        <!-- Row 6 — solved -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;padding:12px 16px;border-bottom:1px solid rgba(47,36,31,0.05);align-items:center;background:rgba(47,36,31,0.02);animation:fadeIn 0.3s ease-out 0.2s both;">
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">65XXXXXXXX</div>
+          <div style="font-family:'Special Elite',monospace;font-size:12px;color:#1C1A17;letter-spacing:1px;">66XXXXXXXX</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:6px;height:6px;background:#3a6a2a;border-radius:50%;flex-shrink:0;"></div>
+            <div style="font-size:9px;color:#3a6a2a;letter-spacing:1px;font-family:'Special Elite',monospace;">SOLVED</div>
+          </div>
+        </div>
+
+        <div style="padding:16px;text-align:center;font-size:9px;color:#C4B8A8;letter-spacing:3px;font-family:'Special Elite',monospace;">
+          SHOWING 6 OF 114 PAIRS
+        </div>
+
+        <!-- Overview -->
+        <div style="padding:20px 16px;">
+            <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;font-family:'Special Elite',monospace;">OPERATION SUMMARY</div>
+
+            <!-- Progress bar -->
+            <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.12);padding:16px;margin-bottom:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+                <div style="font-size:8px;color:#A0907E;letter-spacing:2px;font-family:'Special Elite',monospace;">CASE COMPLETION</div>
+                <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#A86A2A;">37%</div>
+              </div>
+              <div style="height:6px;background:rgba(47,36,31,0.1);border-radius:0;">
+                <div style="height:6px;width:37%;background:#A86A2A;"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:8px;">
+                <div style="font-size:9px;color:#3a6a2a;font-family:'Special Elite',monospace;">42 solved</div>
+                <div style="font-size:9px;color:#8b2020;font-family:'Special Elite',monospace;">72 open</div>
+              </div>
+            </div>
+
+            <!-- Agency breakdown -->
+            <div style="font-size:8px;color:#A0907E;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-family:'Special Elite',monospace;">BY AGENCY</div>
+
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="background:#E5E0CF;border:1px solid rgba(18,19,88,0.15);padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <div style="font-size:10px;color:#121358;letter-spacing:1px;font-family:'Special Elite',monospace;">EVIDENCE HOUNDS</div>
+                  <div style="font-size:10px;color:#A0907E;font-family:'Special Elite',monospace;">28 pairs</div>
+                </div>
+                <div style="height:4px;background:rgba(47,36,31,0.08);">
+                  <div style="height:4px;width:45%;background:#121358;opacity:0.7;"></div>
+                </div>
+                <div style="font-size:9px;color:#3a6a2a;margin-top:5px;font-family:'Special Elite',monospace;">13 solved</div>
+              </div>
+
+              <div style="background:#E5E0CF;border:1px solid rgba(39,76,39,0.15);padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <div style="font-size:10px;color:#274C27;letter-spacing:1px;font-family:'Special Elite',monospace;">INFERENCE SOCIETY</div>
+                  <div style="font-size:10px;color:#A0907E;font-family:'Special Elite',monospace;">31 pairs</div>
+                </div>
+                <div style="height:4px;background:rgba(47,36,31,0.08);">
+                  <div style="height:4px;width:52%;background:#274C27;opacity:0.7;"></div>
+                </div>
+                <div style="font-size:9px;color:#3a6a2a;margin-top:5px;font-family:'Special Elite',monospace;">16 solved</div>
+              </div>
+
+              <div style="background:#E5E0CF;border:1px solid rgba(76,26,23,0.15);padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <div style="font-size:10px;color:#4C1A17;letter-spacing:1px;font-family:'Special Elite',monospace;">CIPHER FOXES</div>
+                  <div style="font-size:10px;color:#A0907E;font-family:'Special Elite',monospace;">29 pairs</div>
+                </div>
+                <div style="height:4px;background:rgba(47,36,31,0.08);">
+                  <div style="height:4px;width:31%;background:#4C1A17;opacity:0.7;"></div>
+                </div>
+                <div style="font-size:9px;color:#3a6a2a;margin-top:5px;font-family:'Special Elite',monospace;">9 solved</div>
+              </div>
+
+              <div style="background:#E5E0CF;border:1px solid rgba(64,37,97,0.15);padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <div style="font-size:10px;color:#402561;letter-spacing:1px;font-family:'Special Elite',monospace;">SHADOW SLEUTHS</div>
+                  <div style="font-size:10px;color:#A0907E;font-family:'Special Elite',monospace;">26 pairs</div>
+                </div>
+                <div style="height:4px;background:rgba(47,36,31,0.08);">
+                  <div style="height:4px;width:15%;background:#402561;opacity:0.7;"></div>
+                </div>
+                <div style="font-size:9px;color:#3a6a2a;margin-top:5px;font-family:'Special Elite',monospace;">4 solved</div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Bottom tabs -->
+      <div style="display:flex;background:#E5E0CF;border-top:1px solid rgba(47,36,31,0.1);flex-shrink:0;padding-bottom:34px;">
+        <a href="Houses.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">DIVISIONS</div>
+        </a>
+        <a href="Profile.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">AGENT</div>
+        </a>
+        <div style="flex:1;padding:9px 0 10px;text-align:center;">
+          <div style="width:14px;height:1.5px;background:#A86A2A;margin:0 auto 4px;"></div>
+          <div style="font-size:7px;color:#A86A2A;letter-spacing:1.5px;font-family:'Special Elite',monospace;">STATS</div>
+        </div>
+      </div>
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { filter: 'all' };
+
+  renderVals() {
+    const { filter } = this.state;
+    const active = { bg:'rgba(168,106,42,0.1)', border:'rgba(168,106,42,0.35)', color:'#A86A2A' };
+    const idle   = { bg:'transparent', border:'rgba(47,36,31,0.12)', color:'#7A6A58' };
+    const t = f => filter === f ? active : idle;
+    const a = t('all'), s = t('solved'), o = t('open');
+    return {
+      allBg:a.bg, allBorder:a.border, allColor:a.color,
+      solvedBg:s.bg, solvedBorder:s.border, solvedColor:s.color,
+      openBg:o.bg, openBorder:o.border, openColor:o.color,
+      setFilter: f => () => this.setState({ filter: f }),
+    };
+  }
+}
+</script>
+</body>
+</html>

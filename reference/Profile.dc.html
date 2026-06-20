@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#F3EEE5; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes pulse { 0%,49%{opacity:1}50%,99%{opacity:0.2} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+    @keyframes closedStamp { 0%{opacity:0;transform:scale(1.6)rotate(-10deg)}60%{transform:scale(0.97)rotate(-3deg);opacity:1}100%{transform:scale(1)rotate(-3deg);opacity:1} }
+    @keyframes revealUp { from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes overlayIn { from{opacity:0}to{opacity:1} }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#F3EEE5;display:flex;flex-direction:column;align-items:center;padding:40px 20px;box-sizing:border-box;">
+  <div style="color:#C4B8A8;font-family:'Special Elite',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;">CSFD27 · /AGENT · OWN PROFILE</div>
+
+  <!-- View toggle -->
+  <div style="display:flex;gap:6px;margin-bottom:20px;">
+    <div onClick="{{ setSenior }}" style="padding:5px 14px;font-size:8px;letter-spacing:3px;cursor:pointer;background:{{ seniorBg }};border:1px solid {{ seniorBorder }};color:{{ seniorColor }};font-family:'Special Elite',monospace;">SENIOR VIEW</div>
+    <div onClick="{{ setJunior }}" style="padding:5px 14px;font-size:8px;letter-spacing:3px;cursor:pointer;background:{{ juniorBg }};border:1px solid {{ juniorBorder }};color:{{ juniorColor }};font-family:'Special Elite',monospace;">JUNIOR VIEW</div>
+  </div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ false }}" hint-size="390px,844px">
+    <div style="display:flex;flex-direction:column;height:100%;background:#F3EEE5;font-family:'Cormorant Garamond',serif;overflow:hidden;position:relative;">
+
+      <!-- Navbar -->
+      <div style="padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(47,36,31,0.14);flex-shrink:0;background:#E5E0CF;">
+        <div style="font-family:'Cinzel Decorative',serif;font-size:15px;color:#2F241F;letter-spacing:1px;">CSFD27</div>
+        <div onClick="{{ toggleEdit }}" style="padding:5px 12px;border:1px solid {{ editBorderColor }};background:{{ editBg }};font-size:9px;color:{{ editColor }};letter-spacing:2px;cursor:pointer;font-family:'Special Elite',monospace;">{{ editLabel }}</div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+
+        <!-- ID Badge -->
+        <div style="background:#E5E0CF;border-bottom:1px solid rgba(47,36,31,0.1);padding:20px;">
+          <div style="font-size:7px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;font-family:'Special Elite',monospace;">AGENT DOSSIER · CLASSIFIED</div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="position:relative;flex-shrink:0;">
+              <div style="width:80px;height:96px;background:#F3EEE5;border:2px solid rgba(168,106,42,0.3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                <div style="font-size:8px;color:#A0907E;text-align:center;line-height:1.4;font-family:'Special Elite',monospace;">PROFILE<br/>PHOTO</div>
+                <div style="position:absolute;top:3px;left:3px;width:8px;height:8px;border-top:1.5px solid rgba(168,106,42,0.45);border-left:1.5px solid rgba(168,106,42,0.45);"></div>
+                <div style="position:absolute;top:3px;right:3px;width:8px;height:8px;border-top:1.5px solid rgba(168,106,42,0.45);border-right:1.5px solid rgba(168,106,42,0.45);"></div>
+                <div style="position:absolute;bottom:3px;left:3px;width:8px;height:8px;border-bottom:1.5px solid rgba(168,106,42,0.45);border-left:1.5px solid rgba(168,106,42,0.45);"></div>
+                <div style="position:absolute;bottom:3px;right:3px;width:8px;height:8px;border-bottom:1.5px solid rgba(168,106,42,0.45);border-right:1.5px solid rgba(168,106,42,0.45);"></div>
+              </div>
+              <div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:#3a6a2a;padding:2px 6px;white-space:nowrap;">
+                <div style="font-size:6px;color:#d0f0c0;letter-spacing:2px;font-family:'Special Elite',monospace;">VERIFIED</div>
+              </div>
+            </div>
+
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Cinzel Decorative',serif;font-size:17px;color:#1C1A17;line-height:1.2;margin-bottom:4px;">Wanchanok<br/>Phromma</div>
+              <div style="font-size:13px;color:#A86A2A;margin-bottom:10px;letter-spacing:1px;">Alias: <strong>Oracle</strong></div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+                <div style="padding:3px 8px;background:rgba(168,106,42,0.1);border:1px solid rgba(168,106,42,0.3);font-size:8px;color:#A86A2A;letter-spacing:1px;font-family:'Special Elite',monospace;">FOXLOCK</div>
+                <div style="padding:3px 8px;background:rgba(139,32,32,0.08);border:1px solid rgba(139,32,32,0.25);font-size:8px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">SENIOR</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="font-size:9px;color:#A0907E;letter-spacing:1px;font-family:'Special Elite',monospace;">NATIONALITY:</div>
+                <div style="font-size:12px;color:#2F241F;">Thai</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
+                <div style="font-size:9px;color:#A0907E;letter-spacing:1px;font-family:'Special Elite',monospace;">ID:</div>
+                <div style="font-size:12px;color:#2F241F;letter-spacing:2px;font-family:'Special Elite',monospace;">65XXXXXXXX</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social links -->
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(47,36,31,0.1);">
+            <div style="font-size:8px;color:#A0907E;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;font-family:'Special Elite',monospace;">CONTACT CHANNELS</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+
+              <div style="display:flex;align-items:center;gap:10px;background:#F3EEE5;border:1px solid {{ igBorder }};padding:10px 12px;">
+                <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                  <div style="width:10px;height:10px;border-radius:3px;border:1.5px solid white;"></div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:8px;color:#A0907E;letter-spacing:1px;margin-bottom:2px;font-family:'Special Elite',monospace;">INSTAGRAM</div>
+                  <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                    <input type="text" value="@oracle.fox" style="background:transparent;border:none;outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:#1C1A17;width:100%;caret-color:#A86A2A;" />
+                  </sc-if>
+                  <sc-if value="{{ viewMode }}" hint-placeholder-val="{{ true }}">
+                    <div style="font-size:14px;color:#1C1A17;">@oracle.fox</div>
+                  </sc-if>
+                </div>
+                <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:14px;color:#A86A2A;cursor:pointer;">✓</div>
+                </sc-if>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:10px;background:#F3EEE5;border:1px solid {{ discordBorder }};padding:10px 12px;">
+                <div style="width:24px;height:24px;border-radius:6px;background:#5865F2;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                  <div style="font-size:10px;color:white;font-weight:bold;font-family:sans-serif;">D</div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:8px;color:#A0907E;letter-spacing:1px;margin-bottom:2px;font-family:'Special Elite',monospace;">DISCORD</div>
+                  <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                    <input type="text" value="oracle#2027" style="background:transparent;border:none;outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:#1C1A17;width:100%;caret-color:#A86A2A;" />
+                  </sc-if>
+                  <sc-if value="{{ viewMode }}" hint-placeholder-val="{{ true }}">
+                    <div style="font-size:14px;color:#1C1A17;">oracle#2027</div>
+                  </sc-if>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:10px;background:#F3EEE5;border:1px solid {{ lineBorder }};padding:10px 12px;">
+                <div style="width:24px;height:24px;border-radius:6px;background:#00B900;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                  <div style="font-size:10px;color:white;font-weight:bold;font-family:sans-serif;">L</div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:8px;color:#A0907E;letter-spacing:1px;margin-bottom:2px;font-family:'Special Elite',monospace;">LINE</div>
+                  <sc-if value="{{ editMode }}" hint-placeholder-val="{{ false }}">
+                    <input type="text" value="oracle.fox" style="background:transparent;border:none;outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:#1C1A17;width:100%;caret-color:#A86A2A;" />
+                  </sc-if>
+                  <sc-if value="{{ viewMode }}" hint-placeholder-val="{{ true }}">
+                    <div style="font-size:14px;color:#1C1A17;">oracle.fox</div>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SENIOR: Assigned Case + Hint Editing -->
+        <sc-if value="{{ isSenior }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;font-family:'Special Elite',monospace;">ASSIGNED CASE</div>
+            <div style="border:1.5px solid rgba(139,32,32,0.4);padding:2px 8px;transform:rotate(-2deg);display:inline-block;">
+              <div style="font-size:7px;color:#8b2020;letter-spacing:2px;font-family:'Special Elite',monospace;">SENIOR ONLY</div>
+            </div>
+          </div>
+
+          <div style="background:#E5E0CF;border:1px solid rgba(168,106,42,0.2);padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#F3EEE5;border:1px solid rgba(168,106,42,0.25);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <div style="font-size:6px;color:#A0907E;text-align:center;font-family:'Special Elite',monospace;">PHOTO</div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:8px;color:#A0907E;letter-spacing:2px;margin-bottom:2px;font-family:'Special Elite',monospace;">YOUR JUNIOR OPERATIVE</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:14px;color:#1C1A17;margin-bottom:4px;line-height:1.2;">Napat Suwanna</div>
+              <div style="display:flex;gap:6px;">
+                <div style="padding:2px 7px;background:rgba(168,106,42,0.1);border:1px solid rgba(168,106,42,0.25);font-size:7px;color:#A86A2A;letter-spacing:1px;font-family:'Special Elite',monospace;">CIPHER</div>
+                <div style="padding:2px 7px;background:rgba(168,106,42,0.1);border:1px solid rgba(168,106,42,0.25);font-size:7px;color:#A86A2A;letter-spacing:1px;font-family:'Special Elite',monospace;">JUNIOR</div>
+              </div>
+            </div>
+            <div style="font-size:18px;color:#C4B8A8;">›</div>
+          </div>
+
+          <!-- Hint cards -->
+          <div style="font-size:8px;color:#A0907E;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-family:'Special Elite',monospace;">EVIDENCE HINTS</div>
+
+          <!-- Hint 1 -->
+          <div style="background:#E5E0CF;border:1px solid rgba(58,106,42,0.3);margin-bottom:10px;overflow:hidden;">
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(58,106,42,0.15);background:rgba(58,106,42,0.06);">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:5px;height:5px;background:#3a6a2a;border-radius:50%;"></div>
+                <div style="font-size:8px;color:#3a6a2a;letter-spacing:2px;font-family:'Special Elite',monospace;">HINT 1 · RELEASED</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:8px;color:#A0907E;letter-spacing:1px;font-family:'Special Elite',monospace;">01 AUG 2027</div>
+                <div onClick="{{ toggleHint1 }}" style="font-size:8px;color:{{ h1EditColor }};letter-spacing:1px;cursor:pointer;font-family:'Special Elite',monospace;border:1px solid {{ h1EditBorder }};padding:2px 8px;">{{ h1EditLabel }}</div>
+              </div>
+            </div>
+            <div style="padding:12px 14px;">
+              <sc-if value="{{ hint1Edit }}" hint-placeholder-val="{{ false }}">
+                <textarea style="width:100%;background:#F3EEE5;border:1px solid rgba(168,106,42,0.2);outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:#1C1A17;line-height:1.6;padding:8px;box-sizing:border-box;resize:none;caret-color:#A86A2A;min-height:60px;">I have a plant on my desk named Detective Fern.</textarea>
+              </sc-if>
+              <sc-if value="{{ hint1View }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size:14px;color:#2F241F;line-height:1.65;font-style:italic;">"I have a plant on my desk named Detective Fern."</div>
+              </sc-if>
+            </div>
+          </div>
+
+          <!-- Hint 2 -->
+          <div style="background:#E5E0CF;border:1px solid rgba(168,106,42,0.22);margin-bottom:10px;overflow:hidden;">
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(168,106,42,0.12);">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:5px;height:5px;background:#A86A2A;border-radius:50%;"></div>
+                <div style="font-size:8px;color:#A86A2A;letter-spacing:2px;font-family:'Special Elite',monospace;">HINT 2 · PENDING</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:8px;color:#A0907E;letter-spacing:1px;font-family:'Special Elite',monospace;">10 AUG 2027</div>
+                <div onClick="{{ toggleHint2 }}" style="font-size:8px;color:{{ h2EditColor }};letter-spacing:1px;cursor:pointer;font-family:'Special Elite',monospace;border:1px solid {{ h2EditBorder }};padding:2px 8px;">{{ h2EditLabel }}</div>
+              </div>
+            </div>
+            <div style="padding:12px 14px;">
+              <sc-if value="{{ hint2Edit }}" hint-placeholder-val="{{ false }}">
+                <textarea style="width:100%;background:#F3EEE5;border:1px solid rgba(168,106,42,0.2);outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:#1C1A17;line-height:1.6;padding:8px;box-sizing:border-box;resize:none;caret-color:#A86A2A;min-height:60px;">My favourite film is a 1941 Orson Welles classic.</textarea>
+              </sc-if>
+              <sc-if value="{{ hint2View }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size:14px;color:#2F241F;line-height:1.65;font-style:italic;">"My favourite film is a 1941 Orson Welles classic."</div>
+              </sc-if>
+            </div>
+          </div>
+
+          <!-- Hint 3 — sealed, always editable since not yet released -->
+          <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.12);margin-bottom:24px;overflow:hidden;">
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(47,36,31,0.08);">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:5px;height:5px;background:#C4B8A8;border-radius:50%;"></div>
+                <div style="font-size:8px;color:#A0907E;letter-spacing:2px;font-family:'Special Elite',monospace;">HINT 3 · SEALED</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:8px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;">18 AUG 2027</div>
+                <div onClick="{{ toggleHint3 }}" style="font-size:8px;color:{{ h3EditColor }};letter-spacing:1px;cursor:pointer;font-family:'Special Elite',monospace;border:1px solid {{ h3EditBorder }};padding:2px 8px;">{{ h3EditLabel }}</div>
+              </div>
+            </div>
+            <div style="padding:12px 14px;">
+              <sc-if value="{{ hint3Edit }}" hint-placeholder-val="{{ true }}">
+                <textarea placeholder="Write your third hint here..." style="width:100%;background:#F3EEE5;border:1px solid rgba(168,106,42,0.2);outline:none;font-family:'Cormorant Garamond',serif;font-size:14px;color:#1C1A17;line-height:1.6;padding:8px;box-sizing:border-box;resize:none;caret-color:#A86A2A;min-height:60px;"></textarea>
+              </sc-if>
+              <sc-if value="{{ hint3View }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="flex:1;height:10px;background:repeating-linear-gradient(90deg,#DDD7C8 0px,#DDD7C8 6px,transparent 6px,transparent 10px);border-radius:2px;opacity:0.6;"></div>
+                  <div style="font-size:9px;color:#C4B8A8;letter-spacing:1px;white-space:nowrap;font-family:'Special Elite',monospace;">EMPTY</div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- JUNIOR: merged case + accusation terminal -->
+        <sc-if value="{{ isJunior }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:16px;">
+
+          <sc-if value="{{ showActive }}" hint-placeholder-val="{{ true }}">
+
+          <div style="font-size:8px;color:#8b2020;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;font-family:'Special Elite',monospace;">▸ ACTIVE CASE</div>
+
+          <!-- Accusation terminal -->
+          <div style="background:#E5E0CF;border:1px solid rgba(139,32,32,0.2);overflow:hidden;margin-bottom:24px;">
+            <div style="padding:10px 14px;border-bottom:1px solid rgba(139,32,32,0.12);display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;background:#8b2020;border-radius:50%;animation:pulse 1s step-end infinite;"></div>
+                <div style="font-size:8px;color:#8b2020;letter-spacing:3px;font-family:'Special Elite',monospace;">SUSPECT ID TERMINAL</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="display:flex;gap:4px;align-items:center;">
+                  <div style="position:relative;width:10px;height:22px;">
+                    <div style="position:absolute;top:0;left:4px;width:2px;height:22px;background:rgba(139,32,32,0.3);border-radius:1px;"></div>
+                    <div style="position:absolute;top:50%;left:0;width:10px;height:2px;background:rgba(139,32,32,0.3);transform:translateY(-50%)rotate(-20deg);border-radius:1px;"></div>
+                  </div>
+                  <div style="width:2px;height:22px;background:#2F241F;border-radius:1px;"></div>
+                  <div style="width:2px;height:22px;background:#2F241F;border-radius:1px;"></div>
+                </div>
+                <div style="font-size:11px;color:#1C1A17;font-family:'Cinzel Decorative',serif;">2 <span style="font-size:10px;color:#A0907E;">/ 3</span></div>
+              </div>
+            </div>
+            <div style="padding:12px 14px;">
+              <div style="font-size:9px;color:#A0907E;letter-spacing:2px;margin-bottom:8px;font-family:'Special Elite',monospace;">ENTER SENIOR STUDENT ID:</div>
+              <div style="display:flex;align-items:stretch;background:#F3EEE5;border:1px solid {{ inputBorder }};animation:{{ inputAnim }};">
+                <div style="padding:10px;font-size:11px;color:#A86A2A;border-right:1px solid rgba(168,106,42,0.18);display:flex;align-items:center;font-family:'Special Elite',monospace;">›_</div>
+                <input type="text" placeholder="65XXXXXXXX" value="{{ guessId }}" onInput="{{ onGuessInput }}" maxlength="10" style="flex:1;background:transparent;border:none;outline:none;font-family:'Special Elite',monospace;font-size:18px;color:#1C1A17;padding:8px 12px;caret-color:#A86A2A;letter-spacing:3px;" />
+              </div>
+              <sc-if value="{{ showError }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:8px;background:rgba(139,32,32,0.06);border:1px solid rgba(139,32,32,0.2);padding:8px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:4px;height:4px;background:#8b2020;border-radius:50%;flex-shrink:0;"></div>
+                  <div style="font-size:12px;color:#8b2020;line-height:1.5;">Wrong ID. That operative remains at large.</div>
+                </div>
+              </sc-if>
+            </div>
+            <div onClick="{{ onSubmit }}" style="background:#8b2020;padding:14px;text-align:center;cursor:pointer;">
+              <div style="font-family:'Special Elite',monospace;font-size:11px;color:#F3EEE5;letter-spacing:4px;">SUBMIT ACCUSATION ›</div>
+              <div style="font-size:8px;color:rgba(243,238,229,0.4);margin-top:3px;letter-spacing:2px;font-family:'Special Elite',monospace;">IRREVERSIBLE</div>
+            </div>
+          </div>
+
+          <!-- Evidence hints -->
+          <div style="font-size:8px;color:#A0907E;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-family:'Special Elite',monospace;">EVIDENCE ON HAND</div>
+
+          <div style="background:#E5E0CF;border:1px solid rgba(58,106,42,0.3);margin-bottom:8px;overflow:hidden;">
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(58,106,42,0.15);background:rgba(58,106,42,0.06);">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:5px;height:5px;background:#3a6a2a;border-radius:50%;"></div>
+                <div style="font-size:8px;color:#3a6a2a;letter-spacing:2px;font-family:'Special Elite',monospace;">HINT 1 · REVEALED</div>
+              </div>
+              <div style="font-size:8px;color:#A0907E;letter-spacing:1px;font-family:'Special Elite',monospace;">01 AUG</div>
+            </div>
+            <div style="padding:12px 14px;">
+              <div style="font-size:14px;color:#2F241F;line-height:1.65;font-style:italic;">"I have a plant on my desk named Detective Fern."</div>
+            </div>
+          </div>
+
+          <div style="background:#E5E0CF;border:1px solid rgba(58,106,42,0.3);margin-bottom:8px;overflow:hidden;">
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(58,106,42,0.15);background:rgba(58,106,42,0.06);">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:5px;height:5px;background:#3a6a2a;border-radius:50%;"></div>
+                <div style="font-size:8px;color:#3a6a2a;letter-spacing:2px;font-family:'Special Elite',monospace;">HINT 2 · REVEALED</div>
+              </div>
+              <div style="font-size:8px;color:#A0907E;letter-spacing:1px;font-family:'Special Elite',monospace;">10 AUG</div>
+            </div>
+            <div style="padding:12px 14px;">
+              <div style="font-size:14px;color:#2F241F;line-height:1.65;font-style:italic;">"My favourite film is a 1941 Orson Welles classic."</div>
+            </div>
+          </div>
+
+          <div style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;position:relative;margin-bottom:24px;">
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(47,36,31,0.06);">
+              <div style="display:flex;align-items:center;gap:8px;opacity:0.45;">
+                <div style="width:5px;height:5px;background:#A0907E;border-radius:50%;"></div>
+                <div style="font-size:8px;color:#A0907E;letter-spacing:2px;font-family:'Special Elite',monospace;">HINT 3 · SEALED</div>
+              </div>
+              <div style="font-size:8px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;">18 AUG</div>
+            </div>
+            <div style="padding:14px;display:flex;flex-direction:column;gap:6px;">
+              <div style="height:10px;background:repeating-linear-gradient(90deg,#DDD7C8 0px,#DDD7C8 5px,#E5E0CF 5px,#E5E0CF 8px);border-radius:1px;"></div>
+              <div style="height:10px;background:repeating-linear-gradient(90deg,#DDD7C8 0px,#DDD7C8 5px,#E5E0CF 5px,#E5E0CF 8px);border-radius:1px;width:70%;"></div>
+              <div style="height:10px;background:repeating-linear-gradient(90deg,#DDD7C8 0px,#DDD7C8 5px,#E5E0CF 5px,#E5E0CF 8px);border-radius:1px;width:85%;"></div>
+            </div>
+            <div style="position:absolute;top:50%;right:14px;transform:translateY(-50%)rotate(-4deg);border:2px solid rgba(168,106,42,0.3);padding:3px 8px;">
+              <div style="font-family:'Special Elite',monospace;font-size:10px;color:rgba(168,106,42,0.4);letter-spacing:2px;">SEALED</div>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+        </sc-if>
+
+      </div>
+
+      <!-- Case solved full-screen overlay -->
+      <sc-if value="{{ solved }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;z-index:30;background:#F3EEE5;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;box-sizing:border-box;text-align:center;animation:overlayIn 0.4s ease-out both;">
+
+          <!-- Stamp -->
+          <div style="border:3px solid #3a6a2a;padding:7px 24px;margin-bottom:20px;display:inline-block;animation:closedStamp 0.8s ease-out both;">
+            <div style="font-family:'Cinzel Decorative',serif;font-size:20px;color:#3a6a2a;letter-spacing:3px;">CASE CLOSED</div>
+          </div>
+
+          <div style="font-size:8px;color:#3a6a2a;letter-spacing:4px;margin-bottom:4px;font-family:'Special Elite',monospace;animation:revealUp 0.5s ease-out 0.3s both;opacity:0;">CONFESSION SEALED</div>
+          <div style="font-size:8px;color:#A0907E;letter-spacing:3px;margin-bottom:28px;font-family:'Special Elite',monospace;animation:revealUp 0.5s ease-out 0.4s both;opacity:0;">OPERATIVE IDENTIFIED</div>
+
+          <!-- Identity card -->
+          <div style="background:#E5E0CF;border:1px solid rgba(58,106,42,0.3);padding:22px 20px;width:100%;box-sizing:border-box;margin-bottom:18px;animation:revealUp 0.5s ease-out 0.5s both;opacity:0;">
+            <div style="font-size:7px;color:#A0907E;letter-spacing:3px;margin-bottom:14px;font-family:'Special Elite',monospace;">SENIOR OPERATIVE REVEALED</div>
+            <div style="width:60px;height:60px;border-radius:50%;background:#F3EEE5;border:2px solid rgba(58,106,42,0.35);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;">
+              <div style="font-size:7px;color:#A0907E;font-family:'Special Elite',monospace;text-align:center;line-height:1.3;">PHOTO</div>
+            </div>
+            <div style="font-family:'Cinzel Decorative',serif;font-size:17px;color:#1C1A17;margin-bottom:4px;line-height:1.2;">Wanchanok Phromma</div>
+            <div style="font-size:13px;color:#A86A2A;margin-bottom:14px;letter-spacing:1px;">Alias: Oracle</div>
+            <div style="display:flex;gap:8px;justify-content:center;">
+              <div style="padding:3px 8px;background:rgba(168,106,42,0.1);border:1px solid rgba(168,106,42,0.3);font-size:8px;color:#A86A2A;letter-spacing:1px;font-family:'Special Elite',monospace;">FOXLOCK</div>
+              <div style="padding:3px 8px;background:rgba(58,106,42,0.1);border:1px solid rgba(58,106,42,0.3);font-size:8px;color:#3a6a2a;letter-spacing:1px;font-family:'Special Elite',monospace;">IDENTIFIED</div>
+            </div>
+          </div>
+
+          <!-- Case reference -->
+          <div style="font-size:9px;color:#C4B8A8;letter-spacing:2px;line-height:1.9;margin-bottom:22px;font-family:'Special Elite',monospace;animation:revealUp 0.5s ease-out 0.6s both;opacity:0;">
+            CASE #2027-CSFD-FXL-001<br/>
+            CLOSED: 04 AUG 2027 · 14:32 ICT<br/>
+            ATTEMPTS USED: 1 OF 3
+          </div>
+
+          <div onClick="{{ resetCase }}" style="background:#2F241F;padding:14px 24px;cursor:pointer;width:100%;box-sizing:border-box;animation:revealUp 0.5s ease-out 0.7s both;opacity:0;">
+            <div style="font-family:'Cinzel Decorative',serif;font-size:13px;color:#D8C0A0;letter-spacing:2px;">Return to Profile</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- Bottom tabs -->
+      <div style="display:flex;background:#E5E0CF;border-top:1px solid rgba(47,36,31,0.1);flex-shrink:0;padding-bottom:34px;">
+        <a href="Houses.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">DIVISIONS</div>
+        </a>
+        <a href="Profile.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;border-right:1px solid rgba(47,36,31,0.06);display:block;">
+          <div style="width:14px;height:1.5px;background:#A86A2A;margin:0 auto 4px;"></div>
+          <div style="font-size:7px;color:#A86A2A;letter-spacing:1.5px;font-family:'Special Elite',monospace;">AGENT</div>
+        </a>
+        <a href="AdminDashboard.dc.html" style="flex:1;padding:9px 0 10px;text-align:center;text-decoration:none;opacity:0.4;display:block;">
+          <div style="font-size:7px;color:#7A6A58;letter-spacing:1.5px;font-family:'Special Elite',monospace;">STATS</div>
+        </a>
+      </div>
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { role: 'senior', editMode: false, hint1Edit: false, hint2Edit: false, hint3Edit: true, guessId: '', showError: false, shaking: false, solved: false };
+
+  renderVals() {
+    const { role, editMode, hint1Edit, hint2Edit, hint3Edit } = this.state;
+    const isSenior = role === 'senior';
+    const isJunior = role === 'junior';
+    const rActive = { bg:'rgba(139,32,32,0.08)', border:'rgba(139,32,32,0.3)', color:'#8b2020' };
+    const rIdle   = { bg:'transparent', border:'rgba(47,36,31,0.12)', color:'#A0907E' };
+    const sr = isSenior ? rActive : rIdle;
+    const jr = isJunior ? rActive : rIdle;
+    const viewMode = !editMode;
+    const active = 'rgba(168,106,42,0.3)';
+    const inactive = 'rgba(47,36,31,0.1)';
+
+    const hintBtn = (on) => ({
+      color:  on ? '#A86A2A' : '#A0907E',
+      border: on ? 'rgba(168,106,42,0.35)' : 'rgba(47,36,31,0.12)',
+      label:  on ? 'SAVE' : 'EDIT',
+    });
+    const h1 = hintBtn(hint1Edit);
+    const h2 = hintBtn(hint2Edit);
+    const h3 = hintBtn(hint3Edit);
+
+    return {
+      isSenior, isJunior,
+      seniorBg: sr.bg, seniorBorder: sr.border, seniorColor: sr.color,
+      juniorBg: jr.bg, juniorBorder: jr.border, juniorColor: jr.color,
+      setSenior: () => this.setState({ role: 'senior' }),
+      setJunior: () => this.setState({ role: 'junior' }),
+      editMode, viewMode,
+      editLabel: editMode ? 'SAVE FILE' : 'EDIT FILE',
+      editColor: editMode ? '#A86A2A' : '#7A6A58',
+      editBg: editMode ? 'rgba(168,106,42,0.08)' : 'transparent',
+      editBorderColor: editMode ? 'rgba(168,106,42,0.35)' : 'rgba(47,36,31,0.15)',
+      igBorder:      editMode ? active : inactive,
+      discordBorder: editMode ? active : inactive,
+      lineBorder:    editMode ? active : inactive,
+      toggleEdit: () => this.setState(s => ({ editMode: !s.editMode })),
+
+      hint1Edit, hint1View: !hint1Edit,
+      hint2Edit, hint2View: !hint2Edit,
+      hint3Edit, hint3View: !hint3Edit,
+      h1EditLabel: h1.label, h1EditColor: h1.color, h1EditBorder: h1.border,
+      h2EditLabel: h2.label, h2EditColor: h2.color, h2EditBorder: h2.border,
+      h3EditLabel: h3.label, h3EditColor: h3.color, h3EditBorder: h3.border,
+      toggleHint1: () => this.setState(s => ({ hint1Edit: !s.hint1Edit })),
+      toggleHint2: () => this.setState(s => ({ hint2Edit: !s.hint2Edit })),
+      toggleHint3: () => this.setState(s => ({ hint3Edit: !s.hint3Edit })),
+
+      guessId: this.state.guessId,
+      showError: this.state.showError,
+      inputBorder: this.state.showError ? 'rgba(139,32,32,0.4)' : 'rgba(168,106,42,0.22)',
+      inputAnim: this.state.shaking ? 'shake 0.4s ease-out' : 'none',
+      solved: this.state.solved,
+      showActive: !this.state.solved,
+      onGuessInput: e => this.setState({ guessId: e.target.value, showError: false }),
+      onSubmit: () => {
+        if (!this.state.guessId) return;
+        // Demo: correct ID solves the case, wrong shows error
+        if (this.state.guessId === '6512345678') {
+          this.setState({ solved: true });
+        } else {
+          this.setState({ showError: true, shaking: true });
+          setTimeout(() => this.setState({ shaking: false }), 450);
+        }
+      },
+      resetCase: () => this.setState({ solved: false, guessId: '', showError: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

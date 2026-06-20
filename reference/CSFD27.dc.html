@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes stampIn { from{opacity:0;transform:scale(1.4)rotate(-12deg)}to{opacity:1;transform:scale(1)rotate(-3deg)} }
+    @keyframes pulse { 0%,49%{opacity:1}50%,99%{opacity:0.2} }
+    .file-card { transition:box-shadow 0.15s, transform 0.15s; }
+    .file-card:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(47,36,31,0.1) !important; }
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:#F3EEE5;font-family:'Cormorant Garamond',serif;position:relative;overflow-x:hidden;">
+
+  <!-- Header -->
+  <div style="padding:48px 48px 0;display:flex;align-items:flex-start;justify-content:space-between;">
+    <div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+        <div style="width:7px;height:7px;background:#8b2020;border-radius:50%;animation:pulse 1s step-end infinite;"></div>
+        <div style="font-size:9px;color:#8b2020;letter-spacing:5px;text-transform:uppercase;font-family:'Special Elite',monospace;">ACTIVE OPERATION · CASE FILE INDEX</div>
+      </div>
+      <div style="font-family:'Cinzel Decorative',serif;font-size:52px;color:#1C1A17;line-height:1;letter-spacing:2px;">CSFD27</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#7A6A58;margin-top:6px;letter-spacing:1px;font-style:italic;">Case Sensitive: Freshy Day 2027</div>
+      <div style="margin-top:14px;font-size:15px;color:#A0907E;line-height:1.7;max-width:480px;">
+        A detective experience for the CS Department orientation. Seniors go undercover — juniors must crack the case before the deadline.
+      </div>
+    </div>
+
+    <!-- Seal -->
+    <div style="width:110px;height:110px;border-radius:50%;border:2px solid rgba(168,106,42,0.35);background:rgba(168,106,42,0.05);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;animation:stampIn 0.8s ease-out 0.4s both;opacity:0;">
+      <div style="position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(168,106,42,0.18);"></div>
+      <div style="position:absolute;inset:9px;border-radius:50%;border:1px dashed rgba(168,106,42,0.1);"></div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cinzel Decorative',serif;font-size:24px;color:#A86A2A;line-height:1;">CS</div>
+        <div style="font-size:9px;color:rgba(168,106,42,0.65);letter-spacing:4px;margin-top:2px;font-family:'Special Elite',monospace;">FD27</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div style="margin:32px 48px;height:1px;background:linear-gradient(to right,rgba(168,106,42,0.35),rgba(168,106,42,0.08),transparent);"></div>
+
+  <!-- Houses legend -->
+  <div style="padding:0 48px;display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;align-items:center;">
+    <div style="font-size:8px;color:#A0907E;letter-spacing:3px;align-self:center;margin-right:4px;font-family:'Special Elite',monospace;">AGENCIES:</div>
+    <div style="display:flex;align-items:center;gap:7px;padding:5px 12px;background:rgba(18,19,88,0.06);border:1px solid rgba(18,19,88,0.2);">
+      <div style="width:7px;height:7px;border-radius:50%;background:#121358;"></div>
+      <div style="font-size:9px;color:#121358;letter-spacing:2px;font-family:'Special Elite',monospace;">EVIDENCE HOUNDS</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;padding:5px 12px;background:rgba(39,76,39,0.06);border:1px solid rgba(39,76,39,0.2);">
+      <div style="width:7px;height:7px;border-radius:50%;background:#274C27;"></div>
+      <div style="font-size:9px;color:#274C27;letter-spacing:2px;font-family:'Special Elite',monospace;">INFERENCE SOCIETY</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;padding:5px 12px;background:rgba(76,26,23,0.06);border:1px solid rgba(76,26,23,0.2);">
+      <div style="width:7px;height:7px;border-radius:50%;background:#4C1A17;"></div>
+      <div style="font-size:9px;color:#4C1A17;letter-spacing:2px;font-family:'Special Elite',monospace;">CIPHER FOXES</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;padding:5px 12px;background:rgba(64,37,97,0.06);border:1px solid rgba(64,37,97,0.2);">
+      <div style="width:7px;height:7px;border-radius:50%;background:#402561;"></div>
+      <div style="font-size:9px;color:#402561;letter-spacing:2px;font-family:'Special Elite',monospace;">SHADOW SLEUTHS</div>
+    </div>
+  </div>
+
+  <!-- Page cards grid -->
+  <div style="padding:0 48px 64px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
+
+    <!-- Landing -->
+    <a href="Landing.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:linear-gradient(to right,#8b2020,#A86A2A);"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#8b2020;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 01</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Landing</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">Investigation board hero, live case deadline countdown, Microsoft SSO login button.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(139,32,32,0.08);border:1px solid rgba(139,32,32,0.2);font-size:7px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">COUNTDOWN</div>
+            <div style="padding:2px 7px;background:rgba(139,32,32,0.08);border:1px solid rgba(139,32,32,0.2);font-size:7px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">HERO</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Login -->
+    <a href="Login.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out 0.05s both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:#2F241F;"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#7A6A58;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 02</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Login</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/login</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">Classified access screen. Minimal Microsoft SSO prompt with CSFD27 bureau seal.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(47,36,31,0.08);border:1px solid rgba(47,36,31,0.15);font-size:7px;color:#7A6A58;letter-spacing:1px;font-family:'Special Elite',monospace;">AUTH</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Houses -->
+    <a href="Houses.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out 0.1s both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:linear-gradient(to right,#121358 25%,#274C27 25%,#274C27 50%,#4C1A17 50%,#4C1A17 75%,#402561 75%);"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#A0907E;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 03</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Houses</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/houses</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">4 agency directory cards. Onboarding overlay: alias input → magic pot house reveal animation.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(168,106,42,0.08);border:1px solid rgba(168,106,42,0.2);font-size:7px;color:#A86A2A;letter-spacing:1px;font-family:'Special Elite',monospace;">INTERACTIVE</div>
+            <div style="padding:2px 7px;background:rgba(168,106,42,0.08);border:1px solid rgba(168,106,42,0.2);font-size:7px;color:#A86A2A;letter-spacing:1px;font-family:'Special Elite',monospace;">ONBOARDING</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- House Detail -->
+    <a href="HouseDetail.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out 0.15s both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:#274C27;"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#274C27;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 04</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">House Detail</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/houses/[house]</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">Agency dossier header with lore, senior operatives listed first, then junior member grid.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(39,76,39,0.08);border:1px solid rgba(39,76,39,0.2);font-size:7px;color:#274C27;letter-spacing:1px;font-family:'Special Elite',monospace;">4 HOUSES</div>
+            <div style="padding:2px 7px;background:rgba(39,76,39,0.08);border:1px solid rgba(39,76,39,0.2);font-size:7px;color:#274C27;letter-spacing:1px;font-family:'Special Elite',monospace;">MEMBER GRID</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Profile -->
+    <a href="Profile.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out 0.2s both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:linear-gradient(to right,#A86A2A,#8b2020);"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#8b2020;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 05</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Own Profile</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/agent</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">Senior: ID badge, editable socials, mentee + hint editing. Junior: accusation terminal, evidence hints, case solved reveal.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(139,32,32,0.08);border:1px solid rgba(139,32,32,0.2);font-size:7px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">SENIOR + JUNIOR</div>
+            <div style="padding:2px 7px;background:rgba(139,32,32,0.08);border:1px solid rgba(139,32,32,0.2);font-size:7px;color:#8b2020;letter-spacing:1px;font-family:'Special Elite',monospace;">ACCUSATION</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Public Profile -->
+    <a href="PublicProfile.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out 0.25s both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:#D8C0A0;"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#A0907E;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 06</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Public Profile</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/agent/[id]</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">Read-only dossier view with photo, alias, house badge, and social contact channels.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(47,36,31,0.06);border:1px solid rgba(47,36,31,0.12);font-size:7px;color:#7A6A58;letter-spacing:1px;font-family:'Special Elite',monospace;">READ ONLY</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Admin Dashboard -->
+    <a href="AdminDashboard.dc.html" style="text-decoration:none;">
+      <div class="file-card" style="background:#E5E0CF;border:1px solid rgba(47,36,31,0.1);overflow:hidden;animation:fadeUp 0.4s ease-out 0.35s both;box-shadow:0 2px 8px rgba(47,36,31,0.06);">
+        <div style="height:3px;background:linear-gradient(to right,#402561,#121358);"></div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:7px;color:#402561;letter-spacing:3px;margin-bottom:6px;font-family:'Special Elite',monospace;">CASE FILE · 08</div>
+              <div style="font-family:'Cinzel Decorative',serif;font-size:18px;color:#1C1A17;line-height:1.2;">Admin Dashboard</div>
+            </div>
+            <div style="font-size:10px;color:#C4B8A8;letter-spacing:1px;font-family:'Special Elite',monospace;padding-top:2px;">/admin/dashboard</div>
+          </div>
+          <div style="font-size:13px;color:#7A6A58;line-height:1.65;margin-bottom:14px;">Read-only view of all junior/senior pcode pairings and solved status. Desktop layout.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <div style="padding:2px 7px;background:rgba(64,37,97,0.08);border:1px solid rgba(64,37,97,0.2);font-size:7px;color:#402561;letter-spacing:1px;font-family:'Special Elite',monospace;">DESKTOP</div>
+            <div style="padding:2px 7px;background:rgba(64,37,97,0.08);border:1px solid rgba(64,37,97,0.2);font-size:7px;color:#402561;letter-spacing:1px;font-family:'Special Elite',monospace;">ADMIN ONLY</div>
+            <div style="padding:2px 7px;background:rgba(64,37,97,0.08);border:1px solid rgba(64,37,97,0.2);font-size:7px;color:#402561;letter-spacing:1px;font-family:'Special Elite',monospace;">PCODES + STATUS</div>
+          </div>
+        </div>
+      </div>
+    </a>
+
+
+  </div>
+
+  <!-- Footer -->
+  <div style="padding:0 48px 40px;border-top:1px solid rgba(168,106,42,0.1);margin:0 48px;">
+    <div style="padding-top:24px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-size:9px;color:#C4B8A8;letter-spacing:3px;font-family:'Special Elite',monospace;">CS DEPARTMENT · CPE · FRESHY DAY 2027 · CSFD27</div>
+      <div style="font-size:9px;color:#C4B8A8;letter-spacing:2px;font-family:'Special Elite',monospace;">7 CASE FILES · ALL CLASSIFIED</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

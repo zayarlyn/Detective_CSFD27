@@ -2,6 +2,8 @@
 
 A detective-themed mentor-mentee matching game for the CS Department orientation. CS seniors (CS25) go undercover as P'codes; CS juniors (CS26) receive time-gated hints and must identify their senior mentor before running out of attempts.
 
+[Graphic requirements](https://drive.google.com/drive/u/0/folders/1HPvlVPbw57mfDI-eM0wq7FK-sFGMuX0c)
+
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router)
