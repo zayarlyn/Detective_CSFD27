@@ -5,7 +5,7 @@ import { db } from "@/db";
 import { student, pcode, hint } from "@/db/schema";
 import { getSessionData } from "@/lib/auth";
 import { toPublicStudent, toHint } from "@/lib/mappers";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, asc, eq, isNull } from "drizzle-orm";
 import { notFound, redirect } from "next/navigation";
 import type { Hint } from "@/types";
 
@@ -64,8 +64,9 @@ export default async function AgentProfilePage({
       const hintRows = await db
         .select()
         .from(hint)
-        .where(eq(hint.pcodeId, pcodeRow.id));
-      hints = hintRows.map(toHint).filter((h) => h.isRevealed);
+        .where(and(eq(hint.pcodeId, pcodeRow.id), isNull(hint.deletedAt)))
+        .orderBy(asc(hint.createdAt), asc(hint.id));
+      hints = hintRows.map((r, i) => toHint(r, i));
 
       if (isFound) {
         solvedAt = pcodeRow.foundAt!.toISOString();
