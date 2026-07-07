@@ -319,6 +319,29 @@ function HintCardInline({ hint, index }: { hint: Hint; index: number }) {
     })
     .toUpperCase();
 
+  if (!hint.isRevealed) {
+    return (
+      <div className="bg-surface border border-dark/10 mb-2 overflow-hidden opacity-60">
+        <div className="py-2.5 px-3.5 flex items-center justify-between border-b border-dark/6">
+          <div className="flex items-center gap-2">
+            <div className="w-[5px] h-[5px] bg-muted-fg rounded-full" />
+            <div className="text-[8px] text-muted-fg tracking-[2px] font-mono">
+              HINT {index + 1} · SEALED
+            </div>
+          </div>
+          <div className="text-[8px] text-muted-fg tracking-[1px] font-mono">
+            {revealDate}
+          </div>
+        </div>
+        <div className="py-3 px-3.5">
+          <div className="text-[12px] text-muted-fg tracking-[1px] font-mono">
+            LOCKED UNTIL RELEASE
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-surface border border-success/30 mb-2 overflow-hidden">
       <div className="py-2.5 px-3.5 flex items-center justify-between border-b border-success/15 bg-success/6">
