@@ -73,8 +73,44 @@ async function seed() {
       .insert(schema.pcode)
       .values(pcodeValues)
       .onConflictDoNothing()
-      .returning({ id: schema.pcode.id });
+      .returning({ id: schema.pcode.id, seniorId: schema.pcode.seniorId });
     console.log(`Inserted ${insertedPcodes.length} pcode pairs`);
+
+    const seniorInfoById = Object.fromEntries(
+      insertedSeniors.map((s) => {
+        const full = seniors.find((x) => x.studentId === s.studentId)!;
+        return [s.id, { nickname: full.nickname, house: full.house }];
+      }),
+    );
+
+    const now = Date.now();
+    const day = 24 * 60 * 60 * 1000;
+
+    const hintValues = insertedPcodes.flatMap((p) => {
+      const senior = seniorInfoById[p.seniorId];
+      return [
+        {
+          pcodeId: p.id,
+          content: `Word on the street ties this suspect to the ${senior.house.toUpperCase()} house.`,
+          revealDate: new Date(now - 3 * day),
+        },
+        {
+          pcodeId: p.id,
+          content: `Insiders whisper their nickname is "${senior.nickname}".`,
+          revealDate: new Date(now + 4 * day),
+        },
+        {
+          pcodeId: p.id,
+          content: `The final three digits of their student ID are the last clue you'll need.`,
+          revealDate: new Date(now + 10 * day),
+        },
+      ];
+    });
+
+    if (hintValues.length > 0) {
+      const insertedHints = await db.insert(schema.hint).values(hintValues).returning({ id: schema.hint.id });
+      console.log(`Inserted ${insertedHints.length} hints`);
+    }
   }
 
   console.log('Done.');
