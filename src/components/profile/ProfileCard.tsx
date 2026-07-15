@@ -2,6 +2,7 @@
 
 import { HOUSE_META } from "@/lib/constants/houses";
 import type { PublicStudent } from "@/types";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 type ProfileCardStudent = Pick<
@@ -53,7 +54,7 @@ function ContactRow({
   return (
     <div className="flex items-center gap-2.5 bg-background border border-dark/10 px-3 py-2.5">
       <div
-        className="w-6 h-6 rounded-[6px] shrink-0 flex items-center justify-center text-white font-bold font-sans text-[10px]"
+        className="w-6 h-6 rounded-md shrink-0 flex items-center justify-center text-white font-bold font-sans text-[10px]"
         style={{ background }}
       >
         {icon}
@@ -159,6 +160,7 @@ function ProfilePhoto({
 }
 
 export function ProfileCard({ student, editable = false }: ProfileCardProps) {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [currentStudent, setCurrentStudent] = useState(student);
   const [editing, setEditing] = useState(false);
@@ -171,6 +173,18 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.push("/");
+      router.refresh();
+    }
+  }
 
   const house = HOUSE_META[currentStudent.house];
   const displayedNickname = editing ? nickname : currentStudent.nickname;
@@ -314,34 +328,20 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
         tabIndex={-1}
       />
 
-      <div className="mb-3.5 relative flex items-center justify-between gap-3">
-        <div className="text-[7px] text-danger tracking-[4px] uppercase font-mono">
+      <div className="mb-3.5 relative flex items-center justify-between gap-3 flex-wrap">
+        <div className="text-[7px] text-danger tracking-[4px] uppercase font-mono whitespace-nowrap">
           AGENT DOSSIER · {editing ? "EDITING" : "READ ONLY"}
         </div>
         {editable && (
-          <div className="flex items-center gap-2">
-            {editing && (
-              <button
-                type="button"
-                onClick={cancelEditing}
-                disabled={saving}
-                className="px-2 py-[5px] text-[9px] text-muted tracking-[2px] font-mono cursor-pointer disabled:opacity-60"
-              >
-                CANCEL
-              </button>
-            )}
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               type="button"
-              onClick={editing ? saveChanges : startEditing}
-              disabled={saving}
-              aria-label={editing ? "Save file" : "Edit file"}
-              className={`px-3 py-[5px] border text-[9px] tracking-[2px] font-mono transition-colors disabled:opacity-60 ${
-                editing
-                  ? "border-accent bg-accent/15 text-accent cursor-pointer"
-                  : "border-accent/35 bg-accent/8 text-accent cursor-pointer"
-              }`}
+              onClick={handleLogout}
+              disabled={loggingOut}
+              aria-label="Log out"
+              className="px-3 py-[5px] border border-danger bg-danger text-white text-[9px] tracking-[2px] font-mono cursor-pointer transition-colors disabled:opacity-60 whitespace-nowrap"
             >
-              {saving ? "SAVING..." : editing ? "SAVE FILE" : "EDIT FILE"}
+              {loggingOut ? "LOGGING OUT..." : "LOGOUT"}
             </button>
           </div>
         )}
@@ -400,6 +400,34 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
       {error && (
         <div className="mt-4 bg-danger/6 border border-danger/20 px-3 py-2 text-[12px] text-danger">
           {error}
+        </div>
+      )}
+
+      {editable && (
+        <div className="flex items-center gap-2 justify-start sm:justify-end mt-4 flex-wrap">
+          {editing && (
+            <button
+              type="button"
+              onClick={cancelEditing}
+              disabled={saving}
+              className="px-2 py-[5px] text-[9px] text-muted tracking-[2px] font-mono cursor-pointer disabled:opacity-60 whitespace-nowrap"
+            >
+              CANCEL
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={editing ? saveChanges : startEditing}
+            disabled={saving}
+            aria-label={editing ? "Save file" : "Edit file"}
+            className={`appearance-none px-3 py-[5px] border text-[9px] tracking-[2px] font-mono transition-colors disabled:opacity-60 whitespace-nowrap ${
+              editing
+                ? "border-blue-600 bg-blue-600/15 text-blue-600 cursor-pointer"
+                : "border-accent/35 bg-accent/8 text-accent cursor-pointer"
+            }`}
+          >
+            {saving ? "SAVING..." : editing ? "SAVE FILE" : "EDIT FILE"}
+          </button>
         </div>
       )}
 

@@ -44,3 +44,6 @@ next-env.d.ts
 drizzle
 **/.claude
 env
+
+# dev-only login bypass
+src/app/api/auth/dev-login
