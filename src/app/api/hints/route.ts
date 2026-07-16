@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { student, pcode, hint } from '@/db/schema';
-import { and, asc, eq, isNull } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 import { getSessionData } from '@/lib/auth';
-import { toHint } from '@/lib/mappers';
+import { toHintsAcrossPcodes } from '@/lib/mappers';
 
 
 export async function GET() {
@@ -17,19 +17,20 @@ export async function GET() {
         return NextResponse.json({error: "Unauthorized"}, {status: 401});
     }
     const isSenior = user.role === "senior" || user.role === "house_leader";
-    const [pcodeRow] = isSenior
-    ? await db.select().from(pcode).where(eq(pcode.seniorId, user.id))
-    : await db.select().from(pcode).where(eq(pcode.juniorId, user.id));
+    // A senior can be mentoring more than one junior at once, so every
+    // active (non-deleted) pcode pairing must be included, not just one.
+    const pcodeRows = isSenior
+    ? await db.select().from(pcode).where(and(eq(pcode.seniorId, user.id), isNull(pcode.deletedAt)))
+    : await db.select().from(pcode).where(and(eq(pcode.juniorId, user.id), isNull(pcode.deletedAt)));
 
-  if (!pcodeRow) return NextResponse.json({ hints: [] });
+  if (pcodeRows.length === 0) return NextResponse.json({ hints: [] });
 
   const hintRows = await db
     .select()
     .from(hint)
-    .where(and(eq(hint.pcodeId, pcodeRow.id), isNull(hint.deletedAt)))
-    .orderBy(asc(hint.createdAt), asc(hint.id));
+    .where(and(inArray(hint.pcodeId, pcodeRows.map((p) => p.id)), isNull(hint.deletedAt)));
 
-  const hints = hintRows.map((row, i) => toHint(row, i));
+  const hints = toHintsAcrossPcodes(hintRows);
 
   return NextResponse.json({ hints });
 }

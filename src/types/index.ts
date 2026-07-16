@@ -49,6 +49,12 @@ export type PcodePair = {
   createdAt: string;
 };
 
+export type MenteeCase = {
+  pcodeId: string;
+  mentee: PublicStudent;
+  isFound: boolean;
+};
+
 export type MeResponse = {
   id: string;
   email: string;
@@ -65,6 +71,6 @@ export type MeResponse = {
   line: string | null;
   nationality: string | null;
   hints: Hint[];
-  mentee: PublicStudent | null;
+  cases: MenteeCase[];
   isFound: boolean;
 };

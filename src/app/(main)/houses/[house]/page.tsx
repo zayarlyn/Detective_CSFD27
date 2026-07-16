@@ -32,7 +32,7 @@ function StudentCard({
   return (
     <Link
       href={`/agent/${agent.id}`}
-      className="flex items-center gap-3 p-3.5 no-underline text-inherit bg-surface"
+      className="flex items-center gap-3 px-3.5 py-2.5 no-underline text-inherit bg-surface torn-bottom"
       style={{
         border: `1px solid rgba(${r},${g},${b},0.2)`,
         borderLeft: isLeader
@@ -42,33 +42,26 @@ function StudentCard({
       }}
     >
       <div
-        className="w-12 h-12 rounded-full shrink-0 flex items-center justify-center overflow-hidden bg-background"
+        className="w-12 h-12 shrink-0 flex items-center justify-center overflow-hidden bg-background"
         style={{ border: `2px solid rgba(${r},${g},${b},0.3)` }}
       >
-        {agent.profileUrl ? (
-          <Image
-            src={agent.profileUrl}
-            alt={`${agent.displayName} profile`}
-            width={48}
-            height={48}
-            unoptimized
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="text-[7px] text-muted-fg text-center leading-[1.3] font-mono tracking-[1px]">
-            PHOTO
-          </div>
-        )}
+        <Image
+          src={agent.profileUrl || "/detective-conan-pfp.png"}
+          alt={`${agent.displayName} profile`}
+          width={48}
+          height={48}
+          unoptimized
+          className="w-full h-full object-cover"
+        />
       </div>
 
       <div className="flex-1 min-w-0">
-        <div className="font-display text-[13px] text-foreground mb-0.5 leading-[1.3]">
-          {agent.displayName}
+        <div className="font-display text-[13px] text-foreground leading-[1.3]">
+          {agent.nickname || '-'}
         </div>
-        <div className="text-xs text-muted mb-1.5">
-          Alias:{" "}
+        <div className="text-xs text-muted mb-1">
           <span className="font-semibold" style={{ color: meta.color }}>
-            {agent.nickname ?? "Pending"}
+            {agent.displayName?? "Pending"}
           </span>
         </div>
         <div className="flex gap-1.5 flex-wrap">
@@ -121,7 +114,7 @@ export default async function HousePage({
       <main className="flex-1 overflow-y-auto">
         {/* Hero banner */}
         <div
-          className="relative overflow-hidden border-b-[3px] border-b-background/35 torn-bottom"
+          className="relative overflow-hidden border-b-[3px] border-b-background/35"
           style={{ background: meta.color }}
         >
           <div

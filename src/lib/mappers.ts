@@ -36,3 +36,25 @@ export function toHint(row: HintRow, position: number): Hint {
     updatedAt: row.updatedAt.toISOString(),
   };
 }
+
+// Hint reveal position is scoped per pcode (case), so hints spanning
+// multiple pcodes (e.g. a senior mentoring more than one junior) must be
+// grouped by pcodeId before their per-case index is computed.
+export function toHintsAcrossPcodes(rows: HintRow[]): Hint[] {
+  const byPcode = new Map<string, HintRow[]>();
+  for (const row of rows) {
+    const group = byPcode.get(row.pcodeId);
+    if (group) group.push(row);
+    else byPcode.set(row.pcodeId, [row]);
+  }
+
+  const hints: Hint[] = [];
+  for (const group of byPcode.values()) {
+    group.sort((a, b) => {
+      const diff = a.createdAt.getTime() - b.createdAt.getTime();
+      return diff !== 0 ? diff : a.id.localeCompare(b.id);
+    });
+    group.forEach((row, i) => hints.push(toHint(row, i)));
+  }
+  return hints;
+}
