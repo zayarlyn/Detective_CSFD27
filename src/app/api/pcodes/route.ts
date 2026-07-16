@@ -38,12 +38,14 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const status = searchParams.get("status") ?? "all";
 
-  const whereClause =
+  const whereClause = and(
+    isNull(pcode.deletedAt),
     status === "solved"
       ? isNotNull(pcode.foundAt)
       : status === "open"
         ? isNull(pcode.foundAt)
-        : undefined;
+        : undefined,
+  );
 
   const rows = await db
     .select({

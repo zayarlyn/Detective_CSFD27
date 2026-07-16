@@ -58,7 +58,7 @@ export default async function AgentProfilePage({
     const [pcodeRow] = await db
       .select()
       .from(pcode)
-      .where(eq(pcode.juniorId, row.id));
+      .where(and(eq(pcode.juniorId, row.id), isNull(pcode.deletedAt)));
     if (pcodeRow) {
       isFound = pcodeRow.foundAt !== null;
       const hintRows = await db
@@ -114,7 +114,7 @@ export default async function AgentProfilePage({
 
         {!isMe && (
           <div className="mx-auto max-w-content my-8 bg-background border border-dark/8 p-5 text-center relative overflow-hidden torn-edges">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[5deg] font-display text-[30px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/5">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-5deg] font-display text-[30px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/5">
               ON FILE
             </div>
             <div className="text-[8px] text-muted-fg tracking-[3px] mb-1.5 font-mono relative">

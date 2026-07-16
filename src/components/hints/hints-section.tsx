@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { HintCard } from "@/components/hints/hint-card";
 import { HOUSE_META } from "@/lib/constants/houses";
-import type { Hint, PublicStudent } from "@/types";
+import type { Hint, MenteeCase } from "@/types";
 
 export function HintsSection() {
   const [hints, setHints] = useState<Hint[]>([]);
-  const [mentee, setMentee] = useState<PublicStudent | null>(null);
+  const [cases, setCases] = useState<MenteeCase[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function HintsSection() {
     ])
       .then(([hintsData, meData]) => {
         setHints(hintsData.hints ?? []);
-        setMentee(meData.mentee ?? null);
+        setCases(meData.cases ?? []);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -40,13 +40,18 @@ export function HintsSection() {
     );
   }
 
-  const houseMeta = mentee ? HOUSE_META[mentee.house] : null;
-
   return (
-    <div style={{ marginTop: 24 }}>
-      {/* ── ASSIGNED CASE ── */}
+    <div className="mt-8">
+      {/* ── ASSIGNED CASE(S) ── */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 10,
+          }}
+        >
           <div
             style={{
               fontSize: 8,
@@ -55,14 +60,14 @@ export function HintsSection() {
               fontFamily: "'Special Elite', monospace",
             }}
           >
-            ASSIGNED CASE
+            {cases.length > 1 ? "ASSIGNED CASES" : "ASSIGNED CASE"}
           </div>
           <div
             style={{
               transform: "rotate(-3deg)",
               border: "1px solid rgba(139,32,32,0.4)",
-              padding: "2px 7px",
             }}
+            className="grid place-items-center px-2 py-1.5"
           >
             <span
               style={{
@@ -70,6 +75,7 @@ export function HintsSection() {
                 color: "rgba(139,32,32,0.6)",
                 letterSpacing: 2,
                 fontFamily: "'Special Elite', monospace",
+                lineHeight: 1
               }}
             >
               SENIOR ONLY
@@ -77,96 +83,92 @@ export function HintsSection() {
           </div>
         </div>
 
-        {mentee ? (
-          <Link href={`/agent/${mentee.id}`} style={{ textDecoration: "none" }}>
-            <div
-              style={{
-                background: "#E5E0CF",
-                border: "1px solid rgba(47,36,31,0.12)",
-                padding: "12px 14px",
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: "50%",
-                  border: "1px solid rgba(47,36,31,0.15)",
-                  flexShrink: 0,
-                  overflow: "hidden",
-                  background: "#D6CEBF",
-                  backgroundImage: mentee.profileUrl
-                    ? `url("${mentee.profileUrl}")`
-                    : undefined,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {!mentee.profileUrl && (
-                  <span
-                    style={{
-                      fontSize: 7,
-                      color: "#A0907E",
-                      letterSpacing: 1,
-                      fontFamily: "'Special Elite', monospace",
-                    }}
-                  >
-                    NO
-                  </span>
-                )}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    fontSize: 14,
-                    color: "#1C1A17",
-                    marginBottom: 4,
-                    fontFamily: "'Cinzel Decorative', serif",
-                    lineHeight: 1.3,
-                  }}
+        {cases.length > 0 ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {cases.map(({ mentee }) => {
+              const houseMeta = HOUSE_META[mentee.house];
+              return (
+                <Link
+                  key={mentee.id}
+                  href={`/agent/${mentee.id}`}
+                  style={{ textDecoration: "none" }}
                 >
-                  {mentee.displayName}
-                </div>
-                <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-                  {houseMeta && (
-                    <span
-                      style={{
-                        fontSize: 7,
-                        padding: "1px 6px",
-                        border: `1px solid ${houseMeta.color}4D`,
-                        color: houseMeta.color,
-                        background: `${houseMeta.color}1A`,
-                        letterSpacing: 1,
-                        fontFamily: "'Special Elite', monospace",
-                      }}
-                    >
-                      {houseMeta.name.toUpperCase()}
-                    </span>
-                  )}
-                  <span
+                  <div
+                    className="torn-edges"
                     style={{
-                      fontSize: 7,
-                      padding: "1px 6px",
-                      border: "1px solid rgba(139,32,32,0.25)",
-                      color: "#8b2020",
-                      background: "rgba(139,32,32,0.06)",
-                      letterSpacing: 1,
-                      fontFamily: "'Special Elite', monospace",
+                      background: "#E5E0CF",
+                      border: "1px solid rgba(47,36,31,0.12)",
+                      padding: "12px 14px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      cursor: "pointer",
                     }}
                   >
-                    JUNIOR
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Link>
+                    <div
+                      style={{
+                        width: 44,
+                        height: 44,
+                        border: "1px solid rgba(47,36,31,0.15)",
+                        flexShrink: 0,
+                        overflow: "hidden",
+                        background: "#D6CEBF",
+                        backgroundImage: `url("${mentee.profileUrl ?? '/detective-conan-pfp.png'}")`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontSize: 14,
+                          color: "#1C1A17",
+                          marginBottom: 4,
+                          fontFamily: "'Cinzel Decorative', serif",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {mentee.displayName}
+                      </div>
+                      <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                        {houseMeta && (
+                          <span
+                            style={{
+                              fontSize: 7,
+                              padding: "1px 6px",
+                              border: `1px solid ${houseMeta.color}4D`,
+                              color: houseMeta.color,
+                              background: `${houseMeta.color}1A`,
+                              letterSpacing: 1,
+                              fontFamily: "'Special Elite', monospace",
+                            }}
+                          >
+                            {houseMeta.name.toUpperCase()}
+                          </span>
+                        )}
+                        <span
+                          style={{
+                            fontSize: 7,
+                            padding: "1px 6px",
+                            border: "1px solid rgba(139,32,32,0.25)",
+                            color: "#8b2020",
+                            background: "rgba(139,32,32,0.06)",
+                            letterSpacing: 1,
+                            fontFamily: "'Special Elite', monospace",
+                          }}
+                        >
+                          JUNIOR
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         ) : (
           <div
             style={{
@@ -199,9 +201,42 @@ export function HintsSection() {
           >
             EVIDENCE HINTS
           </div>
-          {hints.map((hint, i) => (
-            <HintCard key={hint.id} hint={hint} index={i + 1} variant="senior" />
-          ))}
+          {cases.length > 1
+            ? cases.map(({ pcodeId, mentee }) => {
+                const caseHints = hints.filter((h) => h.pcodeId === pcodeId);
+                if (caseHints.length === 0) return null;
+                return (
+                  <div key={pcodeId} style={{ marginBottom: 12 }}>
+                    <div
+                      style={{
+                        fontSize: 7,
+                        color: "#A0907E",
+                        letterSpacing: 1,
+                        marginBottom: 6,
+                        fontFamily: "'Special Elite', monospace",
+                      }}
+                    >
+                      RE: {mentee.displayName.toUpperCase()}
+                    </div>
+                    {caseHints.map((hint, i) => (
+                      <HintCard
+                        key={hint.id}
+                        hint={hint}
+                        index={i + 1}
+                        variant="senior"
+                      />
+                    ))}
+                  </div>
+                );
+              })
+            : hints.map((hint, i) => (
+                <HintCard
+                  key={hint.id}
+                  hint={hint}
+                  index={i + 1}
+                  variant="senior"
+                />
+              ))}
         </div>
       )}
     </div>

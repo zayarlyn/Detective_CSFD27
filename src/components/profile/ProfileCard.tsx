@@ -1,9 +1,12 @@
 "use client";
 
 import { HOUSE_META } from "@/lib/constants/houses";
+import { cn } from "@/lib/utils";
 import type { PublicStudent } from "@/types";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { FaInstagram, FaDiscord } from "react-icons/fa";
+import { FaLine } from "react-icons/fa6";
 
 type ProfileCardStudent = Pick<
   PublicStudent,
@@ -41,6 +44,7 @@ function ContactRow({
   background,
   editing,
   onChange,
+  buildHref,
 }: {
   label: string;
   value: string | null;
@@ -48,40 +52,142 @@ function ContactRow({
   background: string;
   editing?: boolean;
   onChange?: (value: string) => void;
+  buildHref?: (value: string) => string;
 }) {
-  const displayValue = value?.trim() || "—";
+  const displayValue = value?.trim();
+  const isEmpty = !editing && !displayValue;
+  const href =
+    !editing && displayValue && buildHref ? buildHref(displayValue) : undefined;
 
-  return (
-    <div className="flex items-center gap-2.5 bg-background border border-dark/10 px-3 py-2.5">
+  const rowClassName = cn(
+    "w-full flex items-center gap-2 bg-background border border-dark/10 px-3 py-2 min-w-0 text-accent",
+    isEmpty && "border-dashed cursor-not-allowed",
+    href &&
+      "cursor-pointer transition-colors hover:bg-accent/5 hover:border-accent/30",
+  );
+
+  const rowContent = (
+    <>
       <div
-        className="w-6 h-6 rounded-md shrink-0 flex items-center justify-center text-white font-bold font-sans text-[10px]"
+        className={cn(
+          "w-6 h-6 rounded-md shrink-0 flex items-center justify-center text-white text-[13px]",
+          isEmpty && "grayscale opacity-50",
+        )}
         style={{ background }}
       >
         {icon}
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[8px] text-muted-fg tracking-[1px] mb-0.5 font-mono">
-          {label}
+      {editing ? (
+        <input
+          type="text"
+          value={value ?? ""}
+          onChange={(event) => onChange?.(event.target.value)}
+          maxLength={50}
+          placeholder={label.toLowerCase()}
+          aria-label={label}
+          className="w-full min-w-0 bg-transparent border-b border-accent/40 outline-none px-0.5 text-[14px] text-foreground caret-[#A86A2A] placeholder:text-muted-fg"
+        />
+      ) : (
+        <div
+          className={`-mt-0.5 min-w-0 flex-1 text-[14px] truncate ${isEmpty ? "text-muted-fg" : "text-foreground"}`}
+          aria-label={label}
+        >
+          {displayValue || "-"}
         </div>
-        {editing ? (
-          <input
-            type="text"
-            value={value ?? ""}
-            onChange={(event) => onChange?.(event.target.value)}
-            maxLength={50}
-            placeholder={label.toLowerCase()}
-            aria-label={label}
-            className="w-full bg-transparent border-b border-accent/40 outline-none px-0.5 text-[14px] text-foreground caret-[#A86A2A] placeholder:text-muted-fg"
-          />
-        ) : (
-          <div
-            className={`text-[14px] break-words ${displayValue === "—" ? "text-muted-fg" : "text-foreground"}`}
-          >
-            {displayValue}
-          </div>
-        )}
-      </div>
-    </div>
+      )}
+    </>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${label}: ${displayValue}`}
+        className={rowClassName}
+      >
+        {rowContent}
+      </a>
+    );
+  }
+
+  return <div className={rowClassName}>{rowContent}</div>;
+}
+
+function EditIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="13"
+      height="13"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+  );
+}
+
+function LogoutIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="13"
+      height="13"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <path d="M16 17l5-5-5-5" />
+      <path d="M21 12H9" />
+    </svg>
+  );
+}
+
+function CancelIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="13"
+      height="13"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M18 6 6 18" />
+      <path d="M6 6l12 12" />
+    </svg>
+  );
+}
+
+function SaveIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="13"
+      height="13"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
   );
 }
 
@@ -106,10 +212,12 @@ function CameraIcon() {
 
 function ProfilePhoto({
   profileUrl,
+  hasPhoto,
   editing,
   onPickPhoto,
 }: {
-  profileUrl: string | null;
+  profileUrl: string;
+  hasPhoto: boolean;
   editing: boolean;
   onPickPhoto?: () => void;
 }) {
@@ -118,19 +226,12 @@ function ProfilePhoto({
       <div
         className="size-20 flex items-center justify-center relative overflow-hidden bg-background border-2 border-accent"
         style={{
-          backgroundImage: profileUrl ? `url("${profileUrl}")` : undefined,
+          backgroundImage: `url("${profileUrl}")`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       >
-        {!profileUrl && (
-          <div className="text-[8px] text-muted-fg text-center leading-[1.4] font-mono">
-            PROFILE
-            <br />
-            PHOTO
-          </div>
-        )}
         <div className="absolute top-[3px] left-[3px] w-2 h-2 border-t-[1.5px] border-l-[1.5px] border-accent" />
         <div className="absolute top-[3px] right-[3px] w-2 h-2 border-t-[1.5px] border-r-[1.5px] border-accent" />
         <div className="absolute bottom-[3px] left-[3px] w-2 h-2 border-b-[1.5px] border-l-[1.5px] border-accent" />
@@ -145,14 +246,24 @@ function ProfilePhoto({
           >
             <CameraIcon />
             <span className="text-[7px] tracking-[1.5px] font-mono">
-              {profileUrl ? "CHANGE" : "ADD"}
+              {hasPhoto ? "CHANGE" : "ADD"}
             </span>
           </button>
         )}
       </div>
-      <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 bg-success px-1.5 py-0.5 whitespace-nowrap">
-        <div className="text-[6px] text-[#d0f0c0] tracking-[2px] font-mono">
-          VERIFIED
+      <div
+        className={cn(
+          "absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-1.5 py-0.5 whitespace-nowrap",
+          hasPhoto ? "bg-success" : "bg-danger",
+        )}
+      >
+        <div
+          className={cn(
+            "text-[6px] tracking-[2px] font-mono",
+            hasPhoto ? "text-[#d0f0c0]" : "text-[#f0c0c0]",
+          )}
+        >
+          {hasPhoto ? "VERIFIED" : "UNVERIFIED"}
         </div>
       </div>
     </div>
@@ -313,9 +424,42 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
     }
   }
 
+  const contactFields = [
+    {
+      key: "instagram",
+      label: "INSTAGRAM",
+      icon: <FaInstagram />,
+      background:
+        "linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
+      value: instagram,
+      onChange: setInstagram,
+      buildHref: (handle: string) =>
+        `https://instagram.com/${handle.replace(/^@/, "")}`,
+    },
+    {
+      key: "line",
+      label: "LINE",
+      icon: <FaLine />,
+      background: "#00B900",
+      value: line,
+      onChange: setLine,
+      buildHref: (id: string) =>
+        `https://line.me/ti/p/~${id.replace(/^~/, "")}`,
+    },
+    {
+      key: "discord",
+      label: "DISCORD",
+      icon: <FaDiscord />,
+      background: "#5865F2",
+      value: discord,
+      onChange: setDiscord,
+      buildHref: undefined,
+    },
+  ];
+
   return (
-    <section className="bg-surface relative overflow-hidden max-w-content mx-auto torn-bottom">
-      <div className="absolute top-1/2 -right-5 -translate-y-1/2 -rotate-[35deg] font-display text-[40px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/5">
+    <section className="bg-surface relative overflow-hidden max-w-content mx-auto">
+      <div className="absolute top-1/2 -right-5 -translate-y-1/2 -rotate-[35deg] font-display text-[40px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/10">
         CLASSIFIED
       </div>
 
@@ -333,15 +477,51 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
           AGENT DOSSIER · {editing ? "EDITING" : "READ ONLY"}
         </div>
         {editable && (
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {editing ? (
+              <>
+                <button
+                  type="button"
+                  onClick={cancelEditing}
+                  disabled={saving}
+                  aria-label="Cancel"
+                  title="Cancel"
+                  className="w-6.5 h-6.5 flex items-center justify-center border border-dark/25 text-muted cursor-pointer transition-colors hover:bg-dark/5 disabled:opacity-60"
+                >
+                  <CancelIcon />
+                </button>
+                <button
+                  type="button"
+                  onClick={saveChanges}
+                  disabled={saving}
+                  aria-label={saving ? "Saving..." : "Save file"}
+                  title={saving ? "Saving..." : "Save file"}
+                  className="w-6.5 h-6.5 flex items-center justify-center border border-blue-600 bg-blue-600/15 text-blue-600 cursor-pointer transition-colors hover:bg-blue-600/25 disabled:opacity-60"
+                >
+                  <SaveIcon />
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={startEditing}
+                aria-label="Edit file"
+                title="Edit file"
+                className="w-6.5 h-6.5 flex items-center justify-center border border-accent/35 bg-accent/8 text-accent cursor-pointer transition-colors hover:bg-accent/15"
+              >
+                <EditIcon />
+              </button>
+            )}
+            <div className="w-px h-4 bg-dark/15 mx-0.5" />
             <button
               type="button"
               onClick={handleLogout}
               disabled={loggingOut}
               aria-label="Log out"
-              className="px-3 py-[5px] border border-danger bg-danger text-white text-[9px] tracking-[2px] font-mono cursor-pointer transition-colors disabled:opacity-60 whitespace-nowrap"
+              title={loggingOut ? "Logging out..." : "Log out"}
+              className="w-6.5 h-6.5 flex items-center justify-center border border-danger/45 text-danger cursor-pointer transition-colors hover:bg-danger/10 disabled:opacity-60"
             >
-              {loggingOut ? "LOGGING OUT..." : "LOGOUT"}
+              <LogoutIcon />
             </button>
           </div>
         )}
@@ -349,34 +529,30 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
 
       <div className="flex gap-4 items-start relative">
         <ProfilePhoto
-          profileUrl={displayedProfileUrl}
+          profileUrl={displayedProfileUrl ?? "/detective-conan-pfp.png"}
+          hasPhoto={Boolean(displayedProfileUrl)}
           editing={editing}
           onPickPhoto={() => fileInputRef.current?.click()}
         />
 
         <div className="flex-1 min-w-0">
           <h1 className="font-display text-[17px] text-foreground leading-tight mb-1 break-words m-0">
-            {currentStudent.displayName}
+            {editing ? (
+              <input
+                type="text"
+                value={nickname}
+                onChange={(event) => setNickname(event.target.value)}
+                maxLength={30}
+                placeholder="alias"
+                aria-label="Alias / nickname"
+                className="w-full bg-transparent border-b border-accent/40 outline-none px-0.5 font-display text-[17px] text-foreground caret-[#A86A2A] placeholder:text-muted-fg"
+              />
+            ) : (
+              alias
+            )}
           </h1>
           <div className="text-[13px] text-accent mb-2.5 tracking-[1px]">
-            {editing ? (
-              <span className="flex items-baseline gap-1">
-                Alias:
-                <input
-                  type="text"
-                  value={nickname}
-                  onChange={(event) => setNickname(event.target.value)}
-                  maxLength={30}
-                  placeholder="alias"
-                  aria-label="Alias / nickname"
-                  className="flex-1 min-w-0 bg-transparent border-b border-accent/40 outline-none px-0.5 text-[13px] font-semibold text-accent caret-[#A86A2A] placeholder:text-accent/40"
-                />
-              </span>
-            ) : (
-              <>
-                Alias: <strong>{alias}</strong>
-              </>
-            )}
+            {currentStudent.displayName}
           </div>
           <div className="flex gap-1.5 flex-wrap mb-2.5">
             <div
@@ -393,7 +569,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
               {roleLabels[currentStudent.role]}
             </div>
           </div>
-          <div className="text-xs text-muted tracking-[1px]">{nationality}</div>
+          {/*<div className="text-xs text-muted tracking-[1px]">{nationality}</div>*/}
         </div>
       </div>
 
@@ -403,65 +579,33 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
         </div>
       )}
 
-      {editable && (
-        <div className="flex items-center gap-2 justify-start sm:justify-end mt-4 flex-wrap">
-          {editing && (
-            <button
-              type="button"
-              onClick={cancelEditing}
-              disabled={saving}
-              className="px-2 py-[5px] text-[9px] text-muted tracking-[2px] font-mono cursor-pointer disabled:opacity-60 whitespace-nowrap"
-            >
-              CANCEL
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={editing ? saveChanges : startEditing}
-            disabled={saving}
-            aria-label={editing ? "Save file" : "Edit file"}
-            className={`appearance-none px-3 py-[5px] border text-[9px] tracking-[2px] font-mono transition-colors disabled:opacity-60 whitespace-nowrap ${
-              editing
-                ? "border-blue-600 bg-blue-600/15 text-blue-600 cursor-pointer"
-                : "border-accent/35 bg-accent/8 text-accent cursor-pointer"
-            }`}
-          >
-            {saving ? "SAVING..." : editing ? "SAVE FILE" : "EDIT FILE"}
-          </button>
-        </div>
-      )}
-
       <div className="mt-4.5 pt-4 border-t border-dark/8 relative">
         <div className="text-[8px] text-muted-fg tracking-[3px] uppercase mb-3 font-mono">
           CONTACT CHANNELS
         </div>
-        <div className="flex flex-col gap-2">
-          <ContactRow
-            label="INSTAGRAM"
-            value={editing ? instagram : currentStudent.instagram}
-            editing={editing}
-            onChange={setInstagram}
-            icon={
-              <div className="w-2.5 h-2.5 rounded-[3px] border-[1.5px] border-white" />
-            }
-            background="linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"
-          />
-          <ContactRow
-            label="DISCORD"
-            value={editing ? discord : currentStudent.discord}
-            editing={editing}
-            onChange={setDiscord}
-            icon="D"
-            background="#5865F2"
-          />
-          <ContactRow
-            label="LINE"
-            value={editing ? line : currentStudent.line}
-            editing={editing}
-            onChange={setLine}
-            icon="L"
-            background="#00B900"
-          />
+        <div
+          className={
+            editing ? "grid grid-cols-1 sm:grid-cols-3 gap-2" : "flex gap-2"
+          }
+        >
+          {contactFields.map(
+            ({ key, label, icon, background, value, onChange, buildHref }) => (
+              <ContactRow
+                key={key}
+                label={label}
+                value={
+                  editing
+                    ? value
+                    : currentStudent[key as keyof typeof currentStudent]
+                }
+                editing={editing}
+                onChange={onChange}
+                icon={icon}
+                background={background}
+                buildHref={buildHref}
+              />
+            ),
+          )}
         </div>
       </div>
     </section>

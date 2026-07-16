@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { student, pcode, hint } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 import { getSessionData } from '@/lib/auth';
-import { toPublicStudent, toHint } from '@/lib/mappers';
-import type { MeResponse, PublicStudent, Hint } from '@/types';
+import { toPublicStudent, toHint, toHintsAcrossPcodes } from '@/lib/mappers';
+import type { MeResponse, MenteeCase, Hint } from '@/types';
 
 export async function GET() {
   const session = await getSessionData();
@@ -14,24 +14,50 @@ export async function GET() {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   let hints: Hint[] = [];
-  let mentee: PublicStudent | null = null;
+  let cases: MenteeCase[] = [];
   let isFound = false;
 
   if (user.role === 'junior') {
-    const [pcodeRow] = await db.select().from(pcode).where(eq(pcode.juniorId, user.id));
+    const [pcodeRow] = await db
+      .select()
+      .from(pcode)
+      .where(and(eq(pcode.juniorId, user.id), isNull(pcode.deletedAt)));
     if (pcodeRow) {
       isFound = pcodeRow.foundAt !== null;
       const hintRows = await db.select().from(hint).where(eq(hint.pcodeId, pcodeRow.id));
       hints = hintRows.map(toHint).filter((h) => h.isRevealed);
     }
   } else {
-    const [pcodeRow] = await db.select().from(pcode).where(eq(pcode.seniorId, user.id));
-    if (pcodeRow) {
-      isFound = pcodeRow.foundAt !== null;
-      const [menteeRow] = await db.select().from(student).where(eq(student.id, pcodeRow.juniorId));
-      if (menteeRow) mentee = toPublicStudent(menteeRow);
-      const hintRows = await db.select().from(hint).where(eq(hint.pcodeId, pcodeRow.id));
-      hints = hintRows.map(toHint);
+    // A senior can be mentoring more than one junior at once, so this must
+    // account for every active (non-deleted) pcode pairing, not just one.
+    const pcodeRows = await db
+      .select()
+      .from(pcode)
+      .where(and(eq(pcode.seniorId, user.id), isNull(pcode.deletedAt)));
+
+    if (pcodeRows.length > 0) {
+      const menteeRows = await db
+        .select()
+        .from(student)
+        .where(inArray(student.id, pcodeRows.map((p) => p.juniorId)));
+      const menteeById = new Map(menteeRows.map((m) => [m.id, m]));
+
+      cases = pcodeRows.flatMap((p) => {
+        const menteeRow = menteeById.get(p.juniorId);
+        if (!menteeRow) return [];
+        return [{
+          pcodeId: p.id,
+          mentee: toPublicStudent(menteeRow),
+          isFound: p.foundAt !== null,
+        }];
+      });
+      isFound = cases.length > 0 && cases.every((c) => c.isFound);
+
+      const hintRows = await db
+        .select()
+        .from(hint)
+        .where(inArray(hint.pcodeId, pcodeRows.map((p) => p.id)));
+      hints = toHintsAcrossPcodes(hintRows);
     }
   }
 
@@ -51,7 +77,7 @@ export async function GET() {
     line: user.line,
     nationality: user.nationality,
     hints,
-    mentee,
+    cases,
     isFound,
   };
 
