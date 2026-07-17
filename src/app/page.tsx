@@ -1,309 +1,89 @@
+import Image from "next/image";
 import Countdown from "../components/onboarding/Countdown";
 import CtaButton from "../components/onboarding/CtaButton";
 
-export default function Home() {
+const ERROR_MESSAGES: Record<string, string> = {
+  unauthorized_account:
+    "ACCESS DENIED — this account is not authorized for CSFD27.",
+  invalid_state:
+    "AUTHENTICATION FAILED — invalid or expired session. Please try again.",
+  token_exchange_failed:
+    "AUTHENTICATION FAILED — could not complete sign-in. Please try again.",
+  graph_failed:
+    "AUTHENTICATION FAILED — could not retrieve account details. Please try again.",
+};
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const errorMessage =
+    typeof params.error === "string" ? ERROR_MESSAGES[params.error] : undefined;
   return (
-    <div
-      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
-    >
+    <div className="min-h-screen flex flex-col">
       {/* Navbar — full width */}
-      <div
-        style={{
-          padding: "12px 28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderBottom: "1px solid rgba(47,36,31,0.14)",
-          flexShrink: 0,
-          background: "#E0D3AC",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-cinzel-decorative), serif",
-            fontSize: 16,
-            color: "#2F241F",
-            letterSpacing: 1,
-          }}
-        >
-          CSFD27
-        </div>
-        <div
-          style={{
-            fontSize: 9,
-            color: "#A0907E",
-            letterSpacing: 4,
-            fontFamily: "var(--font-special-elite), monospace",
-          }}
-        >
-          EST. 2027
-        </div>
-      </div>
 
       {/* Corkboard hero — full width dark strip */}
-      <div
-        className="torn-bottom"
-        style={{
-          position: "relative",
-          height: 206,
-          background: "#2F241F",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-      >
+      <div className="relative h-[206px] bg-dark overflow-hidden shrink-0">
         {/* background svg */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "radial-gradient(ellipse at 38% 55%,#3C2C12 0%,#2F241F 52%,#1A1208 100%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(168,106,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(168,106,42,0.06) 1px,transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-        />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_38%_55%,#3C2C12_0%,#2F241F_52%,#1A1208_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(168,106,42,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(168,106,42,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
         {/* background svg */}
 
         {/* Cards centered within a fixed-width inner container */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ position: "relative", width: "100%", maxWidth: 480 }}>
-            <div
-              style={{
-                position: "absolute",
-                top: 15,
-                left: 62,
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background: "#8b1a1a",
-                boxShadow: "0 2px 6px rgba(139,26,26,0.8)",
-                zIndex: 4,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: 20,
-                left: 16,
-                width: 92,
-                height: 76,
-                background: "#f0e8d2",
-                transform: "rotate(-5deg)",
-                boxShadow: "4px 5px 16px rgba(0,0,0,0.6)",
-                zIndex: 3,
-              }}
-            >
-              <div
-                style={{
-                  background: "#cdbf9c",
-                  margin: "7px 7px 3px",
-                  height: 43,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 6,
-                    color: "#6a5040",
-                    textAlign: "center",
-                    lineHeight: 1.5,
-                    fontFamily: "var(--font-special-elite), monospace",
-                  }}
-                >
+        <div className="absolute inset-0 flex justify-center">
+          <div className="relative w-full max-w-[480px]">
+            <div className="absolute top-[15px] left-[62px] w-2.5 h-2.5 rounded-full bg-[#8b1a1a] shadow-[0_2px_6px_rgba(139,26,26,0.8)] z-4" />
+            <div className="absolute top-5 left-4 w-[92px] h-[76px] bg-[#f0e8d2] rotate-[-5deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="bg-[#cdbf9c] mx-[7px] mt-[7px] mb-[3px] h-[43px] flex items-center justify-center">
+                <div className="text-[6px] text-[#6a5040] text-center leading-[1.5] font-mono">
                   OPERATIVE
                   <br />
                   PHOTO
                 </div>
               </div>
-              <div
-                style={{
-                  padding: "2px 7px",
-                  fontSize: 5,
-                  color: "#8b1a1a",
-                  letterSpacing: 1,
-                  fontFamily: "var(--font-special-elite), monospace",
-                }}
-              >
+              <div className="py-[2px] px-[7px] text-[5px] text-[#8b1a1a] tracking-[1px] font-mono">
                 EXHIBIT A · UNKNOWN
               </div>
             </div>
 
-            <div
-              style={{
-                position: "absolute",
-                top: 6,
-                left: 176,
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background: "#3a4a7a",
-                zIndex: 4,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: 10,
-                left: 130,
-                width: 112,
-                height: 70,
-                background: "#ede4cc",
-                transform: "rotate(3deg)",
-                boxShadow: "4px 5px 16px rgba(0,0,0,0.6)",
-                zIndex: 3,
-              }}
-            >
-              <div
-                style={{
-                  padding: 8,
-                  fontSize: 7,
-                  color: "#2a1e0e",
-                  lineHeight: 1.55,
-                  fontFamily: "var(--font-special-elite), monospace",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 5,
-                    color: "#8b1a1a",
-                    letterSpacing: 1,
-                    marginBottom: 4,
-                  }}
-                >
+            <div className="absolute top-1.5 left-[176px] w-2.5 h-2.5 rounded-full bg-[#3a4a7a] z-4" />
+            <div className="absolute top-2.5 left-[130px] w-[112px] h-[70px] bg-[#ede4cc] rotate-[3deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="p-2 text-[7px] text-[#2a1e0e] leading-[1.55] font-mono">
+                <div className="text-[5px] text-[#8b1a1a] tracking-[1px] mb-1">
                   CASE #2026-CSFD
                 </div>
                 <strong>OPERATION:</strong>
                 <br />
                 FRESHY DAY
                 <br />
-                STATUS: <span style={{ color: "#3a6a2a" }}>ACTIVE</span>
+                STATUS: <span className="text-[#3a6a2a]">ACTIVE</span>
               </div>
             </div>
 
-            <div
-              style={{
-                position: "absolute",
-                top: 104,
-                left: 54,
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background: "#A86A2A",
-                boxShadow: "0 2px 6px rgba(168,106,42,0.7)",
-                zIndex: 4,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: 108,
-                left: 18,
-                width: 74,
-                height: 90,
-                background: "#f0e8d2",
-                transform: "rotate(4deg)",
-                boxShadow: "4px 5px 16px rgba(0,0,0,0.6)",
-                zIndex: 3,
-              }}
-            >
-              <div
-                style={{
-                  margin: 6,
-                  height: 54,
-                  background: "#cdbf9c",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 6,
-                    color: "#6a5040",
-                    textAlign: "center",
-                    lineHeight: 1.4,
-                    fontFamily: "var(--font-special-elite), monospace",
-                  }}
-                >
+            <div className="absolute top-[104px] left-[54px] w-2.5 h-2.5 rounded-full bg-accent shadow-[0_2px_6px_rgba(168,106,42,0.7)] z-4" />
+            <div className="absolute top-[108px] left-[18px] w-[74px] h-[90px] bg-[#f0e8d2] rotate-[4deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="m-1.5 h-[54px] bg-[#cdbf9c] flex items-center justify-center">
+                <div className="text-[6px] text-[#6a5040] text-center leading-[1.4] font-mono">
                   YOUR
                   <br />
-                  MENTOR?
+                  {"P'code?"}
                 </div>
               </div>
-              <div
-                style={{
-                  padding: "2px 6px",
-                  fontSize: 5,
-                  color: "#3a2a1a",
-                  fontFamily: "var(--font-special-elite), monospace",
-                }}
-              >
+              <div className="py-[2px] px-1.5 text-[5px] text-[#3a2a1a] font-mono">
                 PENDING ID
               </div>
             </div>
 
-            <div
-              style={{
-                position: "absolute",
-                top: 95,
-                left: 180,
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background: "#4a7878",
-                zIndex: 4,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: 98,
-                left: 116,
-                width: 152,
-                height: 90,
-                background: "#1C1208",
-                border: "1px solid rgba(168,106,42,0.35)",
-                transform: "rotate(-2deg)",
-                boxShadow: "4px 5px 16px rgba(0,0,0,0.6)",
-                zIndex: 3,
-              }}
-            >
-              <div style={{ padding: 11 }}>
-                <div
-                  style={{
-                    fontSize: 5,
-                    color: "#A86A2A",
-                    letterSpacing: 2,
-                    marginBottom: 6,
-                    fontFamily: "var(--font-special-elite), monospace",
-                  }}
-                >
+            <div className="absolute top-[95px] left-[180px] w-2.5 h-2.5 rounded-full bg-[#4a7878] z-4" />
+            <div className="absolute top-[98px] left-[116px] w-[152px] h-[90px] bg-[#1C1208] border border-accent/35 rotate-[-2deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="p-[11px]">
+                <div className="text-[5px] text-accent tracking-[2px] mb-1.5 font-mono">
                   CIPHER DIVISION
                 </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-cinzel-decorative), serif",
-                    fontSize: 12,
-                    color: "#D8C0A0",
-                    lineHeight: 1.3,
-                  }}
-                >
+                <div className="font-display text-xs text-[#D8C0A0] leading-[1.3]">
                   IDENTIFY
                   <br />
                   YOUR
@@ -315,13 +95,7 @@ export default function Home() {
 
             {/* Red strings */}
             <svg
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: 286,
-                pointerEvents: "none",
-              }}
+              className="absolute inset-0 w-full h-[286px] pointer-events-none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <line
@@ -356,168 +130,81 @@ export default function Home() {
         </div>
 
         {/* CLASSIFIED stamp — anchored to hero edges */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 18,
-            right: 24,
-            border: "2.5px solid rgba(139,26,26,0.75)",
-            padding: "3px 10px",
-            transform: "rotate(-6deg)",
-            animation: "stampIn 0.9s ease-out 0.5s both",
-            zIndex: 6,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-special-elite), monospace",
-              fontSize: 12,
-              color: "rgba(139,26,26,0.75)",
-              letterSpacing: 3,
-            }}
-          >
+        <div className="absolute bottom-[18px] right-6 border-[2.5px] border-[#8b1a1a]/75 py-[3px] px-2.5 rotate-[-6deg] animate-[stampIn_0.9s_ease-out_0.5s_both] z-6">
+          <div className="font-mono text-xs text-[#8b1a1a]/75 tracking-[3px]">
             CLASSIFIED
           </div>
         </div>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 22,
-            left: 24,
-            fontSize: 7,
-            color: "rgba(216,192,160,0.35)",
-            letterSpacing: 2,
-            zIndex: 6,
-            fontFamily: "var(--font-special-elite), monospace",
-          }}
-        >
+        <div className="absolute bottom-[22px] left-6 text-[7px] text-[#D8C0A0]/35 tracking-[2px] z-6 font-mono">
           CASE #2026-CSFD
         </div>
       </div>
 
       {/* Content — centered column, comfortable reading width */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 640,
-            margin: "0 auto",
-            padding: "0 24px",
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+      <div className="flex-1 flex flex-col">
+        <div className="w-full max-w-[640px] mx-auto px-6 flex-1 flex flex-col">
           {/* Heading */}
-          <div
-            style={{
-              padding: "28px 0 24px",
-              borderBottom: "1px solid rgba(47,36,31,0.1)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 14,
-              }}
-            >
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  background: "#8b2020",
-                  borderRadius: "50%",
-                  animation: "pulse 1s step-end infinite",
-                  flexShrink: 0,
-                }}
-              />
-              <div
-                style={{
-                  fontSize: 11,
-                  color: "#8b2020",
-                  letterSpacing: 3,
-                  textTransform: "uppercase",
-                  fontFamily: "var(--font-special-elite), monospace",
-                }}
-              >
+          <div className="py-7 pb-3 border-foreground/10">
+            {/*<div className="flex items-center gap-2 mb-3.5">
+              <div className="w-2 h-2 bg-danger rounded-full animate-[pulse_1s_step-end_infinite] shrink-0" />
+              <div className="text-[11px] text-danger tracking-[3px] uppercase font-mono">
                 Active Investigation
               </div>
+            </div>*/}
+            <div className="flex items-center gap-3.5 mb-3">
+              <Image
+                src="/logo.jpg"
+                alt="KMUTT Investigation Bureau logo"
+                width={56}
+                height={56}
+                className="rounded-full object-cover shrink-0"
+              />
+              <div className="font-display text-[28px] text-foreground leading-[1.2]">
+                CS First Date
+                <br />
+                2026
+              </div>
             </div>
-            <div
-              style={{
-                fontFamily: "var(--font-cinzel-decorative), serif",
-                fontSize: 28,
-                color: "#1C1A17",
-                lineHeight: 1.3,
-                marginBottom: 18,
-              }}
-            >
-              Case Sensitive:
-              <br />
-              Freshy Day 2026
-            </div>
-            <div
-              style={{
-                height: 1,
-                background: "rgba(168,106,42,0.25)",
-                marginBottom: 18,
-              }}
-            />
-            <p
-              style={{
-                margin: 0,
-                fontSize: 18,
-                color: "#1C1A17",
-                lineHeight: 1.75,
-              }}
-            >
-              Seniors have gone undercover. Junior operatives must identify
-              their assigned mentor before the deadline.
+            {/*<div className="h-px bg-accent/25 mb-2" />*/}
+            <p className="m-0 text-lg text-foreground leading-[1.5]">
+              {
+                "Seniors have gone undercover. Junior operatives must identify their assigned P'code before the deadline."
+              }
             </p>
           </div>
+
+          <div className="h-px bg-accent/25 my-2" />
 
           {/* Countdown */}
           <Countdown />
 
           {/* CTA */}
-          <div style={{ paddingBottom: 20 }}>
-            <div
-              style={{
-                fontSize: 11,
-                color: "#7A6A58",
-                letterSpacing: 3,
-                textAlign: "center",
-                marginBottom: 12,
-                fontFamily: "var(--font-special-elite), monospace",
-              }}
-            >
+          <div className="pb-5">
+            {errorMessage && (
+              <div className="mb-3 px-3 py-2.5 font-mono text-[9px] tracking-wide bg-danger/8 border border-danger/25 text-danger">
+                ✕ {errorMessage}
+              </div>
+            )}
+            <div className="text-[11px] text-muted tracking-[3px] text-center mb-3 font-mono">
               — OPERATIVE ACCESS REQUIRED —
             </div>
             <CtaButton />
+            <p
+            className="font-mono text-[9px] tracking-wide text-center text-muted-fg mt-2"
+            // style={{ animation: "fadeIn 0.6s ease-out 0.27s both" }}
+          >
+            Use your <span className="text-accent">@ad.sit.kmutt.ac.th</span>{" "}
+            account to sign in.
+          </p>
           </div>
 
+
           {/* Footer */}
-          <div
-            style={{
-              marginTop: "auto",
-              padding: "16px 0 32px",
-              textAlign: "center",
-              borderTop: "1px solid rgba(47,36,31,0.08)",
-            }}
-          >
-            <div
-              style={{
-                fontSize: 9,
-                color: "#C4B8A8",
-                letterSpacing: 3,
-                fontFamily: "var(--font-special-elite), monospace",
-              }}
-            >
+          {/*<div className="mt-auto py-4 pb-8 text-center border-t border-foreground/[0.08]">
+            <div className="text-[9px] text-subtle tracking-[3px] font-mono">
               CSFD27 · SIT · KMUTT
             </div>
-          </div>
+          </div>*/}
         </div>
       </div>
     </div>

@@ -85,7 +85,7 @@ export function HintsSection() {
 
         {cases.length > 0 ? (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {cases.map(({ mentee }) => {
+            {cases.map(({ mentee, isFound }) => {
               const houseMeta = HOUSE_META[mentee.house];
               return (
                 <Link
@@ -96,6 +96,7 @@ export function HintsSection() {
                   <div
                     className="torn-edges"
                     style={{
+                      position: "relative",
                       background: "#E5E0CF",
                       border: "1px solid rgba(47,36,31,0.12)",
                       padding: "12px 14px",
@@ -105,6 +106,23 @@ export function HintsSection() {
                       cursor: "pointer",
                     }}
                   >
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        right: 10,
+                        transform: "rotate(-6deg)",
+                        fontSize: 8,
+                        letterSpacing: 1.5,
+                        padding: "2px 7px",
+                        border: `1.5px solid ${isFound ? "#3a6a2a" : "#8b2020"}`,
+                        color: isFound ? "#3a6a2a" : "#8b2020",
+                        opacity: isFound ? 1 : 0.7,
+                        fontFamily: "'Special Elite', monospace",
+                      }}
+                    >
+                      {isFound ? "SOLVED" : "OPEN"}
+                    </div>
                     <div
                       style={{
                         width: 44,
