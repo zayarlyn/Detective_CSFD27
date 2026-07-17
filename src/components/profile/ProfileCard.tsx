@@ -4,7 +4,7 @@ import { HOUSE_META } from "@/lib/constants/houses";
 import { cn } from "@/lib/utils";
 import type { PublicStudent } from "@/types";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaInstagram, FaDiscord } from "react-icons/fa";
 import { FaLine } from "react-icons/fa6";
 
@@ -285,6 +285,19 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [confirmingLogout, setConfirmingLogout] = useState(false);
+  const logoutRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!confirmingLogout) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (!logoutRef.current?.contains(event.target as Node)) {
+        setConfirmingLogout(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [confirmingLogout]);
 
   async function handleLogout() {
     if (loggingOut) return;
@@ -513,16 +526,43 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
               </button>
             )}
             <div className="w-px h-4 bg-dark/15 mx-0.5" />
-            <button
-              type="button"
-              onClick={handleLogout}
-              disabled={loggingOut}
-              aria-label="Log out"
-              title={loggingOut ? "Logging out..." : "Log out"}
-              className="w-6.5 h-6.5 flex items-center justify-center border border-danger/45 text-danger cursor-pointer transition-colors hover:bg-danger/10 disabled:opacity-60"
-            >
-              <LogoutIcon />
-            </button>
+            <div className="relative" ref={logoutRef}>
+              <button
+                type="button"
+                onClick={() => setConfirmingLogout((v) => !v)}
+                disabled={loggingOut}
+                aria-label="Log out"
+                aria-expanded={confirmingLogout}
+                title={loggingOut ? "Logging out..." : "Log out"}
+                className="w-6.5 h-6.5 flex items-center justify-center border border-danger/45 text-danger cursor-pointer transition-colors hover:bg-danger/10 disabled:opacity-60"
+              >
+                <LogoutIcon />
+              </button>
+              {confirmingLogout && (
+                <div className="absolute top-8 right-0 z-10 bg-background border border-dark/15 shadow-lg p-3">
+                  <div className="text-[11px] text-muted mb-2.5 leading-snug">
+                    Log out of this session?
+                  </div>
+                  <div className="flex items-center justify-between gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setConfirmingLogout(false)}
+                      className="px-2.5 py-1 text-[9px] tracking-[1.5px] font-mono uppercase text-muted cursor-pointer border border-dark/25 hover:bg-dark/5"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      disabled={loggingOut}
+                      className="px-2.5 py-1 text-[9px] tracking-[1.5px] font-mono uppercase text-white bg-danger border border-danger cursor-pointer disabled:opacity-60 text-nowrap"
+                    >
+                      {loggingOut ? "..." : "Log out"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

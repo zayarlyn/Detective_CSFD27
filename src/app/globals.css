@@ -66,6 +66,14 @@ body::after {
 @keyframes overlayOut { from{opacity:1} to{opacity:0} }
 @keyframes slideDown { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(40px)} }
 
+/* Flip-clock digit animation (Countdown). Two phases: the top leaf folds
+   away (revealing the already-updated top half underneath), then the
+   bottom leaf folds in over the bottom half a beat later. */
+@keyframes flipTop { 0%{transform:rotateX(0deg)} 100%{transform:rotateX(-90deg)} }
+@keyframes flipBottom { 0%{transform:rotateX(90deg)} 100%{transform:rotateX(0deg)} }
+.flip-leaf-top { animation: flipTop 300ms cubic-bezier(.4,0,.2,1) forwards; }
+.flip-leaf-bottom { animation: flipBottom 300ms cubic-bezier(.4,0,.2,1) 300ms both; }
+
 /* Torn/deckled paper edges — shallow zigzag clip-paths, ~4% notch depth so
    existing padding keeps content clear of the cut. */
 .torn-bottom {
