@@ -81,7 +81,7 @@ function CardShell({
         overflow: "hidden",
         position: "relative",
       }}
-      className="torn-edges"
+      className="torn-bottom-sm"
     >
       {children}
     </div>

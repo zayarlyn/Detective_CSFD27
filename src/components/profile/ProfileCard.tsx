@@ -60,7 +60,7 @@ function ContactRow({
     !editing && displayValue && buildHref ? buildHref(displayValue) : undefined;
 
   const rowClassName = cn(
-    "w-full flex items-center gap-2 bg-background border border-dark/10 px-3 py-2 min-w-0 text-accent",
+    "w-full flex items-center gap-2 bg-surface border border-dark/10 px-3 py-2 min-w-0 text-accent rounded-sm",
     isEmpty && "border-dashed cursor-not-allowed",
     href &&
       "cursor-pointer transition-colors hover:bg-accent/5 hover:border-accent/30",
@@ -471,7 +471,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
   ];
 
   return (
-    <section className="bg-surface relative overflow-hidden max-w-content mx-auto">
+    <section className="relative overflow-hidden max-w-content mx-auto">
       <div className="absolute top-1/2 -right-5 -translate-y-1/2 -rotate-[35deg] font-display text-[40px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/10">
         CLASSIFIED
       </div>

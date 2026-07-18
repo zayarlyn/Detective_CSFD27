@@ -87,7 +87,7 @@ export default async function AgentProfilePage({
   }
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col font-serif">
+    <div className="min-h-screen flex flex-col font-serif">
       <main className="flex-1 overflow-y-auto p-5 pb-24">
         <ProfileCard student={publicStudent} editable={isMe} />
 
@@ -113,7 +113,7 @@ export default async function AgentProfilePage({
         )}
 
         {!isMe && (
-          <div className="mx-auto max-w-content my-8 bg-background border border-dark/8 p-5 text-center relative overflow-hidden torn-edges">
+          <div className="mx-auto max-w-content my-8 bg-surface border border-dark/8 p-5 text-center relative overflow-hidden torn-edges">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-5deg] font-display text-[30px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/5">
               ON FILE
             </div>
@@ -124,7 +124,7 @@ export default async function AgentProfilePage({
               {caseNumber}
             </div>
             <div className="mt-2.5 text-[8px] text-subtle tracking-[1px] font-mono relative">
-              ISSUED BY CS DEPARTMENT · CONFIDENTIAL
+              ISSUED BY CSFD DEPARTMENT · CONFIDENTIAL
             </div>
           </div>
         )}

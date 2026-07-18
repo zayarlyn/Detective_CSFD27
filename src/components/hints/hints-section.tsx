@@ -5,6 +5,7 @@ import Link from "next/link";
 import { HintCard } from "@/components/hints/hint-card";
 import { HOUSE_META } from "@/lib/constants/houses";
 import type { Hint, MenteeCase } from "@/types";
+import { FileItem } from "../house/FileItem";
 
 export function HintsSection() {
   const [hints, setHints] = useState<Hint[]>([]);
@@ -25,16 +26,7 @@ export function HintsSection() {
 
   if (loading) {
     return (
-      <div
-        style={{
-          padding: "20px 0",
-          textAlign: "center",
-          fontSize: 9,
-          color: "#A0907E",
-          letterSpacing: 2,
-          fontFamily: "'Special Elite', monospace",
-        }}
-      >
+      <div className="py-5 text-center text-[9px] tracking-[2px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
         LOADING...
       </div>
     );
@@ -43,163 +35,83 @@ export function HintsSection() {
   return (
     <div className="mt-8">
       {/* ── ASSIGNED CASE(S) ── */}
-      <div style={{ marginBottom: 20 }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 8,
-              color: "#8b2020",
-              letterSpacing: 3,
-              fontFamily: "'Special Elite', monospace",
-            }}
-          >
+      <div className="mb-5">
+        <div className="mb-2.5 flex items-center justify-between">
+          <div className="text-[8px] tracking-[3px] text-[#8b2020] [font-family:'Special_Elite',monospace]">
             {cases.length > 1 ? "ASSIGNED CASES" : "ASSIGNED CASE"}
           </div>
-          <div
-            style={{
-              transform: "rotate(-3deg)",
-              border: "1px solid rgba(139,32,32,0.4)",
-            }}
-            className="grid place-items-center px-2 py-1.5"
-          >
-            <span
-              style={{
-                fontSize: 7,
-                color: "rgba(139,32,32,0.6)",
-                letterSpacing: 2,
-                fontFamily: "'Special Elite', monospace",
-                lineHeight: 1
-              }}
-            >
+          <div className="grid -rotate-3 place-items-center border border-[rgba(139,32,32,0.4)] px-2 py-1.5">
+            <span className="text-[7px] leading-none tracking-[2px] text-[rgba(139,32,32,0.6)] [font-family:'Special_Elite',monospace]">
               SENIOR ONLY
             </span>
           </div>
         </div>
 
         {cases.length > 0 ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {cases.map(({ mentee, isFound }) => {
+          <div className="flex flex-col gap-2">
+            {cases.map(({ mentee, isFound }, index) => {
               const houseMeta = HOUSE_META[mentee.house];
+              const isLeader = mentee.role === "house_leader";
+              const isSenior = mentee.role === "senior";
+              const code =
+                (isLeader ? "LDR" : isSenior ? "SR" : "JR") +
+                "-" +
+                mentee.studentId.slice(-2);
+
               return (
-                <Link
+                <FileItem
                   key={mentee.id}
                   href={`/agent/${mentee.id}`}
-                  style={{ textDecoration: "none" }}
+                  color={houseMeta.color}
+                  index={index}
+                  badgeLabel={code}
                 >
-                  <div
-                    className="torn-edges"
-                    style={{
-                      position: "relative",
-                      background: "#E5E0CF",
-                      border: "1px solid rgba(47,36,31,0.12)",
-                      padding: "12px 14px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 12,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div
+                  <div className="flex items-center gap-3">
+                    {/*<div
+                      className="absolute right-2.5 top-2 -rotate-6 px-[7px] py-0.5 text-[8px] tracking-[1.5px] [font-family:'Special_Elite',monospace]"
                       style={{
-                        position: "absolute",
-                        top: 8,
-                        right: 10,
-                        transform: "rotate(-6deg)",
-                        fontSize: 8,
-                        letterSpacing: 1.5,
-                        padding: "2px 7px",
                         border: `1.5px solid ${isFound ? "#3a6a2a" : "#8b2020"}`,
                         color: isFound ? "#3a6a2a" : "#8b2020",
                         opacity: isFound ? 1 : 0.7,
-                        fontFamily: "'Special Elite', monospace",
                       }}
                     >
                       {isFound ? "SOLVED" : "OPEN"}
-                    </div>
+                    </div>*/}
                     <div
+                      className="flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden border border-[rgba(47,36,31,0.15)] bg-[#D6CEBF] bg-cover bg-center"
                       style={{
-                        width: 44,
-                        height: 44,
-                        border: "1px solid rgba(47,36,31,0.15)",
-                        flexShrink: 0,
-                        overflow: "hidden",
-                        background: "#D6CEBF",
-                        backgroundImage: `url("${mentee.profileUrl ?? '/detective-conan-pfp.png'}")`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        backgroundImage: `url("${mentee.profileUrl ?? "/detective-conan-pfp.png"}")`,
                       }}
                     />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontSize: 14,
-                          color: "#1C1A17",
-                          marginBottom: 4,
-                          fontFamily: "'Cinzel Decorative', serif",
-                          lineHeight: 1.3,
-                        }}
-                      >
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-1 text-sm leading-[1.3] text-[#1C1A17] [font-family:'Cinzel_Decorative',serif]">
                         {mentee.displayName}
                       </div>
-                      <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                      <div className="flex flex-wrap gap-1">
                         {houseMeta && (
                           <span
+                            className="px-1.5 py-px text-[7px] tracking-[1px] [font-family:'Special_Elite',monospace]"
                             style={{
-                              fontSize: 7,
-                              padding: "1px 6px",
                               border: `1px solid ${houseMeta.color}4D`,
                               color: houseMeta.color,
                               background: `${houseMeta.color}1A`,
-                              letterSpacing: 1,
-                              fontFamily: "'Special Elite', monospace",
                             }}
                           >
                             {houseMeta.name.toUpperCase()}
                           </span>
                         )}
-                        <span
-                          style={{
-                            fontSize: 7,
-                            padding: "1px 6px",
-                            border: "1px solid rgba(139,32,32,0.25)",
-                            color: "#8b2020",
-                            background: "rgba(139,32,32,0.06)",
-                            letterSpacing: 1,
-                            fontFamily: "'Special Elite', monospace",
-                          }}
-                        >
+                        <span className="border border-[rgba(139,32,32,0.25)] bg-[rgba(139,32,32,0.06)] px-1.5 py-px text-[7px] tracking-[1px] text-[#8b2020] [font-family:'Special_Elite',monospace]">
                           JUNIOR
                         </span>
                       </div>
                     </div>
                   </div>
-                </Link>
+                </FileItem>
               );
             })}
           </div>
         ) : (
-          <div
-            style={{
-              background: "#E5E0CF",
-              border: "1px solid rgba(47,36,31,0.1)",
-              padding: "16px 14px",
-              textAlign: "center",
-              fontSize: 9,
-              color: "#A0907E",
-              letterSpacing: 1,
-              fontFamily: "'Special Elite', monospace",
-            }}
-          >
+          <div className="border border-[rgba(47,36,31,0.1)] bg-[#E5E0CF] px-3.5 py-4 text-center text-[9px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
             NO MENTEE ASSIGNED
           </div>
         )}
@@ -208,15 +120,7 @@ export function HintsSection() {
       {/* ── EVIDENCE HINTS ── */}
       {hints.length > 0 && (
         <div>
-          <div
-            style={{
-              fontSize: 8,
-              color: "#A0907E",
-              letterSpacing: 3,
-              marginBottom: 10,
-              fontFamily: "'Special Elite', monospace",
-            }}
-          >
+          <div className="mb-2.5 text-[8px] tracking-[3px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
             EVIDENCE HINTS
           </div>
           {cases.length > 1
@@ -224,16 +128,8 @@ export function HintsSection() {
                 const caseHints = hints.filter((h) => h.pcodeId === pcodeId);
                 if (caseHints.length === 0) return null;
                 return (
-                  <div key={pcodeId} style={{ marginBottom: 12 }}>
-                    <div
-                      style={{
-                        fontSize: 7,
-                        color: "#A0907E",
-                        letterSpacing: 1,
-                        marginBottom: 6,
-                        fontFamily: "'Special Elite', monospace",
-                      }}
-                    >
+                  <div key={pcodeId} className="mb-3">
+                    <div className="mb-1.5 text-[7px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
                       RE: {mentee.displayName.toUpperCase()}
                     </div>
                     {caseHints.map((hint, i) => (
