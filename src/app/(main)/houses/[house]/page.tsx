@@ -1,12 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { and, asc, eq, isNull, sql } from "drizzle-orm";
+import { ExpandableDesc } from "@/components/house/ExpandableDesc";
+import { FileItem } from "@/components/house/FileItem";
+import { MascotLogo } from "@/components/house/MascotLogo";
 import { db } from "@/db";
 import { student } from "@/db/schema";
 import { HOUSE_META, HOUSES, type House } from "@/lib/constants/houses";
 import { toPublicStudent } from "@/lib/mappers";
 import type { PublicStudent } from "@/types";
+import { and, asc, eq, isNull, sql } from "drizzle-orm";
+import Image from "next/image";
+import { notFound } from "next/navigation";
 
 const ROLE_LABELS: Record<PublicStudent["role"], string> = {
   house_leader: "HOUSE LEADER",
@@ -20,66 +22,56 @@ function isHouse(value: string): value is House {
 
 function StudentCard({
   agent,
-  delayMs = 0,
+  index,
 }: {
   agent: PublicStudent;
-  delayMs?: number;
+  index: number;
 }) {
   const meta = HOUSE_META[agent.house];
   const [r, g, b] = meta.rgb;
   const isLeader = agent.role === "house_leader";
+  const isSenior = agent.role === "senior";
+  const code =
+    (isLeader ? "LDR" : isSenior ? "SR" : "JR") +
+    "-" +
+    agent.studentId.slice(-2);
 
   return (
-    <Link
+    <FileItem
       href={`/agent/${agent.id}`}
-      className="flex items-center gap-3 px-3.5 py-2.5 no-underline text-inherit bg-surface torn-bottom"
-      style={{
-        border: `1px solid rgba(${r},${g},${b},0.2)`,
-        borderLeft: isLeader
-          ? `4px solid ${meta.color}`
-          : `1px solid rgba(${r},${g},${b},0.2)`,
-        animation: `fadeIn 0.4s ease-out ${delayMs}ms both`,
-      }}
+      color={meta.color}
+      index={index}
+      badgeLabel={code}
     >
-      <div
-        className="w-12 h-12 shrink-0 flex items-center justify-center overflow-hidden bg-background"
-        style={{ border: `2px solid rgba(${r},${g},${b},0.3)` }}
-      >
-        <Image
-          src={agent.profileUrl || "/detective-conan-pfp.png"}
-          alt={`${agent.displayName} profile`}
-          width={48}
-          height={48}
-          unoptimized
-          className="w-full h-full object-cover"
-        />
-      </div>
+      <div className="flex items-center gap-3">
+        <div
+          className="w-12 h-12 shrink-0 flex items-center justify-center overflow-hidden bg-background"
+          style={{ border: `2px solid rgba(${r},${g},${b},0.3)` }}
+        >
+          <Image
+            src={agent.profileUrl || "/detective-conan-pfp.png"}
+            alt={`${agent.displayName} profile`}
+            width={48}
+            height={48}
+            unoptimized
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-      <div className="flex-1 min-w-0">
-        <div className="font-display text-[13px] text-foreground leading-[1.3]">
-          {agent.nickname || '-'}
-        </div>
-        <div className="text-xs text-muted mb-1">
-          <span className="font-semibold" style={{ color: meta.color }}>
-            {agent.displayName?? "Pending"}
-          </span>
-        </div>
-        <div className="flex gap-1.5 flex-wrap">
-          <div
-            className="px-[7px] py-0.5 text-[7px] tracking-[1px] font-mono"
-            style={{
-              background: `rgba(${r},${g},${b},0.12)`,
-              border: `1px solid rgba(${r},${g},${b},0.25)`,
-              color: meta.color,
-            }}
-          >
-            {ROLE_LABELS[agent.role]}
+        <div className="flex-1 min-w-0">
+          <div className="font-display text-[13px] text-foreground leading-[1.3]">
+            {agent.nickname || "-"}
+          </div>
+          <div className="text-xs text-muted mt-1">
+            <span className="font-semibold" style={{ color: meta.color }}>
+              {agent.displayName}
+            </span>
           </div>
         </div>
-      </div>
 
-      <div className="text-lg text-subtle">›</div>
-    </Link>
+        <div className="text-lg text-subtle">›</div>
+      </div>
+    </FileItem>
   );
 }
 
@@ -94,6 +86,8 @@ export default async function HousePage({
   const house = houseParam;
   const meta = HOUSE_META[house];
   const [r, g, b] = meta.rgb;
+  const [descFirst, ...descRestParts] = meta.desc.split(/\n\s*\n/);
+  const descRest = descRestParts.join("\n\n");
 
   const rows = await db
     .select()
@@ -114,7 +108,7 @@ export default async function HousePage({
       <main className="flex-1 overflow-y-auto">
         {/* Hero banner */}
         <div
-          className="relative overflow-hidden border-b-[3px] border-b-background/35"
+          className="relative overflow-hidden"
           style={{ background: meta.color }}
         >
           <div
@@ -134,9 +128,9 @@ export default async function HousePage({
             }}
           />
 
-          <div className="relative max-w-content mx-auto px-5 pt-6 pb-5">
+          <div className="relative max-w-content mx-auto px-5 pt-6 pb-12 flex flex-col items-center text-center">
             <div
-              className="inline-block border border-background/25 px-2 py-0.5 mb-3.5"
+              className="self-start border border-background/25 px-2 py-0.5 mb-3.5"
               style={{ animation: "stampIn 0.7s ease-out both" }}
             >
               <div className="text-[7px] text-background/50 tracking-[3px] font-mono">
@@ -144,59 +138,79 @@ export default async function HousePage({
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-[60px] h-[60px] rounded-full flex items-center justify-center shrink-0 text-white border-2 border-background/25 bg-background/6">
-                logo
-              </div>
-
-              <div className="flex-1">
-                <div className="font-display text-[22px] text-background leading-[1.15] mb-1.5">
-                  {meta.name} - {meta.tagline}
+            <div className="flex items-center gap-4 w-full">
+              <MascotLogo url={meta.mascot} name={meta.name} />
+              <div className="flex-col justify-start text-left">
+                <div className="font-display text-2xl text-background leading-[1.15] mb-2">
+                  {meta.name}
                 </div>
-                <div className="flex gap-2 flex-wrap">
-                  <div className="px-2 py-0.5 text-[8px] tracking-[1px] font-mono bg-background/12 border border-background/25 text-background/80">
-                    {members.length} AGENTS
-                  </div>
-                  <div className="px-2 py-0.5 bg-success/25 border border-success/45 text-[8px] text-[#8aca80] tracking-[1px] font-mono">
-                    ACTIVE
-                  </div>
+                <div className="text-base text-background/70 tracking-[2px] uppercase font-mono leading-4">
+                  {meta.tagline}
                 </div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-4 border-t border-background/12">
-              <div className="whitespace-pre-wrap text-lg text-slate-300 font-bold eading-[1.75] italic">
-                {meta.desc}
               </div>
             </div>
           </div>
         </div>
 
+        {/* Division summary — torn evidence card overlapping the hero */}
+        <div className="relative -mt-[30px] max-w-content mx-auto px-4">
+          <div className="bg-surface px-3 pt-4 pb-3 shadow-[3px_4px_0_rgba(0,0,0,0.12)] torn-bottom">
+            <div className="absolute top-3.5 left-4 w-2 h-2 rounded-full bg-danger shadow-[0_2px_4px_rgba(0,0,0,0.4)]" />
+            <div className="absolute top-3.5 right-4 w-2 h-2 rounded-full bg-danger shadow-[0_2px_4px_rgba(0,0,0,0.4)]" />
+            <div className="flex gap-2 flex-wrap mb-3 justify-center">
+              <div
+                className="px-2 py-0.5 text-[8px] tracking-[1px] font-mono"
+                style={{
+                  background: `rgba(${r},${g},${b},0.1)`,
+                  border: `1px solid rgba(${r},${g},${b},0.3)`,
+                  color: meta.color,
+                }}
+              >
+                {members.length} AGENTS
+              </div>
+              <div className="px-2 py-0.5 bg-success/10 border border-success/30 text-[8px] text-success tracking-[1px] font-mono">
+                ACTIVE
+              </div>
+            </div>
+            <ExpandableDesc
+              first={descFirst}
+              rest={descRest}
+              color={meta.color}
+            />
+          </div>
+        </div>
+
         {/* Division Leaders */}
-        <div className="max-w-content mx-auto px-4 my-6">
+        <div className="max-w-content mx-auto px-4 my-8">
           <div className="text-[8px] text-danger tracking-[4px] uppercase mb-3 font-mono">
             DIVISION LEADERS
           </div>
-          <div className="flex flex-col gap-2.5 mb-5">
+          <div className="flex flex-col gap-4 mb-5">
             {leaders.map((agent, index) => (
-              <StudentCard key={agent.id} agent={agent} delayMs={index * 60} />
+              <StudentCard
+                key={agent.id}
+                agent={agent}
+                index={index}
+                // delayMs={index * 60}
+              />
             ))}
           </div>
         </div>
 
         {/* Senior Operatives */}
 
-        <div className="max-w-content mx-auto px-4 my-6">
+        <div className="max-w-content mx-auto px-4 my-8">
           <div className="text-[8px] text-danger tracking-[4px] uppercase mb-3 font-mono">
             SENIOR OPERATIVES
           </div>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-4">
             {seniors.length > 0 ? (
               seniors.map((agent, index) => (
                 <StudentCard
                   key={agent.id}
                   agent={agent}
-                  delayMs={120 + index * 60}
+                  index={index}
+                  // delayMs={120 + index * 60}
                 />
               ))
             ) : (
@@ -212,13 +226,14 @@ export default async function HousePage({
           <div className="text-[8px] text-muted-fg tracking-[4px] uppercase mb-3 font-mono">
             JUNIOR OPERATIVES
           </div>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-4">
             {juniors.length > 0 ? (
               juniors.map((agent, index) => (
                 <StudentCard
                   key={agent.id}
                   agent={agent}
-                  delayMs={200 + index * 50}
+                  index={index}
+                  // delayMs={200 + index * 50}
                 />
               ))
             ) : (
