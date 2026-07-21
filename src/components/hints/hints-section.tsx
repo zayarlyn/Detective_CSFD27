@@ -128,7 +128,7 @@ export function HintsSection() {
                 const caseHints = hints.filter((h) => h.pcodeId === pcodeId);
                 if (caseHints.length === 0) return null;
                 return (
-                  <div key={pcodeId} className="mb-3">
+                  <div key={pcodeId} className="mb-6">
                     <div className="mb-1.5 text-[7px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
                       RE: {mentee.displayName.toUpperCase()}
                     </div>

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaInstagram, FaDiscord } from "react-icons/fa";
 import { FaLine } from "react-icons/fa6";
+import { PhotoViewer } from "@/components/profile/PhotoViewer";
 
 type ProfileCardStudent = Pick<
   PublicStudent,
@@ -215,11 +216,13 @@ function ProfilePhoto({
   hasPhoto,
   editing,
   onPickPhoto,
+  onView,
 }: {
   profileUrl: string;
   hasPhoto: boolean;
   editing: boolean;
   onPickPhoto?: () => void;
+  onView?: () => void;
 }) {
   return (
     <div className="relative shrink-0">
@@ -249,6 +252,14 @@ function ProfilePhoto({
               {hasPhoto ? "CHANGE" : "ADD"}
             </span>
           </button>
+        )}
+        {!editing && onView && (
+          <button
+            type="button"
+            onClick={onView}
+            aria-label={`View full-size photo${hasPhoto ? "" : " placeholder"}`}
+            className="absolute inset-0 z-10 cursor-pointer transition-colors hover:bg-dark/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+          />
         )}
       </div>
       <div
@@ -286,6 +297,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
   const [error, setError] = useState<string | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
   const [confirmingLogout, setConfirmingLogout] = useState(false);
+  const [viewingPhoto, setViewingPhoto] = useState(false);
   const logoutRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -573,6 +585,15 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
           hasPhoto={Boolean(displayedProfileUrl)}
           editing={editing}
           onPickPhoto={() => fileInputRef.current?.click()}
+          onView={() => setViewingPhoto(true)}
+        />
+        <PhotoViewer
+          open={viewingPhoto}
+          onClose={() => setViewingPhoto(false)}
+          profileUrl={displayedProfileUrl ?? "/detective-conan-pfp.png"}
+          alias={alias}
+          hasPhoto={Boolean(displayedProfileUrl)}
+          studentId={currentStudent.id}
         />
 
         <div className="flex-1 min-w-0">

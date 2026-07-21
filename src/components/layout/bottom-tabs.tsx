@@ -17,12 +17,12 @@ export function BottomTabs({ isAdmin }: { isAdmin: boolean; }) {
     const navLinks = baseNavLinks.filter((nav) => !nav.adminOnly || isAdmin);
 
     return (
-        <div className="sticky bottom-0 flex bg-surface border-t border-dark/10">
+        <div className=" fixed w-11/12 max-w-[720px] rounded-full left-1/2 -translate-x-1/2 bottom-4 shadow-sm flex bg-surface border-t border-dark/10">
             {navLinks.map((nav) => (
                 <Link
                     key={nav.href}
                     href={nav.href}
-                    className="flex-1 py-[11px] pb-[12px] text-center no-underline border-r border-dark/6 block transition-transform duration-150 active:scale-95"
+                    className="flex-1 py-2.5 text-center no-underline border-r border-dark/6 block transition-transform duration-150 active:scale-95"
                 >
                     <div
                         className={cn(
@@ -33,7 +33,7 @@ export function BottomTabs({ isAdmin }: { isAdmin: boolean; }) {
 
                     <div
                         className={cn(
-                            "flex items-center justify-center gap-1 text-[9px] tracking-[1.5px] font-mono transition-colors duration-150",
+                            "flex items-center justify-center gap-1 text-[12px] tracking-[1.5px] font-mono transition-colors duration-150",
                             pathname.startsWith(nav.href) ? "text-accent" : "text-muted",
                         )}
                     >

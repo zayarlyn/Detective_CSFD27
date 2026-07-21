@@ -181,8 +181,8 @@ export default async function HousePage({
         </div>
 
         {/* Division Leaders */}
-        <div className="max-w-content mx-auto px-4 my-8">
-          <div className="text-[8px] text-danger tracking-[4px] uppercase mb-3 font-mono">
+        <div className="max-w-content mx-auto px-4 my-10">
+          <div className="text-[10px] text-danger tracking-[4px] uppercase mb-3 font-mono">
             DIVISION LEADERS
           </div>
           <div className="flex flex-col gap-4 mb-5">
@@ -199,8 +199,8 @@ export default async function HousePage({
 
         {/* Senior Operatives */}
 
-        <div className="max-w-content mx-auto px-4 my-8">
-          <div className="text-[8px] text-danger tracking-[4px] uppercase mb-3 font-mono">
+        <div className="max-w-content mx-auto px-4 my-10">
+          <div className="text-[10px] text-danger tracking-[4px] uppercase mb-3 font-mono">
             SENIOR OPERATIVES
           </div>
           <div className="flex flex-col gap-4">
@@ -223,7 +223,7 @@ export default async function HousePage({
 
         {/* Junior Operatives */}
         <div className="max-w-content mx-auto px-4 my-6">
-          <div className="text-[8px] text-muted-fg tracking-[4px] uppercase mb-3 font-mono">
+          <div className="text-[10px] text-danger tracking-[4px] uppercase mb-3 font-mono">
             JUNIOR OPERATIVES
           </div>
           <div className="flex flex-col gap-4">
