@@ -48,7 +48,7 @@ export default async function HousesPage() {
         </div>
       </div>
 
-      <div className="grid min-[430px]:grid-cols-2 gap-4 pb-8 pt-6">
+      <div className="grid min-[440px]:grid-cols-2 gap-4 pb-8 pt-6">
         {HOUSES.map((house, index) => {
           const meta = HOUSE_META[house];
           const [r, g, b] = meta.rgb;
