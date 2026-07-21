@@ -1,6 +1,6 @@
 import { ExpandableDesc } from "@/components/house/ExpandableDesc";
 import { FileItem } from "@/components/house/FileItem";
-import { MascotLogo } from "@/components/house/MascotLogo";
+import { MascotAvatar } from "@/components/house/MascotAvatar";
 import { db } from "@/db";
 import { student } from "@/db/schema";
 import { HOUSE_META, HOUSES, type House } from "@/lib/constants/houses";
@@ -133,13 +133,13 @@ export default async function HousePage({
               className="self-start border border-background/25 px-2 py-0.5 mb-3.5"
               style={{ animation: "stampIn 0.7s ease-out both" }}
             >
-              <div className="text-[7px] text-background/50 tracking-[3px] font-mono">
+              <div className="text-[10px] text-background/50 tracking-[3px] font-mono">
                 DIVISION DOSSIER
               </div>
             </div>
 
             <div className="flex items-center gap-4 w-full">
-              <MascotLogo url={meta.mascot} name={meta.name} />
+              <MascotAvatar url={meta.mascot} name={meta.name} />
               <div className="flex-col justify-start text-left">
                 <div className="font-display text-2xl text-background leading-[1.15] mb-2">
                   {meta.name}
@@ -159,7 +159,7 @@ export default async function HousePage({
             <div className="absolute top-3.5 right-4 w-2 h-2 rounded-full bg-danger shadow-[0_2px_4px_rgba(0,0,0,0.4)]" />
             <div className="flex gap-2 flex-wrap mb-3 justify-center">
               <div
-                className="px-2 py-0.5 text-[8px] tracking-[1px] font-mono"
+                className="px-2 py-0.5 text-[10px] tracking-[1px] font-mono"
                 style={{
                   background: `rgba(${r},${g},${b},0.1)`,
                   border: `1px solid rgba(${r},${g},${b},0.3)`,
@@ -168,7 +168,7 @@ export default async function HousePage({
               >
                 {members.length} AGENTS
               </div>
-              <div className="px-2 py-0.5 bg-success/10 border border-success/30 text-[8px] text-success tracking-[1px] font-mono">
+              <div className="px-2 py-0.5 bg-success/10 border border-success/30 text-[10px] text-success tracking-[1px] font-mono">
                 ACTIVE
               </div>
             </div>

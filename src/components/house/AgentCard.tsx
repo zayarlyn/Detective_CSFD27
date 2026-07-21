@@ -47,7 +47,7 @@ export function AgentCard({ student, className, delayMs = 0 }: AgentCardProps) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="text-[6px] text-muted-fg font-mono tracking-[1px]">PHOTO</div>
+          <div className="text-[7px] text-muted-fg font-mono tracking-[1px]">PHOTO</div>
         )}
       </div>
 
@@ -66,7 +66,7 @@ export function AgentCard({ student, className, delayMs = 0 }: AgentCardProps) {
           border: `1px solid rgba(${r},${g},${b},0.2)`,
         }}
       >
-        <div className="text-[7px] tracking-[1px] font-mono" style={{ color: meta.color }}>
+        <div className="text-[10px] tracking-[1px] font-mono" style={{ color: meta.color }}>
           {ROLE_LABELS[student.role]}
         </div>
       </div>

@@ -36,23 +36,23 @@ export default async function Home({
         <div className="absolute inset-0 flex justify-center">
           <div className="relative w-full max-w-[480px]">
             <div className="absolute top-[15px] left-[62px] w-2.5 h-2.5 rounded-full bg-[#8b1a1a] shadow-[0_2px_6px_rgba(139,26,26,0.8)] z-4" />
-            <div className="absolute top-5 left-4 w-[92px] h-[76px] bg-[#f0e8d2] rotate-[-5deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
-              <div className="bg-[#cdbf9c] mx-[7px] mt-[7px] mb-[3px] h-[43px] flex items-center justify-center">
-                <div className="text-[6px] text-[#6a5040] text-center leading-[1.5] font-mono">
+            <div className="absolute top-5 left-4 w-[104px] h-[82px] bg-[#f0e8d2] rotate-[-5deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="bg-[#cdbf9c] mx-[7px] mt-[7px] mb-[3px] h-[47px] flex items-center justify-center">
+                <div className="text-[9px] text-[#6a5040] text-center leading-[1.5] font-mono">
                   OPERATIVE
                   <br />
                   PHOTO
                 </div>
               </div>
-              <div className="py-[2px] px-[7px] text-[5px] text-[#8b1a1a] tracking-[1px] font-mono">
+              <div className="py-[2px] px-[7px] text-[9px] text-[#8b1a1a] tracking-[0.5px] font-mono whitespace-nowrap">
                 EXHIBIT A · UNKNOWN
               </div>
             </div>
 
             <div className="absolute top-1.5 left-[176px] w-2.5 h-2.5 rounded-full bg-[#3a4a7a] z-4" />
-            <div className="absolute top-2.5 left-[130px] w-[112px] h-[70px] bg-[#ede4cc] rotate-[3deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
-              <div className="p-2 text-[7px] text-[#2a1e0e] leading-[1.55] font-mono">
-                <div className="text-[5px] text-[#8b1a1a] tracking-[1px] mb-1">
+            <div className="absolute top-2.5 left-[130px] w-[124px] h-[78px] bg-[#ede4cc] rotate-[3deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="p-2 text-[10px] text-[#2a1e0e] leading-[1.55] font-mono">
+                <div className="text-[9px] text-[#8b1a1a] tracking-[0.5px] mb-1 whitespace-nowrap">
                   CASE #2026-CSFD
                 </div>
                 <strong>OPERATION:</strong>
@@ -64,23 +64,23 @@ export default async function Home({
             </div>
 
             <div className="absolute top-[104px] left-[54px] w-2.5 h-2.5 rounded-full bg-accent shadow-[0_2px_6px_rgba(168,106,42,0.7)] z-4" />
-            <div className="absolute top-[108px] left-[18px] w-[74px] h-[90px] bg-[#f0e8d2] rotate-[4deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
-              <div className="m-1.5 h-[54px] bg-[#cdbf9c] flex items-center justify-center">
-                <div className="text-[6px] text-[#6a5040] text-center leading-[1.4] font-mono">
+            <div className="absolute top-[108px] left-[18px] w-[86px] h-[96px] bg-[#f0e8d2] rotate-[4deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+              <div className="m-1.5 h-[58px] bg-[#cdbf9c] flex items-center justify-center">
+                <div className="text-[9px] text-[#6a5040] text-center leading-[1.4] font-mono">
                   YOUR
                   <br />
                   {"P'code?"}
                 </div>
               </div>
-              <div className="py-[2px] px-1.5 text-[5px] text-[#3a2a1a] font-mono">
+              <div className="py-[2px] px-1.5 text-[9px] text-[#3a2a1a] font-mono whitespace-nowrap">
                 PENDING ID
               </div>
             </div>
 
             <div className="absolute top-[95px] left-[180px] w-2.5 h-2.5 rounded-full bg-[#4a7878] z-4" />
-            <div className="absolute top-[98px] left-[116px] w-[152px] h-[90px] bg-[#1C1208] border border-accent/35 rotate-[-2deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
+            <div className="absolute top-[98px] left-[116px] w-[160px] h-[96px] bg-[#1C1208] border border-accent/35 rotate-[-2deg] shadow-[4px_5px_16px_rgba(0,0,0,0.6)] z-3">
               <div className="p-[11px]">
-                <div className="text-[5px] text-accent tracking-[2px] mb-1.5 font-mono">
+                <div className="text-[9px] text-accent tracking-[1.5px] mb-1.5 font-mono whitespace-nowrap">
                   CIPHER DIVISION
                 </div>
                 <div className="font-display text-xs text-[#D8C0A0] leading-[1.3]">
@@ -135,7 +135,7 @@ export default async function Home({
             CLASSIFIED
           </div>
         </div>
-        <div className="absolute bottom-[22px] left-6 text-[7px] text-[#D8C0A0]/35 tracking-[2px] z-6 font-mono">
+        <div className="absolute bottom-[22px] left-6 text-[10px] text-[#D8C0A0]/35 tracking-[2px] z-6 font-mono">
           CASE #2026-CSFD
         </div>
       </div>
@@ -181,7 +181,7 @@ export default async function Home({
           {/* CTA */}
           <div className="pb-5">
             {errorMessage && (
-              <div className="mb-3 px-3 py-2.5 font-mono text-[9px] tracking-wide bg-danger/8 border border-danger/25 text-danger">
+              <div className="mb-3 px-3 py-2.5 font-mono text-[11px] tracking-wide bg-danger/8 border border-danger/25 text-danger">
                 ✕ {errorMessage}
               </div>
             )}
@@ -190,7 +190,7 @@ export default async function Home({
             </div>
             <CtaButton />
             <p
-            className="font-mono text-[9px] tracking-wide text-center text-muted-fg mt-2"
+            className="font-mono text-[11px] tracking-wide text-center text-muted-fg mt-2"
             // style={{ animation: "fadeIn 0.6s ease-out 0.27s both" }}
           >
             Use your <span className="text-accent">@ad.sit.kmutt.ac.th</span>{" "}

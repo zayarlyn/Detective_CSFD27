@@ -61,7 +61,7 @@ function ContactRow({
     !editing && displayValue && buildHref ? buildHref(displayValue) : undefined;
 
   const rowClassName = cn(
-    "w-full flex items-center gap-2 bg-surface border border-dark/10 px-3 py-2 min-w-0 text-accent rounded-sm",
+    "w-full flex items-center gap-2 bg-surface border border-dark/10 p-2 min-[440px]:p-3 min-w-0 text-accent rounded-sm",
     isEmpty && "border-dashed cursor-not-allowed",
     href &&
       "cursor-pointer transition-colors hover:bg-accent/5 hover:border-accent/30",
@@ -71,7 +71,7 @@ function ContactRow({
     <>
       <div
         className={cn(
-          "w-6 h-6 rounded-md shrink-0 flex items-center justify-center text-white text-[13px]",
+          "w-8 h-8 min-[440px]:w-6 min-[440px]:h-6 rounded-md shrink-0 flex items-center justify-center text-white text-[17px] min-[440px]:text-[13px]",
           isEmpty && "grayscale opacity-50",
         )}
         style={{ background }}
@@ -86,11 +86,11 @@ function ContactRow({
           maxLength={50}
           placeholder={label.toLowerCase()}
           aria-label={label}
-          className="w-full min-w-0 bg-transparent border-b border-accent/40 outline-none px-0.5 text-[14px] text-foreground caret-[#A86A2A] placeholder:text-muted-fg"
+          className="w-full min-w-0 bg-transparent border-b border-accent/40 outline-none px-0.5 text-[16px] min-[440px]:text-[14px] text-foreground caret-[#A86A2A] placeholder:text-muted-fg"
         />
       ) : (
         <div
-          className={`-mt-0.5 min-w-0 flex-1 text-[14px] truncate ${isEmpty ? "text-muted-fg" : "text-foreground"}`}
+          className={`-mt-0.5 min-w-0 flex-1 text-[16px] min-[440px]:text-[14px] truncate ${isEmpty ? "text-muted-fg" : "text-foreground"}`}
           aria-label={label}
         >
           {displayValue || "-"}
@@ -120,8 +120,9 @@ function EditIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="13"
-      height="13"
+      width="17"
+      height="17"
+      className="min-[440px]:w-[13px] min-[440px]:h-[13px]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"
@@ -139,8 +140,9 @@ function LogoutIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="13"
-      height="13"
+      width="17"
+      height="17"
+      className="min-[440px]:w-[13px] min-[440px]:h-[13px]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"
@@ -159,8 +161,9 @@ function CancelIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="13"
-      height="13"
+      width="17"
+      height="17"
+      className="min-[440px]:w-[13px] min-[440px]:h-[13px]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -178,8 +181,9 @@ function SaveIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="13"
-      height="13"
+      width="17"
+      height="17"
+      className="min-[440px]:w-[13px] min-[440px]:h-[13px]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -196,8 +200,9 @@ function CameraIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="18"
-      height="18"
+      width="22"
+      height="22"
+      className="min-[440px]:w-[18px] min-[440px]:h-[18px]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
@@ -248,7 +253,7 @@ function ProfilePhoto({
             className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-1 bg-dark/45 text-background cursor-pointer transition-colors hover:bg-dark/55"
           >
             <CameraIcon />
-            <span className="text-[7px] tracking-[1.5px] font-mono">
+            <span className="text-[10px] tracking-[1.5px] font-mono">
               {hasPhoto ? "CHANGE" : "ADD"}
             </span>
           </button>
@@ -270,7 +275,7 @@ function ProfilePhoto({
       >
         <div
           className={cn(
-            "text-[6px] tracking-[2px] font-mono",
+            "text-[9px] tracking-[2px] font-mono",
             hasPhoto ? "text-[#d0f0c0]" : "text-[#f0c0c0]",
           )}
         >
@@ -498,7 +503,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
       />
 
       <div className="mb-3.5 relative flex items-center justify-between gap-3 flex-wrap">
-        <div className="text-[7px] text-danger tracking-[4px] uppercase font-mono whitespace-nowrap">
+        <div className="text-[10px] text-danger tracking-[4px] uppercase font-mono whitespace-nowrap">
           AGENT DOSSIER · {editing ? "EDITING" : "READ ONLY"}
         </div>
         {editable && (
@@ -511,7 +516,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
                   disabled={saving}
                   aria-label="Cancel"
                   title="Cancel"
-                  className="w-6.5 h-6.5 flex items-center justify-center border border-dark/25 text-muted cursor-pointer transition-colors hover:bg-dark/5 disabled:opacity-60"
+                  className="w-11 h-11 min-[440px]:w-6.5 min-[440px]:h-6.5 flex items-center justify-center border border-dark/25 text-muted cursor-pointer transition-colors hover:bg-dark/5 disabled:opacity-60"
                 >
                   <CancelIcon />
                 </button>
@@ -521,7 +526,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
                   disabled={saving}
                   aria-label={saving ? "Saving..." : "Save file"}
                   title={saving ? "Saving..." : "Save file"}
-                  className="w-6.5 h-6.5 flex items-center justify-center border border-blue-600 bg-blue-600/15 text-blue-600 cursor-pointer transition-colors hover:bg-blue-600/25 disabled:opacity-60"
+                  className="w-11 h-11 min-[440px]:w-6.5 min-[440px]:h-6.5 flex items-center justify-center border border-blue-600 bg-blue-600/15 text-blue-600 cursor-pointer transition-colors hover:bg-blue-600/25 disabled:opacity-60"
                 >
                   <SaveIcon />
                 </button>
@@ -532,7 +537,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
                 onClick={startEditing}
                 aria-label="Edit file"
                 title="Edit file"
-                className="w-6.5 h-6.5 flex items-center justify-center border border-accent/35 bg-accent/8 text-accent cursor-pointer transition-colors hover:bg-accent/15"
+                className="w-11 h-11 min-[440px]:w-6.5 min-[440px]:h-6.5 flex items-center justify-center border border-accent/35 bg-accent/8 text-accent cursor-pointer transition-colors hover:bg-accent/15"
               >
                 <EditIcon />
               </button>
@@ -546,7 +551,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
                 aria-label="Log out"
                 aria-expanded={confirmingLogout}
                 title={loggingOut ? "Logging out..." : "Log out"}
-                className="w-6.5 h-6.5 flex items-center justify-center border border-danger/45 text-danger cursor-pointer transition-colors hover:bg-danger/10 disabled:opacity-60"
+                className="w-11 h-11 min-[440px]:w-6.5 min-[440px]:h-6.5 flex items-center justify-center border border-danger/45 text-danger cursor-pointer transition-colors hover:bg-danger/10 disabled:opacity-60"
               >
                 <LogoutIcon />
               </button>
@@ -559,7 +564,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
                     <button
                       type="button"
                       onClick={() => setConfirmingLogout(false)}
-                      className="px-2.5 py-1 text-[9px] tracking-[1.5px] font-mono uppercase text-muted cursor-pointer border border-dark/25 hover:bg-dark/5"
+                      className="px-3.5 py-2.5 min-[440px]:px-2.5 min-[440px]:py-1 text-[11px] tracking-[1.5px] font-mono uppercase text-muted cursor-pointer border border-dark/25 hover:bg-dark/5"
                     >
                       Cancel
                     </button>
@@ -567,7 +572,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
                       type="button"
                       onClick={handleLogout}
                       disabled={loggingOut}
-                      className="px-2.5 py-1 text-[9px] tracking-[1.5px] font-mono uppercase text-white bg-danger border border-danger cursor-pointer disabled:opacity-60 text-nowrap"
+                      className="px-3.5 py-2.5 min-[440px]:px-2.5 min-[440px]:py-1 text-[11px] tracking-[1.5px] font-mono uppercase text-white bg-danger border border-danger cursor-pointer disabled:opacity-60 text-nowrap"
                     >
                       {loggingOut ? "..." : "Log out"}
                     </button>
@@ -617,7 +622,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
           </div>
           <div className="flex gap-1.5 flex-wrap mb-2.5">
             <div
-              className="px-2 py-0.5 text-[8px] tracking-[1px] font-mono"
+              className="px-2 py-0.5 text-[10px] tracking-[1px] font-mono"
               style={{
                 background: `${house.color}1A`,
                 border: `1px solid ${house.color}4D`,
@@ -626,7 +631,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
             >
               {house.name.toUpperCase()}
             </div>
-            <div className="px-2 py-0.5 bg-danger/8 border border-danger/25 text-[8px] text-danger tracking-[1px] font-mono">
+            <div className="px-2 py-0.5 bg-danger/8 border border-danger/25 text-[10px] text-danger tracking-[1px] font-mono">
               {roleLabels[currentStudent.role]}
             </div>
           </div>
@@ -641,7 +646,7 @@ export function ProfileCard({ student, editable = false }: ProfileCardProps) {
       )}
 
       <div className="mt-4.5 pt-4 border-t border-dark/8 relative">
-        <div className="text-[8px] text-muted-fg tracking-[3px] uppercase mb-3 font-mono">
+        <div className="text-[10px] text-muted-fg tracking-[3px] uppercase mb-3 font-mono">
           CONTACT CHANNELS
         </div>
         <div

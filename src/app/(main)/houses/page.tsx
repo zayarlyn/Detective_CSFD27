@@ -1,5 +1,5 @@
 import { FileItem } from "@/components/house/FileItem";
-import { MascotLogo } from "@/components/house/MascotLogo";
+import { MascotAvatar } from "@/components/house/MascotAvatar";
 import { OnboardingOverlay } from "@/components/house/OnboardingOverlay";
 import { db } from "@/db";
 import { student } from "@/db/schema";
@@ -68,7 +68,7 @@ export default async function HousesPage() {
               color={meta.color}
             >
               <div className="flex gap-3 items-center">
-                <MascotLogo
+                <MascotAvatar
                   url={meta.mascot}
                   name={meta.name}
                   size={60}
@@ -87,7 +87,7 @@ export default async function HousesPage() {
                     {meta.tagline}
                   </div>
                   <div
-                    className="px-2 py-0.5 text-[8px] tracking-[1px] font-mono"
+                    className="px-2 py-0.5 text-[10px] tracking-[1px] font-mono"
                     style={{
                       background: `rgba(${r},${g},${b},0.1)`,
                       border: `1px solid rgba(${r},${g},${b},0.3)`,

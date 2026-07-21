@@ -26,7 +26,7 @@ export function HintsSection() {
 
   if (loading) {
     return (
-      <div className="py-5 text-center text-[9px] tracking-[2px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
+      <div className="py-5 text-center text-[11px] tracking-[2px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
         LOADING...
       </div>
     );
@@ -37,11 +37,11 @@ export function HintsSection() {
       {/* ── ASSIGNED CASE(S) ── */}
       <div className="mb-5">
         <div className="mb-2.5 flex items-center justify-between">
-          <div className="text-[8px] tracking-[3px] text-[#8b2020] [font-family:'Special_Elite',monospace]">
+          <div className="text-[10px] tracking-[3px] text-[#8b2020] [font-family:'Special_Elite',monospace]">
             {cases.length > 1 ? "ASSIGNED CASES" : "ASSIGNED CASE"}
           </div>
           <div className="grid -rotate-3 place-items-center border border-[rgba(139,32,32,0.4)] px-2 py-1.5">
-            <span className="text-[7px] leading-none tracking-[2px] text-[rgba(139,32,32,0.6)] [font-family:'Special_Elite',monospace]">
+            <span className="text-[10px] leading-none tracking-[2px] text-[rgba(139,32,32,0.6)] [font-family:'Special_Elite',monospace]">
               SENIOR ONLY
             </span>
           </div>
@@ -68,7 +68,7 @@ export function HintsSection() {
                 >
                   <div className="flex items-center gap-3">
                     {/*<div
-                      className="absolute right-2.5 top-2 -rotate-6 px-[7px] py-0.5 text-[8px] tracking-[1.5px] [font-family:'Special_Elite',monospace]"
+                      className="absolute right-2.5 top-2 -rotate-6 px-[7px] py-0.5 text-[10px] tracking-[1.5px] [font-family:'Special_Elite',monospace]"
                       style={{
                         border: `1.5px solid ${isFound ? "#3a6a2a" : "#8b2020"}`,
                         color: isFound ? "#3a6a2a" : "#8b2020",
@@ -90,7 +90,7 @@ export function HintsSection() {
                       <div className="flex flex-wrap gap-1">
                         {houseMeta && (
                           <span
-                            className="px-1.5 py-px text-[7px] tracking-[1px] [font-family:'Special_Elite',monospace]"
+                            className="px-1.5 py-0.5 text-[10px] tracking-[1px] [font-family:'Special_Elite',monospace]"
                             style={{
                               border: `1px solid ${houseMeta.color}4D`,
                               color: houseMeta.color,
@@ -100,7 +100,7 @@ export function HintsSection() {
                             {houseMeta.name.toUpperCase()}
                           </span>
                         )}
-                        <span className="border border-[rgba(139,32,32,0.25)] bg-[rgba(139,32,32,0.06)] px-1.5 py-px text-[7px] tracking-[1px] text-[#8b2020] [font-family:'Special_Elite',monospace]">
+                        <span className="border border-[rgba(139,32,32,0.25)] bg-[rgba(139,32,32,0.06)] px-1.5 py-0.5 text-[10px] tracking-[1px] text-[#8b2020] [font-family:'Special_Elite',monospace]">
                           JUNIOR
                         </span>
                       </div>
@@ -111,7 +111,7 @@ export function HintsSection() {
             })}
           </div>
         ) : (
-          <div className="border border-[rgba(47,36,31,0.1)] bg-[#E5E0CF] px-3.5 py-4 text-center text-[9px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
+          <div className="border border-[rgba(47,36,31,0.1)] bg-[#E5E0CF] px-3.5 py-4 text-center text-[11px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
             NO MENTEE ASSIGNED
           </div>
         )}
@@ -120,7 +120,7 @@ export function HintsSection() {
       {/* ── EVIDENCE HINTS ── */}
       {hints.length > 0 && (
         <div>
-          <div className="mb-2.5 text-[8px] tracking-[3px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
+          <div className="mb-2.5 text-[10px] tracking-[3px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
             EVIDENCE HINTS
           </div>
           {cases.length > 1
@@ -129,7 +129,7 @@ export function HintsSection() {
                 if (caseHints.length === 0) return null;
                 return (
                   <div key={pcodeId} className="mb-6">
-                    <div className="mb-1.5 text-[7px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
+                    <div className="mb-1.5 text-[10px] tracking-[1px] text-[#A0907E] [font-family:'Special_Elite',monospace]">
                       RE: {mentee.displayName.toUpperCase()}
                     </div>
                     {caseHints.map((hint, i) => (

@@ -38,7 +38,7 @@ export function ExpandableDesc({
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            className="mx-auto mt-1.5 flex items-center gap-1 bg-transparent border-none cursor-pointer font-mono text-[11px] tracking-[1px]"
+            className="mx-auto -mt-1 min-[440px]:mt-1.5 flex items-center gap-1 bg-transparent border-none cursor-pointer font-mono text-[11px] tracking-[1px] py-2.5 px-3 min-[440px]:py-0 min-[440px]:px-0"
             style={{ color }}
           >
             {open ? "Show less" : "Read more"}

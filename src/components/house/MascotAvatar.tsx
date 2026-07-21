@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export const MascotLogo = ({
+export const MascotAvatar = ({
   url,
   name,
   size = 80,

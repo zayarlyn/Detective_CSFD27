@@ -117,13 +117,13 @@ export default async function AgentProfilePage({
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-5deg] font-display text-[30px] whitespace-nowrap pointer-events-none tracking-[4px] text-accent/5">
               ON FILE
             </div>
-            <div className="text-[8px] text-muted-fg tracking-[3px] mb-1.5 font-mono relative">
+            <div className="text-[10px] text-muted-fg tracking-[3px] mb-1.5 font-mono relative">
               CASE FILE REFERENCE
             </div>
             <div className="font-mono text-[13px] text-muted tracking-[2px] relative">
               {caseNumber}
             </div>
-            <div className="mt-2.5 text-[8px] text-subtle tracking-[1px] font-mono relative">
+            <div className="mt-2.5 text-[10px] text-subtle tracking-[1px] font-mono relative">
               ISSUED BY CSFD DEPARTMENT · CONFIDENTIAL
             </div>
           </div>

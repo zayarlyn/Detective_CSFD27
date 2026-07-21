@@ -80,7 +80,7 @@ export function BottomTabs({ isAdmin }: { isAdmin: boolean }) {
             key={nav.href}
             href={nav.href}
             className={cn(
-              "relative z-10 flex-1 w-full py-2.5 text-center no-underline block transition-transform duration-150 active:scale-95",
+              "relative z-10 flex-1 w-full py-3.5 min-[440px]:py-2.5 text-center no-underline block transition-transform duration-150 active:scale-95",
               isActive ? "text-white" : "text-accent"
             )}
           >
@@ -98,10 +98,10 @@ export function BottomTabs({ isAdmin }: { isAdmin: boolean }) {
               )}
             >
               {nav.href === "/houses" && (
-                <DivisionsIcon className="w-4 pb-1 h-4 shrink-0" />
+                <DivisionsIcon className="w-5 pb-1 h-5 min-[440px]:w-4 min-[440px]:h-4 shrink-0" />
               )}
               {nav.href === "/agent/me" && (
-                <ProfileIcon className="w-4 pb-1 h-4 shrink-0" />
+                <ProfileIcon className="w-5 pb-1 h-5 min-[440px]:w-4 min-[440px]:h-4 shrink-0" />
               )}
               {nav.label}
             </div>
