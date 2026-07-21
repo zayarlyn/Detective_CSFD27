@@ -108,16 +108,16 @@ export function AccusationTerminal({
           </div>
         </div>
 
-        <div className="text-[8px] text-success tracking-[4px] mb-1 font-mono animate-[revealUp_0.5s_ease-out_0.3s_both] opacity-0">
+        <div className="text-[10px] text-success tracking-[4px] mb-1 font-mono animate-[revealUp_0.5s_ease-out_0.3s_both] opacity-0">
           CONFESSION SEALED
         </div>
-        <div className="text-[8px] text-foreground tracking-[3px] mb-7 font-mono animate-[revealUp_0.5s_ease-out_0.4s_both] opacity-0">
+        <div className="text-[10px] text-foreground tracking-[3px] mb-7 font-mono animate-[revealUp_0.5s_ease-out_0.4s_both] opacity-0">
           OPERATIVE IDENTIFIED
         </div>
 
         {/* Identity card */}
         <div className="bg-surface border border-success/30 py-[22px] px-5 w-full max-w-[360px] mb-[18px] animate-[revealUp_0.5s_ease-out_0.5s_both] opacity-0">
-          <div className="text-[7px] text-foreground tracking-[3px] mb-3.5 font-mono">
+          <div className="text-[10px] text-foreground tracking-[3px] mb-3.5 font-mono">
             SENIOR OPERATIVE REVEALED
           </div>
 
@@ -132,7 +132,7 @@ export function AccusationTerminal({
                 className="w-full h-full object-cover"
               />
             ) : (
-              <span className="text-[7px] text-muted-fg font-mono text-center leading-[1.3]">
+              <span className="text-[10px] text-muted-fg font-mono text-center leading-[1.3]">
                 PHOTO
               </span>
             )}
@@ -150,17 +150,17 @@ export function AccusationTerminal({
           <div
             className={`flex gap-2 justify-center ${senior?.nickname ? "mt-0" : "mt-3.5"}`}
           >
-            <div className="py-[3px] px-2 bg-accent/10 border border-accent/30 text-[8px] text-accent tracking-[1px] font-mono">
+            <div className="py-[3px] px-2 bg-accent/10 border border-accent/30 text-[10px] text-accent tracking-[1px] font-mono">
               {houseLabel}
             </div>
-            <div className="py-[3px] px-2 bg-success/10 border border-success/30 text-[8px] text-success tracking-[1px] font-mono">
+            <div className="py-[3px] px-2 bg-success/10 border border-success/30 text-[10px] text-success tracking-[1px] font-mono">
               IDENTIFIED
             </div>
           </div>
         </div>
 
         {/* Case reference */}
-        <div className="text-[9px] text-foreground tracking-[2px] leading-[1.9] mb-[22px] font-mono animate-[revealUp_0.5s_ease-out_0.6s_both] opacity-0">
+        <div className="text-[11px] text-foreground tracking-[2px] leading-[1.9] mb-[22px] font-mono animate-[revealUp_0.5s_ease-out_0.6s_both] opacity-0">
           CASE #2027-CSFD-{houseLabel.slice(0, 3)}-CLOSED
           <br />
           CLOSED: {closedDate} · {closedTime} ICT
@@ -186,7 +186,7 @@ export function AccusationTerminal({
 
         {initialHints.length > 0 && (
           <>
-            <div className="text-[8px] text-muted-fg tracking-[3px] uppercase mb-2.5 font-mono">
+            <div className="text-[10px] text-muted-fg tracking-[3px] uppercase mb-2.5 font-mono">
               EVIDENCE ON HAND
             </div>
             {initialHints.map((h, i) => (
@@ -201,7 +201,7 @@ export function AccusationTerminal({
   // ── Active state ─────────────────────────────────────────────────────────────
   return (
     <div className="py-4">
-      <div className="text-[8px] text-danger tracking-[4px] uppercase mb-3 font-mono">
+      <div className="text-[10px] text-danger tracking-[4px] uppercase mb-3 font-mono">
         ▸ ACTIVE CASE
       </div>
 
@@ -211,7 +211,7 @@ export function AccusationTerminal({
         <div className="py-2.5 px-3.5 border-b border-danger/12 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-danger rounded-full animate-[pulse_1s_step-end_infinite]" />
-            <div className="text-[8px] text-danger tracking-[3px] font-mono">
+            <div className="text-[10px] text-danger tracking-[3px] font-mono">
               SUSPECT ID TERMINAL
             </div>
           </div>
@@ -244,7 +244,7 @@ export function AccusationTerminal({
 
         {/* Input area */}
         <div className="py-3 px-3.5">
-          <div className="text-[9px] text-foreground tracking-[2px] mb-2 font-mono">
+          <div className="text-[11px] text-foreground tracking-[2px] mb-2 font-mono">
             ENTER LAST 3 DIGITS OF STUDENT ID:
           </div>
 
@@ -287,7 +287,7 @@ export function AccusationTerminal({
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className={`w-full py-3.5 border-none text-center ${loading ? "bg-[#5a3838] cursor-not-allowed" : "bg-danger cursor-pointer"}`}
+            className={`w-full py-4 min-[440px]:py-3.5 border-none text-center ${loading ? "bg-[#5a3838] cursor-not-allowed" : "bg-danger cursor-pointer"}`}
           >
             <div className="font-mono text-[11px] text-background tracking-[4px]">
               {loading ? "TRANSMITTING..." : "SUBMIT ACCUSATION ›"}
@@ -299,7 +299,7 @@ export function AccusationTerminal({
       {/* Evidence section */}
       {initialHints.length > 0 && (
         <>
-          <div className="text-[8px] text-muted-fg tracking-[3px] uppercase mb-2.5 font-mono">
+          <div className="text-[10px] text-muted-fg tracking-[3px] uppercase mb-2.5 font-mono">
             EVIDENCE ON HAND
           </div>
           {initialHints.map((h, i) => (
@@ -325,11 +325,11 @@ function HintCardInline({ hint, index }: { hint: Hint; index: number }) {
         <div className="py-2.5 px-3.5 flex items-center justify-between border-b border-dark/6">
           <div className="flex items-center gap-2">
             <div className="w-[5px] h-[5px] bg-muted-fg rounded-full" />
-            <div className="text-[8px] text-muted-fg tracking-[2px] font-mono">
+            <div className="text-[10px] text-muted-fg tracking-[2px] font-mono">
               HINT {index + 1} · SEALED
             </div>
           </div>
-          <div className="text-[8px] text-muted-fg tracking-[1px] font-mono">
+          <div className="text-[10px] text-muted-fg tracking-[1px] font-mono">
             {revealDate}
           </div>
         </div>
@@ -347,11 +347,11 @@ function HintCardInline({ hint, index }: { hint: Hint; index: number }) {
       <div className="py-2.5 px-3.5 flex items-center justify-between border-b border-success/15 bg-success/6">
         <div className="flex items-center gap-2">
           <div className="w-[5px] h-[5px] bg-success rounded-full" />
-          <div className="text-[8px] text-success tracking-[2px] font-mono">
+          <div className="text-[10px] text-success tracking-[2px] font-mono">
             HINT {index + 1} · REVEALED
           </div>
         </div>
-        <div className="text-[8px] text-muted-fg tracking-[1px] font-mono">
+        <div className="text-[10px] text-muted-fg tracking-[1px] font-mono">
           {revealDate}
         </div>
       </div>

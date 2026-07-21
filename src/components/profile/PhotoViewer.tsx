@@ -7,8 +7,9 @@ function CloseIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="13"
-      height="13"
+      width="17"
+      height="17"
+      className="min-[440px]:w-[13px] min-[440px]:h-[13px]"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -71,7 +72,7 @@ export function PhotoViewer({
       labelledBy={labelId}
       className="relative w-[min(90vw,440px)] bg-background border-[3px] border-accent p-5 pt-7 shadow-2xl"
     >
-      <div className="absolute -top-2.5 left-5 -rotate-6 bg-accent text-background px-2 py-0.5 text-[8px] tracking-[2px] font-mono">
+      <div className="absolute -top-2.5 left-5 -rotate-6 bg-accent text-background px-2 py-0.5 text-[10px] tracking-[2px] font-mono">
         EXHIBIT A
       </div>
 
@@ -79,7 +80,7 @@ export function PhotoViewer({
         type="button"
         onClick={onClose}
         aria-label="Close photo viewer"
-        className="absolute -top-2.5 -right-2.5 w-6.5 h-6.5 flex items-center justify-center border border-dark/25 bg-background text-muted cursor-pointer transition-colors hover:bg-dark/5"
+        className="absolute -top-2.5 -right-2.5 w-11 h-11 min-[440px]:w-6.5 min-[440px]:h-6.5 flex items-center justify-center border border-dark/25 bg-background text-muted cursor-pointer transition-colors hover:bg-dark/5"
       >
         <CloseIcon />
       </button>
@@ -103,7 +104,7 @@ export function PhotoViewer({
         </span>
         <span
           className={cn(
-            "text-[9px] tracking-[2px] font-mono whitespace-nowrap",
+            "text-[11px] tracking-[2px] font-mono whitespace-nowrap",
             hasPhoto ? "text-success" : "text-danger",
           )}
         >

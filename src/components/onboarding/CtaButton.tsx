@@ -32,7 +32,7 @@ export default function CtaButton() {
     >
       <div className="flex items-center gap-2 mb-3">
         <div className="w-1.5 h-1.5 rounded-full bg-danger animate-[pulse_1s_step-end_infinite] shrink-0" />
-        <div className="text-[8px] text-danger tracking-[3px] font-mono">NEW OBJECTIVE</div>
+        <div className="text-[10px] text-danger tracking-[3px] font-mono">NEW OBJECTIVE</div>
         <div className="flex-1 h-px bg-danger/20" />
       </div>
       <div className="flex items-center justify-between">
