@@ -1,12 +1,12 @@
 import { FileItem } from "@/components/house/FileItem";
 import { MascotAvatar } from "@/components/house/MascotAvatar";
-import { OnboardingOverlay } from "@/components/house/OnboardingOverlay";
 import { db } from "@/db";
 import { student } from "@/db/schema";
 import { getSessionData } from "@/lib/auth";
 import { HOUSE_META, HOUSES, type House } from "@/lib/constants/houses";
 import { and, eq, isNull } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 
 export default async function HousesPage() {
   const session = await getSessionData();
@@ -25,11 +25,13 @@ export default async function HousesPage() {
   const user = userRows[0];
   if (!user) redirect("/api/auth/login");
 
-  if (Date.now() - user.updatedAt.getTime() > 60_000) {
-    await db
-      .update(student)
-      .set({ updatedAt: new Date() })
-      .where(eq(student.id, user.id));
+  const now = new Date();
+  if (now.getTime() - user.updatedAt.getTime() > 60_000) {
+    // Runs after the response is sent so the "last active" touch never
+    // blocks page render.
+    after(() =>
+      db.update(student).set({ updatedAt: now }).where(eq(student.id, user.id)),
+    );
   }
 
   const memberCounts = Object.fromEntries(
@@ -104,14 +106,6 @@ export default async function HousesPage() {
       </div>
     </div>
   );
-
-  if (user.nickname === null) {
-    return (
-      <OnboardingOverlay userHouse={user.house as House}>
-        {grid}
-      </OnboardingOverlay>
-    );
-  }
 
   return <div className="flex-1 overflow-y-auto">{grid}</div>;
 }
